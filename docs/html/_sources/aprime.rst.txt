@@ -10,6 +10,8 @@ Configuration
 
 The A-Prime diagnostics required significantly more data then other diagnostic packages.
 
+*NOTE:* A-Prime will only run on the following machines due to hardcoded hostnames: edison, rhea/titan, acme1, aims4, wolf. If running on another machine/facility, simply remove aprime from the job_sets in your config file.
+
 .. code-block:: python
 
     [global]

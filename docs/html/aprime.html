@@ -174,6 +174,7 @@ as the MPAS ocean analysis including ENSO diagnostics.</p>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>The A-Prime diagnostics required significantly more data then other diagnostic packages.</p>
+<p><em>NOTE:</em> A-Prime will only run on the following machines due to hardcoded hostnames: edison, rhea/titan, acme1, aims4, wolf. If running on another machine/facility, simply remove aprime from the job_sets in your config file.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="o">...</span>
 <span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
