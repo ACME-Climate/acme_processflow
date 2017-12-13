@@ -216,17 +216,17 @@ e3sm_diags = 10</dd>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span>
                   <span class="o">[</span>-r RESOURCE_DIR<span class="o">]</span>
 
 optional arguments:
 -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
 -c CONFIG, --config CONFIG
                         Path to configuration file.
--n, --no-ui           Turn off the GUI.
+-u, --ui              Turn on the GUI.
 -l LOG, --log LOG     Path to logging output file.
--u, --no-cleanup      Don<span class="s1">&#39;t perform pre or post run cleanup. This will leave</span>
-<span class="s1">                        all run scripts in place.</span>
+-n, --no-cleanup      Don<span class="s1">&#39;t perform post run cleanup. This will leave all</span>
+<span class="s1">                        files in place.</span>
 <span class="s1">-m, --no-monitor      Don&#39;</span>t run the remote monitor or move any files over
                         globus.
 -f, --file-list       Turn on debug output of the internal file_list so you
