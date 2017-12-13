@@ -1,16 +1,16 @@
-.. acme_workflow documentation master file, created by
+.. acme_processflow documentation master file, created by
    sphinx-quickstart on Tue Aug 15 16:44:35 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-*****************************
-acme_workflow's documentation
-*****************************
+********************************
+acme_processflow's documentation
+********************************
 
-What is the automated workflow?
+What is the processflow?
 ===============================
 
-The automated workflow is a command line tool to automatically run post processing jobs for ACME model output.
+The acme_processflow is a command line tool to automatically run post processing jobs for ACME model output.
 
 The tool takes a single configuration files and runs a series of long running transfer
 and processing jobs on any amount of model output, running the set of jobs on any number of set lengths. The output
@@ -28,7 +28,7 @@ images and emails links with the completed output to the user.
 * Regridding and Climatologies
 * Time series variable extraction
 * A-Prime diagnostic
-* ACME diags (in development)
+* E3SM diags
 
 Each processing job has an optional number of other jobs it should wait on, for example
 AMWG will wait for the regridded climatologies to be generated before starting its
@@ -98,44 +98,43 @@ will be copied into the input directory. Once the run has completed the director
     │   ├── rest
     │   │   └── mpaso.rst.0052-01-01_00000.nc
     │   └── run.cfg
-    ├── output
-    │   ├── amwg_diag
-    │   │   ├── 0051-0055
-    │   │   ├── 0051-0060
-    │   │   └── 0056-0060
-    │   ├── aprime_diags
-    │   │   ├── 0051-0055
-    │   │   └── 0056-0060
-    │   ├── climo
-    │   │   ├── 10yr
-    │   │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
-    │   │   │   ├── ..........
-    │   │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
-    │   │   └── 5yr
-    │   │       ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-    │   │       ├── ..........
-    │   │       └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
-    │   ├── climo_regrid
-    │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-    │   │       ├── ..........
-    │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
-    │   ├── e3sm_diags
-    │   │   ├── 0051-0055
-    │   │   └── 0056-0060
-    │   ├── file_list.txt
-    │   ├── monthly
-    │   │   ├── 10yr
-    │   │       ├── ..........
-    │   │   └── 5yr
-    │   │       ├── ..........
-    │   ├── run_scripts
-    │   │   ├── ncclimo_0051_0055
-    │   │   ├── ..........
-    │   │   └── timeseries_0056_0060.out
-    │   ├── run_state.txt
-    │   │   └── e3sm_diags
-    │   │       ├── 0051-0055
-    │   │       └── 0056-0060
-    │   ├── workflow.error
-    │   └── workflow.log
-    └── run.cfg
+    └── output
+        ├── amwg_diag
+        │   ├── 0051-0055
+        │   ├── 0051-0060
+        │   └── 0056-0060
+        ├── aprime_diags
+        │   ├── 0051-0055
+        │   └── 0056-0060
+        ├── climo
+        │   ├── 10yr
+        │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
+        │   │   ├── ..........
+        │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
+        │   └── 5yr
+        │       ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+        │       ├── ..........
+        │       └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
+        ├── climo_regrid
+        │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+        │       ├── ..........
+        │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
+        ├── e3sm_diags
+        │   ├── 0051-0055
+        │   └── 0056-0060
+        ├── file_list.txt
+        ├── monthly
+        │   ├── 10yr
+        │       ├── ..........
+        │   └── 5yr
+        │       ├── ..........
+        ├── run_scripts
+        │   ├── ncclimo_0051_0055
+        │   ├── ..........
+        │   └── timeseries_0056_0060.out
+        ├── run_state.txt
+        │   └── e3sm_diags
+        │       ├── 0051-0055
+        │       └── 0056-0060
+        ├── workflow.error
+        └── workflow.log

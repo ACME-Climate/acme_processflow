@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>acme_workflow’s documentation &mdash; acme_processflow 0.4.52-devel-rc3 documentation</title>
+  <title>acme_processflow’s documentation &mdash; acme_processflow 0.4.52-devel-rc3 documentation</title>
   
 
   
@@ -143,7 +143,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>acme_workflow’s documentation</li>
+      <li>acme_processflow’s documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -162,11 +162,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="acme-workflow-s-documentation">
-<h1>acme_workflow’s documentation<a class="headerlink" href="#acme-workflow-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="what-is-the-automated-workflow">
-<h2>What is the automated workflow?<a class="headerlink" href="#what-is-the-automated-workflow" title="Permalink to this headline">¶</a></h2>
-<p>The automated workflow is a command line tool to automatically run post processing jobs for ACME model output.</p>
+  <div class="section" id="acme-processflow-s-documentation">
+<h1>acme_processflow’s documentation<a class="headerlink" href="#acme-processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-the-processflow">
+<h2>What is the processflow?<a class="headerlink" href="#what-is-the-processflow" title="Permalink to this headline">¶</a></h2>
+<p>The acme_processflow is a command line tool to automatically run post processing jobs for ACME model output.</p>
 <p>The tool takes a single configuration files and runs a series of long running transfer
 and processing jobs on any amount of model output, running the set of jobs on any number of set lengths. The output
 doesn’t have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
@@ -181,7 +181,7 @@ images and emails links with the completed output to the user.</p>
 <li>Regridding and Climatologies</li>
 <li>Time series variable extraction</li>
 <li>A-Prime diagnostic</li>
-<li>ACME diags (in development)</li>
+<li>E3SM diags</li>
 </ul>
 <p>Each processing job has an optional number of other jobs it should wait on, for example
 AMWG will wait for the regridded climatologies to be generated before starting its
@@ -264,47 +264,46 @@ will be copied into the input directory. Once the run has completed the director
 │   ├── rest
 │   │   └── mpaso.rst.0052-01-01_00000.nc
 │   └── run.cfg
-├── output
-│   ├── amwg_diag
-│   │   ├── <span class="m">0051</span>-0055
-│   │   ├── <span class="m">0051</span>-0060
-│   │   └── <span class="m">0056</span>-0060
-│   ├── aprime_diags
-│   │   ├── <span class="m">0051</span>-0055
-│   │   └── <span class="m">0056</span>-0060
-│   ├── climo
-│   │   ├── 10yr
-│   │   │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
-│   │   │   ├── ..........
-│   │   │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
-│   │   └── 5yr
-│   │       ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-│   │       ├── ..........
-│   │       └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
-│   ├── climo_regrid
-│   │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-│   │       ├── ..........
-│   │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
-│   ├── e3sm_diags
-│   │   ├── <span class="m">0051</span>-0055
-│   │   └── <span class="m">0056</span>-0060
-│   ├── file_list.txt
-│   ├── monthly
-│   │   ├── 10yr
-│   │       ├── ..........
-│   │   └── 5yr
-│   │       ├── ..........
-│   ├── run_scripts
-│   │   ├── ncclimo_0051_0055
-│   │   ├── ..........
-│   │   └── timeseries_0056_0060.out
-│   ├── run_state.txt
-│   │   └── e3sm_diags
-│   │       ├── <span class="m">0051</span>-0055
-│   │       └── <span class="m">0056</span>-0060
-│   ├── workflow.error
-│   └── workflow.log
-└── run.cfg
+└── output
+    ├── amwg_diag
+    │   ├── <span class="m">0051</span>-0055
+    │   ├── <span class="m">0051</span>-0060
+    │   └── <span class="m">0056</span>-0060
+    ├── aprime_diags
+    │   ├── <span class="m">0051</span>-0055
+    │   └── <span class="m">0056</span>-0060
+    ├── climo
+    │   ├── 10yr
+    │   │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
+    │   │   ├── ..........
+    │   │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
+    │   └── 5yr
+    │       ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+    │       ├── ..........
+    │       └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
+    ├── climo_regrid
+    │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+    │       ├── ..........
+    │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
+    ├── e3sm_diags
+    │   ├── <span class="m">0051</span>-0055
+    │   └── <span class="m">0056</span>-0060
+    ├── file_list.txt
+    ├── monthly
+    │   ├── 10yr
+    │       ├── ..........
+    │   └── 5yr
+    │       ├── ..........
+    ├── run_scripts
+    │   ├── ncclimo_0051_0055
+    │   ├── ..........
+    │   └── timeseries_0056_0060.out
+    ├── run_state.txt
+    │   └── e3sm_diags
+    │       ├── <span class="m">0051</span>-0055
+    │       └── <span class="m">0056</span>-0060
+    ├── workflow.error
+    └── workflow.log
 </pre></div>
 </div>
 </div>
