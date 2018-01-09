@@ -44,6 +44,12 @@ This is a sample configuration file.
     # Turn off (0) otherwise
     short_term_archive = 0
 
+    # name of the native grid
+    native_grid_name = 'ne30'
+
+    # name of the remapped grid
+    remap_grid_name = 'fv129x256'
+
     # The base URL for the server thats hosting image output
     img_host_server = https://acme-viewer.llnl.gov
 
