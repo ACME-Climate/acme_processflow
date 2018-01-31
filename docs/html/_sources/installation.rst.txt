@@ -41,6 +41,6 @@ Or upgrade from the nightly:
 
 .. code-block:: bash
 
-    conda install -c acme/label/nightly -c conda-forge -c uvcdat processflow
+    conda install -c acme -c acme/label/nightly -c conda-forge -c uvcdat processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`
