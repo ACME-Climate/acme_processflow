@@ -35,7 +35,7 @@ If you already have an installation and want to upgrade, first source your envir
 
 .. code-block:: bash
 
-    conda install -c acme -c conda-forge -c uvcdat processflow
+    conda update -c acme -c conda-forge -c uvcdat processflow
 
 Or upgrade from the nightly:
 
