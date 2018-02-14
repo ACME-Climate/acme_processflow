@@ -93,6 +93,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
@@ -210,6 +211,30 @@ run.</p>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#execution">Execution</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#project-path">Project Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#source-path">Source Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#short-term-archive">Short Term Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#simulation-start-year">Simulation Start Year</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#simulation-end-year">Simulation End Year</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#experiment">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#short-name">Short name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#set-frequency">Set Frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#email">Email</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#native-grid-cleanup">Native Grid Cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#native-grid-name">Native Grid Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#remap-grid-name">Remap Grid Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#img-host-server">Img Host Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#host-directory">Host Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#file-types">File Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#set-jobs">Set Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#e3sm-diags">E3SM Diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#transfer">Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#amwg">AMWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#ncclimo">Ncclimo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#aprime-diags">APrime Diags</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="transfer.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transfer.html#dependencies">Dependencies</a></li>
@@ -241,71 +266,53 @@ run.</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>During the processflow run it will create the required input/output directories. The only file that needs to be in place before the run is the config file for that run, which
+<p>During the processflow run it will create the required input/output directories based on the project_path config option. The only file that needs to be in place before the run is the config file for that run, which
 will be copied into the input directory. Once the run has completed the directories will have the following structure:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>project_path
-├── input
-│   ├── atm
-│   │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0001-01.nc
-│   │   ├── .........
-│   │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0060-12.nc
-│   ├── case_scripts
-│   ├── ice
-│   │   ├── mpascice.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
-│   │   ├── .........
-│   │   └── mpascice.hist.am.timeSeriesStatsMonthly.0060-12-01.nc
-│   ├── mpas
-│   │   ├── mpas-cice_in
-│   │   └── mpas-o_in
-│   ├── ocn
-│   │   ├── mpaso.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
-│   │   ├── ........
-│   │   └── mpaso.hist.am.timeSeriesStatsMonthly.0058-11-01.nc
-│   ├── rest
-│   │   └── mpaso.rst.0052-01-01_00000.nc
-│   └── run.cfg
-└── output
-    ├── amwg_diag
-    │   ├── <span class="m">0051</span>-0055
-    │   ├── <span class="m">0051</span>-0060
-    │   └── <span class="m">0056</span>-0060
-    ├── aprime_diags
-    │   ├── <span class="m">0051</span>-0055
-    │   └── <span class="m">0056</span>-0060
-    ├── climo
-    │   ├── 10yr
-    │   │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
-    │   │   ├── ..........
-    │   │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
-    │   └── 5yr
-    │       ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-    │       ├── ..........
-    │       └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
-    ├── climo_regrid
-    │   ├── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-    │       ├── ..........
-    │   └── <span class="m">20170915</span>.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
-    ├── e3sm_diags
-    │   ├── <span class="m">0051</span>-0055
-    │   └── <span class="m">0056</span>-0060
-    ├── file_list.txt
-    ├── monthly
-    │   ├── 10yr
-    │       ├── ..........
-    │   └── 5yr
-    │       ├── ..........
-    ├── run_scripts
-    │   ├── ncclimo_0051_0055
-    │   ├── ..........
-    │   └── timeseries_0056_0060.out
-    ├── run_state.txt
-    │   └── e3sm_diags
-    │       ├── <span class="m">0051</span>-0055
-    │       └── <span class="m">0056</span>-0060
-    ├── workflow.error
-    └── workflow.log
-</pre></div>
-</div>
+<p>( this example was run with all the diagnostics on 100 years with frequency = 5, 100 )
+.. code-block:: bash</p>
+<blockquote>
+<div><p>├── input
+│&nbsp;&nbsp; ├── atm
+│&nbsp;&nbsp; ├── ice
+│&nbsp;&nbsp; ├── mpas
+│&nbsp;&nbsp; ├── ocn
+│&nbsp;&nbsp; ├── processflow.db
+│&nbsp;&nbsp; ├── rest
+│&nbsp;&nbsp; └── run.cfg
+└── output</p>
+<blockquote>
+<div><p>├── diags
+│&nbsp;&nbsp; └── fv129x256
+│&nbsp;&nbsp;     ├── amwg [60 entries]
+│&nbsp;&nbsp;     ├── a-prime [21 entries]
+│&nbsp;&nbsp;     └── e3sm_diags [21 entries]
+├── file_list.txt
+├── pp
+│&nbsp;&nbsp; ├── fv129x256
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── climo
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── 100yr [17 entries]
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── 5yr [340 entries]
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── ts
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── monthly
+│&nbsp;&nbsp; │&nbsp;&nbsp;         ├── 100yr [14 entries]
+│&nbsp;&nbsp; │&nbsp;&nbsp;         └── 5yr [280 entries]
+│&nbsp;&nbsp; └── ne30
+│&nbsp;&nbsp;     ├── climo
+│&nbsp;&nbsp;     │&nbsp;&nbsp; ├── 100yr [17 entries]
+│&nbsp;&nbsp;     │&nbsp;&nbsp; └── 5yr [340 entries]
+│&nbsp;&nbsp;     └── ts
+│&nbsp;&nbsp;         └── monthly
+│&nbsp;&nbsp;             ├── 100yr [14 entries]
+│&nbsp;&nbsp;             └── 5yr [280 entries]
+├── run_scripts [200 entries]
+├── run_state.txt
+└── tmp</p>
+<blockquote>
+<div>├── amwg [21 entries]
+├── aprime [21 entries]
+└── e3sm_diags [21 entries]</div></blockquote>
+</div></blockquote>
+</div></blockquote>
 </div>
 </div>
 

@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; acme_processflow 0.4.52-devel-rc3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="acme_processflow 0.4.52-devel-rc3 documentation" href="index.html"/>
+        <link rel="next" title="Globus Transfer" href="transfer.html"/>
+        <link rel="prev" title="Quick Start" href="quickstart.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> acme_processflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.52
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#project-path">Project Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-path">Source Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#short-term-archive">Short Term Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-start-year">Simulation Start Year</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-end-year">Simulation End Year</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiment">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#short-name">Short name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-frequency">Set Frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#email">Email</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#native-grid-cleanup">Native Grid Cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#native-grid-name">Native Grid Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#remap-grid-name">Remap Grid Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#img-host-server">Img Host Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host-directory">Host Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-types">File Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-jobs">Set Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#e3sm-diags">E3SM Diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transfer">Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#amwg">AMWG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ncclimo">Ncclimo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aprime-diags">APrime Diags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">acme_processflow</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>This guide goes through each one of the options in the run configuration file.</p>
+<div class="section" id="project-path">
+<h2>Project Path<a class="headerlink" href="#project-path" title="Permalink to this headline">¶</a></h2>
+<p>The project_path is the root directory for your processflow run. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.</p>
+</div>
+<div class="section" id="source-path">
+<h2>Source Path<a class="headerlink" href="#source-path" title="Permalink to this headline">¶</a></h2>
+<p>The source_path is the location of your remote data source. This is the path on the remote machine that created the model output. If running from local pre-staged data, this key is ignored.</p>
+</div>
+<div class="section" id="short-term-archive">
+<h2>Short Term Archive<a class="headerlink" href="#short-term-archive" title="Permalink to this headline">¶</a></h2>
+<p>This should be turned on (1) if the remote data source has had short term archiving run on the model data. Otherwise turn off (0).</p>
+</div>
+<div class="section" id="simulation-start-year">
+<h2>Simulation Start Year<a class="headerlink" href="#simulation-start-year" title="Permalink to this headline">¶</a></h2>
+<p>The simulation_start_year is the first year of data to move and process. This doesnt have to be the first year of model data produced, it just has to be any number between 1 and the last year of data.</p>
+</div>
+<div class="section" id="simulation-end-year">
+<h2>Simulation End Year<a class="headerlink" href="#simulation-end-year" title="Permalink to this headline">¶</a></h2>
+<p>The simulation_start_year key is the last year of model data to process. It doesnt have to be the last year of produced data, and can be any positive number. If the model is still running
+and the simulation_end_year is larger then the latest year produced, the processflow will wait as the data is generated and run jobs once the data is ready.</p>
+</div>
+<div class="section" id="experiment">
+<h2>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h2>
+<p>The experiment key is the name of the experiment and is used to find all the input data files. This should be the prefix to the model output files, e.g. if your datafiles are named
+“20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.cam.h0.0100-12.nc,” the experiment would be “20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.”</p>
+</div>
+<div class="section" id="short-name">
+<h2>Short name<a class="headerlink" href="#short-name" title="Permalink to this headline">¶</a></h2>
+<p>A short name for the experiment that will be used in the AMWG and E3SM diags plots.</p>
+</div>
+<div class="section" id="set-frequency">
+<h2>Set Frequency<a class="headerlink" href="#set-frequency" title="Permalink to this headline">¶</a></h2>
+<p>The set_frequency are the year lengths that the jobs will be run on. This can be one number or a list of numbers, for example set_frequency = 5, 20 would setup jobs to run
+every 5 years as well as every 20 years.</p>
+</div>
+<div class="section" id="email">
+<h2>Email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h2>
+<p>The email address to send notifications to when all processing is complete, leave commented out to turn off.</p>
+</div>
+<div class="section" id="native-grid-cleanup">
+<h2>Native Grid Cleanup<a class="headerlink" href="#native-grid-cleanup" title="Permalink to this headline">¶</a></h2>
+<p>If turned on (1) the native_grid_cleanup option will cause native grid climatology files to be discarded after a successful run. To keep the native grid files, turn the option off (0).</p>
+</div>
+<div class="section" id="native-grid-name">
+<h2>Native Grid Name<a class="headerlink" href="#native-grid-name" title="Permalink to this headline">¶</a></h2>
+<p>The native_grid_name should be the name of the native grid, but can be any name for the directory that holds native grid files.</p>
+</div>
+<div class="section" id="remap-grid-name">
+<h2>Remap Grid Name<a class="headerlink" href="#remap-grid-name" title="Permalink to this headline">¶</a></h2>
+<p>The remap_grid_name should be the name of the remapped grid, but can be any name for the directory that holds the regridded file.</p>
+</div>
+<div class="section" id="img-host-server">
+<h2>Img Host Server<a class="headerlink" href="#img-host-server" title="Permalink to this headline">¶</a></h2>
+<p>The url prefix for the server that will be hosting the diagnostic plots, e.g. <a class="reference external" href="https://acme-viewer.llnl.gov">https://acme-viewer.llnl.gov</a></p>
+</div>
+<div class="section" id="host-directory">
+<h2>Host Directory<a class="headerlink" href="#host-directory" title="Permalink to this headline">¶</a></h2>
+<p>The path the processflow should copy diagnostic plots to so they can be hosted. This is whatever directory apache has been configured to host files from.</p>
+</div>
+<div class="section" id="file-types">
+<h2>File Types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
+<p>The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
+Accepted file types are: ‘atm’, ‘ice’, ‘ocn’, ‘rest’, ‘streams.ocean’, ‘streams.cice’, ‘mpas-o_in’, ‘mpas-cice_in’, ‘meridionalHeatTransport’</p>
+</div>
+<div class="section" id="set-jobs">
+<h2>Set Jobs<a class="headerlink" href="#set-jobs" title="Permalink to this headline">¶</a></h2>
+<p>The set_jobs section is where you configure which jobs will be run on which year sets. For each job, list which year sets you would like it to be run on.
+For example if you had used the set_frequency key to create 5 and 20 year sets, and you wanted all the diagnostics run on the 20 years, but only e3sm_diags on the 5 years
+then you could use the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+<span class="n">ncclimo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span>
+<span class="n">timeseries</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">amwg</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">aprime_diags</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">e3sm_diags</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="e3sm-diags">
+<h2>E3SM Diags<a class="headerlink" href="#e3sm-diags" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Each of the jobs has their own configuration options. The E3SM options available are:</dt>
+<dd><ul class="first last simple">
+<li>host_directory: the name that should be used when hosting this job. e.g. e3sm_diags</li>
+<li>backend: the plotting backend, either vcs or mpl</li>
+<li>seasons: Which seasoms to run on (any or all) DJF, MAM, JJA, SON, ANN</li>
+<li>reference_data_path: the path to reference data, e.g. /p/cscratch/acme/data/obs_for_acme_diags</li>
+<li>sets: which plot sets should be produced (any or all) 3, 4, 5, 7, 13</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="transfer">
+<h2>Transfer<a class="headerlink" href="#transfer" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>destination_endpoint: The globus endpoint ID of the local machine (the transfer destination when moving from the remote server).</li>
+<li>source_endpoint: The Globus endpoint ID for the remote host</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="amwg">
+<h2>AMWG<a class="headerlink" href="#amwg" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>diag_home: The code path to where amwg is installed.</li>
+<li>host_directory: the directory name to use when hosting the amwg output. e.g. amwg</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="ncclimo">
+<h2>Ncclimo<a class="headerlink" href="#ncclimo" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>regrid_map_path: The path to the regrid map. On acme1 the ne30 to fv129x256 map is located at /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc</li>
+<li>var_list: This is a list of variables to extract as time series files when running the timeseries job.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="aprime-diags">
+<h2>APrime Diags<a class="headerlink" href="#aprime-diags" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>host_directory: the directory name to use when hosting the amwg output. e.g. aprime</li>
+<li>aprime_code_path: the path to where the aprime repository has been cloned. On acme1 it can be found at /p/cscratch/acme/data/a-prime</li>
+<li>test_atm_res: The native atm grid name</li>
+<li>test_mpas_mesh_name: The native mpas grid name</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sterling Baldwin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.52-devel-rc3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

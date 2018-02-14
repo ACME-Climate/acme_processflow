@@ -60,6 +60,7 @@ All commands are written for BASH. If you're using tcsh or zsh you will need to 
 
    installation
    quickstart
+   configuration
    transfer
    amwg
    ncclimo
@@ -71,70 +72,48 @@ All commands are written for BASH. If you're using tcsh or zsh you will need to 
 Output
 ======
 
-During the processflow run it will create the required input/output directories. The only file that needs to be in place before the run is the config file for that run, which 
+During the processflow run it will create the required input/output directories based on the project_path config option. The only file that needs to be in place before the run is the config file for that run, which 
 will be copied into the input directory. Once the run has completed the directories will have the following structure:
 
+( this example was run with all the diagnostics on 100 years with frequency = 5, 100 )
 .. code-block:: bash
 
 
-    project_path
     ├── input
     │   ├── atm
-    │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0001-01.nc
-    │   │   ├── .........
-    │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0060-12.nc
-    │   ├── case_scripts
     │   ├── ice
-    │   │   ├── mpascice.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
-    │   │   ├── .........
-    │   │   └── mpascice.hist.am.timeSeriesStatsMonthly.0060-12-01.nc
     │   ├── mpas
-    │   │   ├── mpas-cice_in
-    │   │   └── mpas-o_in
     │   ├── ocn
-    │   │   ├── mpaso.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
-    │   │   ├── ........
-    │   │   └── mpaso.hist.am.timeSeriesStatsMonthly.0058-11-01.nc
+    │   ├── processflow.db
     │   ├── rest
-    │   │   └── mpaso.rst.0052-01-01_00000.nc
     │   └── run.cfg
     └── output
-        ├── amwg_diag
-        │   ├── 0051-0055
-        │   ├── 0051-0060
-        │   └── 0056-0060
-        ├── aprime_diags
-        │   ├── 0051-0055
-        │   └── 0056-0060
-        ├── climo
-        │   ├── 10yr
-        │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
-        │   │   ├── ..........
-        │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
-        │   └── 5yr
-        │       ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-        │       ├── ..........
-        │       └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
-        ├── climo_regrid
-        │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
-        │       ├── ..........
-        │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
-        ├── e3sm_diags
-        │   ├── 0051-0055
-        │   └── 0056-0060
-        ├── file_list.txt
-        ├── monthly
-        │   ├── 10yr
-        │       ├── ..........
-        │   └── 5yr
-        │       ├── ..........
-        ├── run_scripts
-        │   ├── ncclimo_0051_0055
-        │   ├── ..........
-        │   └── timeseries_0056_0060.out
-        ├── run_state.txt
-        │   └── e3sm_diags
-        │       ├── 0051-0055
-        │       └── 0056-0060
-        ├── workflow.error
-        └── workflow.log
+        ├── diags
+        │   └── fv129x256
+        │       ├── amwg [60 entries]
+        │       ├── a-prime [21 entries]
+        │       └── e3sm_diags [21 entries]
+        ├── file_list.txt
+        ├── pp
+        │   ├── fv129x256
+        │   │   ├── climo
+        │   │   │   ├── 100yr [17 entries]
+        │   │   │   └── 5yr [340 entries]
+        │   │   └── ts
+        │   │       └── monthly
+        │   │           ├── 100yr [14 entries]
+        │   │           └── 5yr [280 entries]
+        │   └── ne30
+        │       ├── climo
+        │       │   ├── 100yr [17 entries]
+        │       │   └── 5yr [340 entries]
+        │       └── ts
+        │           └── monthly
+        │               ├── 100yr [14 entries]
+        │               └── 5yr [280 entries]
+        ├── run_scripts [200 entries]
+        ├── run_state.txt
+        └── tmp
+            ├── amwg [21 entries]
+            ├── aprime [21 entries]
+            └── e3sm_diags [21 entries]
