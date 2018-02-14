@@ -37,12 +37,18 @@ This is a sample configuration file.
     # for example 20170731.F20TR_ck10.ne30_ne30.edison
     experiment = YOUR.SIMULATION.NAME
 
+    # A nice short name for the AMWG and e3sm diags plots
+    short_name = 'MODEL_RUN_NAME'
+
     # The email address to send to when all processing is complete, leave commented out to turn off
     email = YOUREMAIL@INSTITUION.GOV
 
     # Turn on (1) if you've run short term archiving on your model data
     # Turn off (0) otherwise
     short_term_archive = 0
+
+    # Should the native grid files be cleaned up on successful exit?
+    native_grid_cleanup = 0
 
     # name of the native grid
     native_grid_name = 'ne30'
