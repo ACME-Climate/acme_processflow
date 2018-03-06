@@ -173,17 +173,16 @@
 <ul class="simple">
 <li><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
 <li><a class="reference external" href="https://slurm.schedmd.com/">Slurm</a></li>
-<li><a class="reference external" href="https://www.globus.org/">Globus</a></li>
-<li><a class="reference external" href="https://www.ncl.ucar.edu/">NCL</a></li>
-<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></li>
+<li><a class="reference external" href="https://www.globus.org/(onlyrequiredifmovingdata)">Globus</a></li>
+<li><a class="reference external" href="https://www.ncl.ucar.edu/(onlyrequiredifrunningAMWG)">NCL</a></li>
+<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps(onlyrequiredifhostingimages)">APACHE</a></li>
 </ul>
 <p>Once these are setup, the installation for the acme_workflow is straightforward.</p>
 <div class="section" id="note">
 <h2>Note:<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
 <p>All these commands assume you’re using a bash environment. Other shells may not work correctly with conda</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
-conda create --name &lt;SOME_ENVIRONMENT_NAME&gt; --file env.yml
-<span class="nb">source</span> activate &lt;SOME_ENVIRONMENT_NAME&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create --name &lt;SOME_ENVIRONMENT_NAME&gt; -c acme -c conda-forge -c uvcdat processflow
+conda activate &lt;SOME_ENVIRONMENT_NAME&gt;
 </pre></div>
 </div>
 <p>If you already have an installation and want to upgrade, first source your environment and then run:</p>

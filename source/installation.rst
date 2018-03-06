@@ -14,9 +14,9 @@ This guide assumes your system already has the prerequisit dependencies.
 
 .. _Anaconda: https://www.continuum.io/downloads
 .. _Slurm: https://slurm.schedmd.com/
-.. _Globus: https://www.globus.org/
-.. _NCL: https://www.ncl.ucar.edu/
-.. _APACHE: https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps
+.. _Globus: https://www.globus.org/ (only required if moving data)
+.. _NCL: https://www.ncl.ucar.edu/ (only required if running AMWG)
+.. _APACHE: https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps (only required if hosting images)
 
 Once these are setup, the installation for the acme_workflow is straightforward.
 
@@ -26,9 +26,8 @@ All these commands assume you're using a bash environment. Other shells may not 
 
 .. code-block:: bash
 
-    wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
-    conda create --name <SOME_ENVIRONMENT_NAME> --file env.yml
-    source activate <SOME_ENVIRONMENT_NAME>
+    conda create --name <SOME_ENVIRONMENT_NAME> -c acme -c conda-forge -c uvcdat processflow
+    conda activate <SOME_ENVIRONMENT_NAME>
 
 
 If you already have an installation and want to upgrade, first source your environment and then run:
