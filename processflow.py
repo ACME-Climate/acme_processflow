@@ -35,9 +35,10 @@ if not os.environ.get('NCARG_ROOT'):
 # set variable to make vcs shut up
 os.environ['UVCDAT_ANONYMOUS_LOG'] = 'False'
 
+__version__ = "1.0.1"
+
 # create global EventList
 event_list = EventList()
-
 
 def main(test=False, **kwargs):
     # The master configuration object
@@ -71,6 +72,12 @@ def main(test=False, **kwargs):
         print "Error in setup, exiting"
         return -1
     logging.info('Config setup complete')
+    msg = "Running processflow version {}".format(__version__)
+    logging.info(msg)
+    print_line(
+        ui=config['global']['ui'],
+        line=msg,
+        event_list=event_list)
 
     # check that all netCDF files exist
     path_exists(config)
