@@ -14,7 +14,8 @@
         "set_jobs",
         "remap_grid_name",
         "native_grid_name",
-        "native_grid_cleanup"
+        "native_grid_cleanup",
+        "move_everything"
     ],
     "e3sm_diags": [
         "host_directory",

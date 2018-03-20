@@ -105,14 +105,10 @@ class FileManager(object):
                 path=self.remote_path)
         for item in res:
             if item['type'] = 'dir':
-                if item['name'] in ['source', 'build']:
-                    data[item['name']] = None
-                    continue
                 data[item['name']] = discovery(self, client, os.path.join(path, item['name']))
             else:
                 data[item['name']] = None
         return data
-
 
     def populate_handle_rest(self, simstart, newfiles):
         """

@@ -71,6 +71,7 @@ def main(test=False, **kwargs):
     if isinstance(config, int):
         print "Error in setup, exiting"
         return -1
+
     logging.info('Config setup complete')
     msg = "Running processflow version {}".format(__version__)
     logging.info(msg)
@@ -81,8 +82,8 @@ def main(test=False, **kwargs):
 
     # check that all netCDF files exist
     path_exists(config)
-    # cleanup any temp directories from previous runs
-    # cleanup(config)
+
+    # create temp and run scripts directories
     if not os.path.exists(config['global']['run_scripts_path']):
         os.makedirs(config['global']['run_scripts_path'])
     if not os.path.exists(config['global']['tmp_path']):
@@ -110,9 +111,6 @@ def main(test=False, **kwargs):
             display_event.set()
             return -1
 
-    state_path = os.path.join(
-        config.get('global').get('output_path'),
-        'run_state.txt')
     msg = "Updating local file status"
     print_line(
         ui=config['global']['ui'],
@@ -121,12 +119,16 @@ def main(test=False, **kwargs):
     filemanager.update_local_status()
     all_data = filemanager.all_data_local()
     
+
     msg = "Writing human readable state to file"
     print_line(
         ui=config['global']['ui'],
         line=msg,
         event_list=event_list,
         current_state=True)
+    state_path = os.path.join(
+        config['global']['output_path'],
+        'run_state.txt')
     sleep(0.5)
     write_human_state(
         event_list=event_list,
@@ -134,6 +136,7 @@ def main(test=False, **kwargs):
         state_path=state_path,
         print_file_list=config['global'].get('print_file_list'),
         mutex=mutex)
+
     if not all_data:
         print_line(
             config['global']['ui'],
