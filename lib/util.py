@@ -62,12 +62,13 @@ def transfer_directory(**kwargs):
         destination_endpoint (str) the globus UUID for the destination
         src_path (str) the path to the source directory to copy
         dst_path (str) the path on the destination directory
+        client (globus-sdk.TransferClient): an authorized globus tranfer client
     """
     src_path = kwargs['src_path']
     event_list = kwargs['event_list']
     event = kwargs['event']
+    client = kwargs.get('client', get_client())
 
-    client = get_client()
     transfer = TransferData(
         client,
         kwargs['source_endpoint'],

@@ -14,7 +14,8 @@ from jobs.Transfer import Transfer
 from jobs.JobStatus import JobStatus
 from lib.YearSet import SetStatus
 from lib.util import (print_debug,
-                      print_line)
+                      print_line,
+                      transfer_directory)
 
 filestatus = {
     'EXISTS': 0,
@@ -73,6 +74,7 @@ class FileManager(object):
         self.remote_endpoint = kwargs.get('remote_endpoint')
         self.local_path = kwargs.get('local_path')
         self.local_endpoint = kwargs.get('local_endpoint')
+        self.move_everything = kwargs.get('move_everything', False)
         self.start_year = 0
 
         head, tail = os.path.split(kwargs.get('remote_path'))
@@ -99,16 +101,87 @@ class FileManager(object):
             'db_path': self.db_path
         })
     
-    def discovery(self, client, path):
+    def discovery(self, client, path, depth=0, maxdepth=4, ignore=None):
+        """ 
+        Recurse down remote directory until the whole structure is mapped
+        
+        Parameters:
+            client (globus-sdk.TransferClient): an authorized globus client
+            path (str): the remote path to map
+            depth (int): the current recursive depth
+            maxdepth (int): how far down the rabbit hole we should go
+            ignore (list): a list of items to ignore
+        Returns:
+            A nested dictonary matching the structure of the remote directory
+        """
+        data = {}
+        if depth >= maxdepth:
+            return data
         res = self._get_ls(
                 client=client,
                 path=self.remote_path)
         for item in res:
+            if ignore is not None:
+                if item['name'] in ignore:
+                    continue
             if item['type'] = 'dir':
-                data[item['name']] = discovery(self, client, os.path.join(path, item['name']))
+                data[item['name']] = discovery(
+                    self,
+                    client=client,
+                    path=os.path.join(path, item['name']),
+                    depth=depth + 1,
+                    maxdepth=maxdepth)
             else:
                 data[item['name']] = None
         return data
+    
+    def move_everything(self, client, experiment):
+        """
+        A blocking call to move everything before starting the run
+        
+        Parameters:
+            client (globus-sdk.TranferClient): an authorized globus transfer client
+            experiment (str): the name of the experiment
+        """
+        archive_path = os.path.join(self.local_path, 'archive')
+        if not os.oath.exists(archive_path):
+            os.makedirs(archive_path)
+        ignore_list = ['build', 'post', 'test01', 'zstash']
+        transfer_list = list()
+        res = self._get_ls(
+                client=client,
+                path=self.remote_path)
+        
+        # Move all the data, one directory at a time
+        for item in res:
+            if item['type'] == 'dir' and item['name'] not in ignore_list:
+                msg = 'Starting directory transfer for {}'.format(item['name'])
+                print_line(
+                    ui=self.ui,
+                    line=msg,
+                    event_list=self.event_list)
+                local_path = os.path.join(archive_path, item['name'])
+                remote_path = os.path.join(self.remote_path, item['name'])
+                transfer_directory(
+                    source_endpoint=self.remote_endpoint,
+                    destination_endpoint=self.local_endpoint,
+                    src_path=remote_path,
+                    dst_path=local_path,
+                    client=client)
+        
+        # Link the data into the input directory where the rest of the filemanager is expecting it
+        # First handle the atm files
+        atm_path = os.path.join('archive', 'archive', 'atm', 'hist')
+        atm_pattern = file_type_map['atm'].replace('EXPERIMENT', experiment)
+        atm_pattern = atm_pattern.replace('YEAR', '[0-9]{4}')
+        atm_pattern = atm_pattern.replace('MONTH', '[0-9]{2}')
+        atm_pattern = atm_pattern.replace('.', '\.')
+        atm_data = [x for x in os.listdir(atm_path) if re.match(string=x, pattern=atm_pattern)]
+        for item in atm_data:
+            os.symlink(
+                src=os.path.join(atm_path, item),
+                dst=os.path.join(os.getcwd(), 'input', 'atm', item))
+
 
     def populate_handle_rest(self, simstart, newfiles):
         """
