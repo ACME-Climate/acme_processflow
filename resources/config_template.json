@@ -15,7 +15,7 @@
         "remap_grid_name",
         "native_grid_name",
         "native_grid_cleanup",
-        "move_everything"
+        "url_prefix"
     ],
     "e3sm_diags": [
         "host_directory",

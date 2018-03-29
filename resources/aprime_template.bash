@@ -153,13 +153,13 @@ if [ $machname == "nersc" ]; then
   # Project directory
   projdir=/global/project/projectdirs/acme
   # Location of website directory to host the webpage
-  export www_dir=/global/project/projectdirs/acme/www/$USER
+  export www_dir=%%www_dir%%/$USER
 elif [ $machname == "olcf" ]; then
   projdir=$PROJWORK/cli115
-  export www_dir=/ccs/proj/cli115/www/$USER
+  export www_dir=%%www_dir%%/$USER
 elif [ $machname == "aims4" ] || [ $machname == "acme1" ]; then
   projdir=/space2
-  export www_dir=/var/www/acme/acme-diags/$USER
+  export www_dir=%%www_dir%%/$USER
 elif [ $machname == "lanl" ]; then
   projdir=/usr/projects/climate/SHARED_CLIMATE
   export www_dir=$output_base_dir/www

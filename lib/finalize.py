@@ -7,7 +7,7 @@ from lib.mailer import Mailer
 from lib.util import print_message, print_line, print_debug, native_cleanup
 
 
-def finalize(config, job_sets, event_list, status, display_event, thread_list, kill_event):
+def finalize(config, job_sets, event_list, status, display_event, thread_list, kill_event, runmanager):
     if status == 1 and config['global']['native_grid_cleanup'] in [1, '1', 'true']:
         message = 'Performing post run cleanup'
         native_cleanup(
@@ -37,6 +37,8 @@ def finalize(config, job_sets, event_list, status, display_event, thread_list, k
                     exp=config['global']['experiment'])
 
             for job_set in job_sets:
+                if not job_set.jobs:
+                    continue
                 msg += '\nYearSet {start}-{end}: {status}\n'.format(
                     start=job_set.set_start_year,
                     end=job_set.set_end_year,
@@ -44,8 +46,9 @@ def finalize(config, job_sets, event_list, status, display_event, thread_list, k
                 for job in job_set.jobs:
                     if job.status == JobStatus.COMPLETED:
                         if job.config.get('host_url'):
+                            url = runmanager._format_url(job)
                             msg += '    > {job} - COMPLETED  :: output hosted :: {url}\n'.format(
-                                url=job.config['host_url'],
+                                url=url,
                                 job=job.type)
                         else:
                             msg += '    > {job} - COMPLETED  :: output located :: {output}\n'.format(

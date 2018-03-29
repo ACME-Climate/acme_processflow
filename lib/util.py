@@ -581,6 +581,7 @@ def render(variables, input_path, output_path, delimiter='%%'):
                                             len(delimiter) + len(item) + len(delimiter):]
                         line_tmp = str(rendered_start) + \
                             str(rendered_middle) + str(rendered_end)
+                        line = line_tmp
                     else:
                         continue
                 match = re.search(delimiter + '[a-zA-Z_0-9]*' + delimiter, line_tmp)

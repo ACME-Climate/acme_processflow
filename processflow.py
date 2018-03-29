@@ -6,8 +6,8 @@ import sys
 import os
 import threading
 import logging
-from time import sleep
 
+from time import sleep
 from globus_cli.services.transfer import get_client
 
 from lib.events import EventList
@@ -22,6 +22,9 @@ from lib.util import (print_line,
                       print_message,
                       print_debug,
                       transfer_directory)
+
+__version__ = '1.0.3'
+__branch__ = 'master'
 
 # check for NCL
 if not os.environ.get('NCARG_ROOT'):
@@ -63,6 +66,8 @@ def main(test=False, **kwargs):
     args = kwargs['testargs'] if test else sys.argv[1:]
     config, filemanager, runmanager = initialize(
         argv=args,
+        version=__version__,
+        branch=__branch__,
         event_list=event_list,
         thread_list=thread_list,
         kill_event=thread_kill_event,
@@ -71,19 +76,12 @@ def main(test=False, **kwargs):
     if isinstance(config, int):
         print "Error in setup, exiting"
         return -1
-
+    
     logging.info('Config setup complete')
-    msg = "Running processflow version {}".format(__version__)
-    logging.info(msg)
-    print_line(
-        ui=config['global']['ui'],
-        line=msg,
-        event_list=event_list)
-
     # check that all netCDF files exist
     path_exists(config)
 
-    # create temp and run scripts directories
+    # cleanup any temp directories from previous runs
     if not os.path.exists(config['global']['run_scripts_path']):
         os.makedirs(config['global']['run_scripts_path'])
     if not os.path.exists(config['global']['tmp_path']):
@@ -345,7 +343,8 @@ def main(test=False, **kwargs):
                     status=status,
                     display_event=display_event,
                     thread_list=thread_list,
-                    kill_event=thread_kill_event)
+                    kill_event=thread_kill_event,
+                    runmanager=runmanager)
                 # SUCCESS EXIT
                 return 0
             print_line(

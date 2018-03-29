@@ -9,9 +9,9 @@ from pprint import pformat
 from time import sleep
 from datetime import datetime
 from shutil import copyfile
+from bs4 import BeautifulSoup
 
 from JobStatus import JobStatus, StatusMap
-
 from lib.slurm import Slurm
 from lib.events import EventList
 from lib.util import (print_debug,
@@ -116,13 +116,67 @@ class AMWGDiagnostic(object):
             start=self.config.get('start_year'),
             end=self.config.get('end_year'),
             casename=self.config.get('test_casename'))
-        if os.path.exists(web_dir):
-            all_files = []
-            for path, dirs, files in os.walk(web_dir):
-                all_files += files
-            return bool(len(all_files) > 1000)
-        else:
+
+        return self._check_links()
+    
+    def _check_links(self):
+        """
+        Checks output page for all links, as well as first level subpages
+        
+        Parameters:
+            None
+        Returns:
+            True if all links are found, False otherwise
+        """
+        missing_links = list()
+        page_path = os.path.join(self.config['web_dir'], 'index.html')
+        if not os.path.exists(page_path):
+            msg = 'amwg-{}-{}: No output page found'.format(
+                self.start_year, self.end_year)
+            logging.error(msg)
             return False
+        with open(page_path, 'r') as page_pointer:
+            output_page = BeautifulSoup(page_pointer, 'lxml')
+            output_links = output_page.findAll('a')
+            for link in output_links:
+                link_path = link.attrs['href']
+                if link_path[-3:] == 'htm':
+                    subpage_path = os.path.join(self.config['web_dir'], link.attrs['href'])
+                    subpage_head, _ = os.path.split(subpage_path)
+                    if not os.path.exists(subpage_path):
+                        msg = 'amwg-{}-{}: No output page found'.format(
+                            self.start_year, self.end_year)
+                        logging.error(msg)
+                        missing_links.append(subpage_path)
+                        continue
+                    with open(subpage_path, 'r') as subpage_pointer:
+                        subpage = BeautifulSoup(subpage_pointer, 'lxml')
+                        subpage_links = subpage.findAll('a')
+                        for sublink in subpage_links:
+                            sublink_href = sublink.attrs['href']
+                            if sublink_href[-3:] != 'png':
+                                continue
+                            sublink_path = os.path.join(subpage_head, sublink_href)
+                            if not os.path.exists(sublink_path):
+                                missing_links.append(sublink_path)
+        if missing_links:
+            msg = 'amwg-{start:04d}-{end:04d}: missing {len} links'.format(
+                start=self.start_year, end=self.end_year, len=len(missing_links))
+            print_line(
+                ui=self.config.get('ui', False),
+                line=msg,
+                event_list=self.event_list)
+            msg = 'amwg-{start:04d}-{end:04d}: missing the following links'.format(
+                start=self.start_year, end=self.end_year)
+            logging.error(msg)
+            logging.error(missing_links)
+            return False
+        else:
+            msg = 'amwg-{start:04d}-{end:04d}: all links found'.format(
+                start=self.start_year, end=self.end_year)
+            logging.info(msg)
+            return True
+
 
     def execute(self):
         """

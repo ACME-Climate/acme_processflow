@@ -20,7 +20,7 @@
 <br>
 <div style="text-align:center">
 <font size="+2" color="sienna"><b>
-%%experiment%%<br>(Climatological years: 1-10) vs. obs (climo)
+%%experiment%%<br>(Climatological years: %%start_year%%-%%end_year%%) vs. obs (climo)
 </b></font>
 </div>
   <br>
@@ -30,7 +30,7 @@
   <font size="+1" color="red"><b>Time Series Plots: Global and Zonal-band means (ATM)</b></font><br>
 
   <div style="text-align:left">
-  <font size="-1" color="peru">%%experiment%% (Years: 1-10)</font><br>
+  <font size="-1" color="peru">%%experiment%% (Years: %%start_year%%-%%end_year%%)</font><br>
   <font size="-1" color="peru">obs (climo)</font>
   </div>
 
@@ -69,7 +69,7 @@
     
 
     <div style="text-align:left">
-    <font size="-1" color="peru">%%experiment%% (Years: 1-10)</font><br>
+    <font size="-1" color="peru">%%experiment%% (Years: %%start_year%%-%%end_year%%)</font><br>
     </div>
 
     <hr size="2" noshade="noshade">
@@ -94,7 +94,7 @@
   <font size="+1" color="red"><b>Climatology Plots (ATM)</b></font><br>
 
   <div style="text-align:left">
-  <font size="-1" color="peru">%%experiment%% (Years: 1-10)</font><br>
+  <font size="-1" color="peru">%%experiment%% (Years: %%start_year%%-%%end_year%%)</font><br>
   <font size="-1" color="peru">obs (climo)</font>
   </div>
 
@@ -168,7 +168,7 @@
     <font size="+1" color="red"><b>Climatology Plots (OCN/ICE)</b></font>
 
     <div style="text-align:left">
-    <font size="-1" color="peru">%%experiment%% (Years: 1-10)</font><br>
+    <font size="-1" color="peru">%%experiment%% (Years: %%start_year%%-%%end_year%%)</font><br>
     <font size="-1" color="peru">obs (climo)</font>
     </div>
 
@@ -287,9 +287,9 @@
     <font size="+1" color="red"><b>Other OCN/ICE plots</b></font>
 
     <div style="text-align:left">
-    <font size="-1" color="peru">Time series/Trends for Years: 1-10</font><br>
-    <font size="-1" color="peru">Climatologies for Years: 1-10</font><br>
-    <font size="-1" color="peru">Nino3.4 diagnostics for Years: 1-10</font>
+    <font size="-1" color="peru">Time series/Trends for Years: %%start_year%%-%%end_year%%</font><br>
+    <font size="-1" color="peru">Climatologies for Years: %%start_year%%-%%end_year%%</font><br>
+    <font size="-1" color="peru">Nino3.4 diagnostics for Years: %%start_year%%-%%end_year%%</font>
     </div>
 
     <hr size="2" noshade="noshade">
@@ -327,13 +327,13 @@
   <font size="+1" color="red"><b>ENSO Diagnostics (ATM)</b></font><br>
 
   <div style="text-align:left">
-  <font size="-1" color="peru">%%experiment%% (Years: 1-10)</font><br>
+  <font size="-1" color="peru">%%experiment%% (Years: %%start_year%%-%%end_year%%)</font><br>
   <font size="-1" color="peru">obs (climo)</font>
   </div>
 
   <hr size="2" noshade="noshade">
 
-<!-- 
+
   <br>
   <font color=green size=+1><b>Equatorial SOI Index</b></font><br>
   <TABLE>
@@ -342,7 +342,7 @@
         <TR>
           <TD><BR>
   </TABLE>
--->
+
 
   <br>
   <font size="+1" color="green"><b>NINO Index</b></font><br>

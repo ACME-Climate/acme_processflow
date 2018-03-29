@@ -2,6 +2,7 @@ import os
 import json
 import logging
 
+from bs4 import BeautifulSoup
 from subprocess import Popen, PIPE
 from pprint import pformat
 from datetime import datetime
@@ -97,23 +98,66 @@ class E3SMDiags(object):
             self.status = JobStatus.INVALID
         if valid:
             self.status = JobStatus.VALID
+    
+    def _check_links(self):
+        viewer_path = os.path.join(self.config['results_dir'], 'viewer', 'index.html')
+        viewer_head = os.path.join(self.config['results_dir'], 'viewer')
+        missing_links = list()
+        with open(viewer_path, 'r') as viewer_pointer:
+            viewer_page = BeautifulSoup(viewer_pointer, 'lxml')
+            viewer_links = viewer_page.findAll('a')
+            for link in viewer_links:
+                link_path = os.path.join(viewer_head, link.attrs['href'])
+                if not os.path.exists(link_path):
+                    missing_links.append(link_path)
+                    continue
+                if link_path[-4:] == 'html':
+                    link_tail, _ = os.path.split(link_path)
+                    with open(link_path, 'r') as link_pointer:
+                        link_page = BeautifulSoup(link_pointer, 'lxml')
+                        link_links = link_page.findAll('a')
+                        for sublink in link_links:
+                            try:
+                                sublink_preview = sublink.attrs['data-preview']
+                            except:
+                                continue
+                            else:
+                                sublink_path = os.path.join(link_tail, sublink_preview)
+                                if not os.path.exists(sublink_path):
+                                    missing_links.append(sublink_path)
+        if missing_links:
+            msg = 'e3sm-{}-{}: missing the following links'.format(
+                self.start_year, self.end_year)
+            logging.error(msg)
+            logging.error(missing_links)
+            return False
+        else:
+            msg = 'e3sm-{}-{}: all links found'.format(
+                self.start_year, self.end_year)
+            logging.info(msg)
+            return True
 
     def postvalidate(self):
         if not os.path.exists(self.config['results_dir']):
+            msg = 'e3sm_diags-{start:04d}-{end:04d}: no results directory found'.format(
+                start=self.start_year, end=self.end_year)
+            logging.error(msg)
             return False
         contents = os.listdir(self.config['results_dir'])
         if 'viewer' not in contents:
+            msg = 'e3sm_diags-{start:04d}-{end:04d}: no viewer in output directory'.format(
+                start=self.start_year, end=self.end_year)
+            logging.error(msg)
             return False
-        if 'index.html' not in os.listdir(os.path.join(self.config['results_dir'], 'viewer')):
+        viewer_path = os.path.join(self.config['results_dir'], 'viewer')
+        contents = os.listdir(viewer_path)
+        if 'index.html' not in contents:
+            msg = 'e3sm_diags-{start:04d}-{end:04d}: no index.html found in output viewer at {path}'.format(
+                start=self.start_year, end=self.end_year, path=viewer_path)
+            logging.error(msg)
             return False
-        try:
-            for item in ['params.py', 'params.pyc', 'viewer']:
-                if item in contents:
-                    contents.remove(item)
-        except:
-            return False
-        else:
-            return bool(len(contents) >= len(self.config['sets']))
+
+        return self._check_links()
 
     def execute(self):
 
