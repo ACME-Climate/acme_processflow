@@ -192,11 +192,12 @@
 <p>This guide goes through each one of the options in the run configuration file.</p>
 <div class="section" id="project-path">
 <h2>Project Path<a class="headerlink" href="#project-path" title="Permalink to this headline">¶</a></h2>
-<p>The project_path is the root directory for your processflow run. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.</p>
+<p>The project_path is the root directory for your processflow run on your local machine. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
+If you like, you can pre-stage your data (for example if your machine doesnt have a globus node) under &lt;project_path&gt;/input/&lt;data_type&gt;</p>
 </div>
 <div class="section" id="source-path">
 <h2>Source Path<a class="headerlink" href="#source-path" title="Permalink to this headline">¶</a></h2>
-<p>The source_path is the location of your remote data source. This is the path on the remote machine that created the model output. If running from local pre-staged data, this key is ignored.</p>
+<p>The source_path is the location of your data on the remote machine. This is the path on the remote machine that created the model output. If running from local pre-staged data, this key is ignored.</p>
 </div>
 <div class="section" id="short-term-archive">
 <h2>Short Term Archive<a class="headerlink" href="#short-term-archive" title="Permalink to this headline">¶</a></h2>
@@ -243,7 +244,7 @@ every 5 years as well as every 20 years.</p>
 </div>
 <div class="section" id="img-host-server">
 <h2>Img Host Server<a class="headerlink" href="#img-host-server" title="Permalink to this headline">¶</a></h2>
-<p>The url prefix for the server that will be hosting the diagnostic plots, e.g. <a class="reference external" href="https://acme-viewer.llnl.gov">https://acme-viewer.llnl.gov</a></p>
+<p>The url prefix for the server that will be hosting the diagnostic plots, e.g. <a class="reference external" href="https://acme-viewer.llnl.gov">https://acme-viewer.llnl.gov</a> for acme1.llnl.gov.</p>
 </div>
 <div class="section" id="host-directory">
 <h2>Host Directory<a class="headerlink" href="#host-directory" title="Permalink to this headline">¶</a></h2>
@@ -252,7 +253,25 @@ every 5 years as well as every 20 years.</p>
 <div class="section" id="file-types">
 <h2>File Types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
 <p>The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
-Accepted file types are: ‘atm’, ‘ice’, ‘ocn’, ‘rest’, ‘streams.ocean’, ‘streams.cice’, ‘mpas-o_in’, ‘mpas-cice_in’, ‘meridionalHeatTransport’</p>
+Accepted file types are: ‘atm’, ‘ice’, ‘ocn’, ‘rest’, ‘streams.ocean’, ‘streams.cice’, ‘mpas-o_in’, ‘mpas-cice_in’, ‘meridionalHeatTransport’, ‘lnd’. Data types map to the following directories</p>
+<p>├── atm
+│   └── CASE_ID.cam.h0.YYYY-MM.nc
+├── ice
+│   └── mpascice.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
+├── lnd
+│   └── CASE_ID.clm2.h0.YYYY-MM.nc
+├── mpas
+│   ├── mpas-cice_in
+│   ├── mpaso.hist.am.meridionalHeatTransport.YYYY-MM-DD.nc
+│   ├── mpas-o_in
+│   ├── streams.cice
+│   └── streams.ocean
+├── ocn
+│   └── mpaso.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
+└── rest</p>
+<blockquote>
+<div>├── mpascice.rst.YYYY-MM-DD_00000.nc
+└── mpaso.rst.YYYY-MM-DD_00000.nc</div></blockquote>
 </div>
 <div class="section" id="set-jobs">
 <h2>Set Jobs<a class="headerlink" href="#set-jobs" title="Permalink to this headline">¶</a></h2>

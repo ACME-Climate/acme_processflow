@@ -16,12 +16,12 @@ The A-Prime diagnostics required significantly more data then other diagnostic p
 
     [global]
     ...
-    set_frequency = SOME_LENGTH
+    set_frequency = <some_length>
 
     file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport'
     
     [[set_jobs]]
-        aprime = SOME_LENGTH
+        aprime = <some_length>
     
     [aprime_diags]
     # The directory to copy plots for hosting
@@ -32,6 +32,7 @@ The A-Prime diagnostics required significantly more data then other diagnostic p
 
     # the atmospheric reslution of your simulation
     test_atm_res = ne30
+
     # the mpas mesh name used
     test_mpas_mesh_name = oEC60to30v3
 

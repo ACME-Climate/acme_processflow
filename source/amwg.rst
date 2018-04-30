@@ -2,7 +2,7 @@
 AMWG Diagnostic
 ***************
 
-The `AMWG Diagsnostic <http://www.cesm.ucar.edu/working_groups/Atmosphere/amwg-diagnostics-package/>`_ is the standard diagnostic package.
+The `AMWG Diagsnostic <http://www.cesm.ucar.edu/working_groups/Atmosphere/amwg-diagnostics-package/>`_ is the standard atmospheric diagnostic package.
 
 Configuration
 -------------
@@ -11,11 +11,11 @@ Configuration
 
     [global]
     ...
-    set_frequency = SOME_LENGTH
+    set_frequency = <some_length>
 
     [[set_jobs]]
-        ncclimo = SOME_LENGTH
-        amwg = SOME_LENGTH
+        ncclimo = <some_length>
+        amwg = <some_length>
 
     [amwg]
     # The location of the amwg code

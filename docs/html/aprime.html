@@ -178,12 +178,12 @@ as the MPAS ocean analysis including ENSO diagnostics.</p>
 <p><em>NOTE:</em> A-Prime will only run on the following machines due to hardcoded hostnames: edison, rhea/titan, acme1, aims4, wolf. If running on another machine/facility, simply remove aprime from the job_sets in your config file.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="o">...</span>
-<span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
 
 <span class="n">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span><span class="p">,</span> <span class="s1">&#39;ice&#39;</span><span class="p">,</span> <span class="s1">&#39;ocn&#39;</span><span class="p">,</span> <span class="s1">&#39;rest&#39;</span><span class="p">,</span> <span class="s1">&#39;streams.ocean&#39;</span><span class="p">,</span> <span class="s1">&#39;streams.cice&#39;</span><span class="p">,</span> <span class="s1">&#39;mpas-o_in&#39;</span><span class="p">,</span> <span class="s1">&#39;mpas-cice_in&#39;</span><span class="p">,</span> <span class="s1">&#39;meridionalHeatTransport&#39;</span>
 
 <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
-    <span class="n">aprime</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+    <span class="n">aprime</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
 
 <span class="p">[</span><span class="n">aprime_diags</span><span class="p">]</span>
 <span class="c1"># The directory to copy plots for hosting</span>
@@ -194,6 +194,7 @@ as the MPAS ocean analysis including ENSO diagnostics.</p>
 
 <span class="c1"># the atmospheric reslution of your simulation</span>
 <span class="n">test_atm_res</span> <span class="o">=</span> <span class="n">ne30</span>
+
 <span class="c1"># the mpas mesh name used</span>
 <span class="n">test_mpas_mesh_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
 </pre></div>

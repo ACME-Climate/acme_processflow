@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>acme_processflow’s documentation &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Processflow’s documentation &mdash; processflow 1.0.0-rc5 documentation</title>
   
 
   
@@ -144,7 +144,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>acme_processflow’s documentation</li>
+      <li>Processflow’s documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -163,18 +163,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="acme-processflow-s-documentation">
-<h1>acme_processflow’s documentation<a class="headerlink" href="#acme-processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="processflow-s-documentation">
+<h1>Processflow’s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-the-processflow">
 <h2>What is the processflow?<a class="headerlink" href="#what-is-the-processflow" title="Permalink to this headline">¶</a></h2>
-<p>The acme_processflow is a command line tool to automatically run post processing jobs for ACME model output.</p>
-<p>The tool takes a single configuration files and runs a series of long running transfer
-and processing jobs on any amount of model output, running the set of jobs on any number of set lengths. The output
+<p>The processflow is a command line tool to automatically run post processing jobs for E3SM model output.</p>
+<p>The tool takes a single configuration files and runs a series of data transfer
+and processing jobs on any amount of model output, running the jobs on any number of set lengths. The output
 doesn’t have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
-generated will transfer it, and start the processing and diagnostics as soon as the first complete set is available.</p>
+generated it will transfer, and start the processing and diagnostics as soon as the first complete set is available.</p>
 <p>Transfer jobs will be generated to match the data requirements of the processing jobs, and the processing jobs will
-wait to run until after the data has been made available. Once the diagnostics complete, the tool manages hosting the
-images and emails links with the completed output to the user.</p>
+wait to run until after the data has been made available. Once the diagnostics complete, the tool transfers the plots to a hosting directory,
+and emails links with the completed output to the user.</p>
 <p><strong>Jobs:</strong></p>
 <ul class="simple">
 <li>Globus Transfer</li>
@@ -184,9 +184,7 @@ images and emails links with the completed output to the user.</p>
 <li>A-Prime diagnostic</li>
 <li>E3SM diags</li>
 </ul>
-<p>Each processing job has an optional number of other jobs it should wait on, for example
-AMWG will wait for the regridded climatologies to be generated before starting its
-run.</p>
+<p>Each job has a set of dependent jobs it waits to finish before running, for example E3SM diags will wait for ncclimo to complete.</p>
 <p><strong>Shell</strong></p>
 <p>All commands are written for BASH. If you’re using tcsh or zsh you will need to first run the <cite>bash</cite> command to enter a bash shell.</p>
 <p><strong>Dependencies:</strong></p>
@@ -256,7 +254,6 @@ run.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="acme_diags.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="acme_diags.html#dependencies">Dependencies</a></li>
 </ul>
 </li>
@@ -268,10 +265,11 @@ run.</p>
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
 <p>During the processflow run it will create the required input/output directories based on the project_path config option. The only file that needs to be in place before the run is the config file for that run, which
 will be copied into the input directory. Once the run has completed the directories will have the following structure:</p>
-<p>( this example was run with all the diagnostics on 100 years with frequency = 5, 100 )
+<p>( this example was run with all the diagnostics on 100 years with frequency = 5, 100, with the ne30 and fv129x256 grids )
 .. code-block:: bash</p>
 <blockquote>
-<div><p>├── input
+<div><p>project_path
+├── input
 │&nbsp;&nbsp; ├── atm
 │&nbsp;&nbsp; ├── ice
 │&nbsp;&nbsp; ├── mpas
@@ -283,34 +281,34 @@ will be copied into the input directory. Once the run has completed the director
 <blockquote>
 <div><p>├── diags
 │&nbsp;&nbsp; └── fv129x256
-│&nbsp;&nbsp;     ├── amwg [60 entries]
-│&nbsp;&nbsp;     ├── a-prime [21 entries]
-│&nbsp;&nbsp;     └── e3sm_diags [21 entries]
+│&nbsp;&nbsp;     ├── amwg
+│&nbsp;&nbsp;     ├── a-prime
+│&nbsp;&nbsp;     └── e3sm_diags
 ├── file_list.txt
 ├── pp
 │&nbsp;&nbsp; ├── fv129x256
 │&nbsp;&nbsp; │&nbsp;&nbsp; ├── climo
-│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── 100yr [17 entries]
-│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── 5yr [340 entries]
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── 100yr
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── 5yr
 │&nbsp;&nbsp; │&nbsp;&nbsp; └── ts
 │&nbsp;&nbsp; │&nbsp;&nbsp;     └── monthly
-│&nbsp;&nbsp; │&nbsp;&nbsp;         ├── 100yr [14 entries]
-│&nbsp;&nbsp; │&nbsp;&nbsp;         └── 5yr [280 entries]
+│&nbsp;&nbsp; │&nbsp;&nbsp;         ├── 100yr
+│&nbsp;&nbsp; │&nbsp;&nbsp;         └── 5yr
 │&nbsp;&nbsp; └── ne30
 │&nbsp;&nbsp;     ├── climo
-│&nbsp;&nbsp;     │&nbsp;&nbsp; ├── 100yr [17 entries]
-│&nbsp;&nbsp;     │&nbsp;&nbsp; └── 5yr [340 entries]
+│&nbsp;&nbsp;     │&nbsp;&nbsp; ├── 100yr
+│&nbsp;&nbsp;     │&nbsp;&nbsp; └── 5yr
 │&nbsp;&nbsp;     └── ts
 │&nbsp;&nbsp;         └── monthly
-│&nbsp;&nbsp;             ├── 100yr [14 entries]
-│&nbsp;&nbsp;             └── 5yr [280 entries]
-├── run_scripts [200 entries]
+│&nbsp;&nbsp;             ├── 100yr
+│&nbsp;&nbsp;             └── 5yr
+├── run_scripts
 ├── run_state.txt
 └── tmp</p>
 <blockquote>
-<div>├── amwg [21 entries]
-├── aprime [21 entries]
-└── e3sm_diags [21 entries]</div></blockquote>
+<div>├── amwg
+├── aprime
+└── e3sm_diags</div></blockquote>
 </div></blockquote>
 </div></blockquote>
 </div>

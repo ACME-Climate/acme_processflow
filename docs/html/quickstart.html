@@ -217,34 +217,50 @@ e3sm_diags = 10</dd>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span>
-                  <span class="o">[</span>-r RESOURCE_DIR<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py [-h] [-c CONFIG] [-v] [-u] [-l LOG] [-n] [-m] [-s] [-f]
+                  [-r RESOURCE_DIR] [-i INPUT_PATH] [-o OUTPUT_PATH] [-a]
+                  [--custom-archive-path CUSTOM_ARCHIVE_PATH]
 
 optional arguments:
--h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+-h, --help            show this help message and exit
 -c CONFIG, --config CONFIG
                         Path to configuration file.
+-v, --version         Print version informat and exit.
 -u, --ui              Turn on the GUI.
 -l LOG, --log LOG     Path to logging output file.
--n, --no-cleanup      Don<span class="s1">&#39;t perform post run cleanup. This will leave all</span>
-<span class="s1">                        files in place.</span>
-<span class="s1">-m, --no-monitor      Don&#39;</span>t run the remote monitor or move any files over
+-n, --no-host         Don&#39;t move output plots into the web host directory.
+-m, --no-monitor      Don&#39;t run the remote monitor or move any files over
                         globus.
+-s, --no-scripts      Don&#39;t copy the case_scripts directory from the remote
+                        machine.
 -f, --file-list       Turn on debug output of the internal file_list so you
                         can see what the current state of the model files are
 -r RESOURCE_DIR, --resource-dir RESOURCE_DIR
                         Path to custom resource directory
+-i INPUT_PATH, --input-path INPUT_PATH
+                        Custom input path
+-o OUTPUT_PATH, --output-path OUTPUT_PATH
+                        Custom output path
+-a, --always-copy     Always copy diagnostic output, even if the output
+                        already exists in the host directory. This is much
+                        slower but ensures old output will be overwritten
+--custom-archive-path CUSTOM_ARCHIVE_PATH
+                        A custom remote archive path used for short term
+                        archiving. This will over rule the normal path
+                        interpolation when moving files. This option should
+                        only be used when short term archiving is turned on
 </pre></div>
 </div>
 <p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>processflow.py -c run.cfg
 </pre></div>
 </div>
-<p>When run in interactive mode, the acme_processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
+<p>When run in interactive mode, the processflow will exit if the terminal window is closed. For long running jobs,
+the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>nohup processflow.py -c /PATH/TO/YOUR/CONFIG <span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser.
+<p>Once the run starts, you may be prompted to authenticate with globus (if the nodes arent already activated). Simply copy the address provided and paste into your browser.
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.</p>
 <p>Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt</p>
 <p>Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run.

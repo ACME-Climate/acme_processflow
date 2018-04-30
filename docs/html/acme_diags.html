@@ -100,7 +100,6 @@
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ACME Diagnostic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 </ul>
 </li>
@@ -172,26 +171,27 @@
 <h1>ACME Diagnostic<a class="headerlink" href="#acme-diagnostic" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference external" href="https://github.com/ACME-Climate/acme_diags">E3SM Diags</a> is the Diagnostic
 ploting software made at LLNL to modernize many of the features of AMWG.</p>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>These are the relavent configuration options for e3sm_diags.
+Configuration
+————-</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="o">...</span>
-<span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
 <span class="o">...</span>
 <span class="n">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>
 <span class="o">...</span>
 
 <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
-    <span class="n">ncclimo</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
-    <span class="n">e3sm_diags</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+    <span class="n">ncclimo</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
+    <span class="n">e3sm_diags</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
 
 <span class="p">[</span><span class="n">e3sm_diags</span><span class="p">]</span>
 <span class="c1"># The directory to copy output to for web hosting</span>
 <span class="c1"># This path is relative to the global host_prefix</span>
 <span class="n">host_directory</span> <span class="o">=</span> <span class="n">e3sm</span><span class="o">-</span><span class="n">diags</span>
 
-<span class="c1"># ACME diags can use several backends to generate plots, currently matplotlib and vcs are supported.</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="n">mpl</span>
+<span class="c1"># ACME diags can use several backends to generate plots, currently matplotlib (mpl) and vcs (vcs) are supported.</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
 
 <span class="c1"># seasons list to generate plots for</span>
 <span class="n">seasons</span> <span class="o">=</span> <span class="n">DJF</span><span class="p">,</span> <span class="n">MAM</span><span class="p">,</span> <span class="n">JJA</span><span class="p">,</span> <span class="n">SON</span><span class="p">,</span> <span class="n">ANN</span>
@@ -202,7 +202,6 @@ ploting software made at LLNL to modernize many of the features of AMWG.</p>
 <span class="c1"># list of diagnostic sets to run</span>
 <span class="n">sets</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span>
 </pre></div>
-</div>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>

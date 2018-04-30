@@ -12,13 +12,13 @@ Configuration
 
     [global]
     ...
-    set_frequency = SOME_LENGTH
+    set_frequency = <some_length>
 
     file_types = 'atm'
     ...
     
     [[set_jobs]]
-        ncclimo = SOME_LENGTH
+        ncclimo = <some_length>
     
     [ncclimo]
     # Path to the regird map

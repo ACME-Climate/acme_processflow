@@ -5,6 +5,7 @@ ACME Diagnostic
 The `E3SM Diags <https://github.com/ACME-Climate/acme_diags>`_ is the Diagnostic
 ploting software made at LLNL to modernize many of the features of AMWG.
 
+These are the relavent configuration options for e3sm_diags. 
 Configuration
 -------------
 
@@ -12,22 +13,22 @@ Configuration
 
     [global]
     ...
-    set_frequency = SOME_LENGTH
+    set_frequency = <some_length>
     ...
     file_types = 'atm'
     ...
 
     [[set_jobs]]
-        ncclimo = SOME_LENGTH
-        e3sm_diags = SOME_LENGTH
+        ncclimo = <some_length>
+        e3sm_diags = <some_length>
     
     [e3sm_diags]
     # The directory to copy output to for web hosting
     # This path is relative to the global host_prefix
     host_directory = e3sm-diags
 
-    # ACME diags can use several backends to generate plots, currently matplotlib and vcs are supported.
-    backend = mpl
+    # ACME diags can use several backends to generate plots, currently matplotlib (mpl) and vcs (vcs) are supported.
+    backend = vcs
 
     # seasons list to generate plots for 
     seasons = DJF, MAM, JJA, SON, ANN

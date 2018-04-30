@@ -18,7 +18,8 @@ This guide assumes your system already has the prerequisit dependencies.
 .. _NCL: https://www.ncl.ucar.edu/ (only required if running AMWG)
 .. _APACHE: https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps (only required if hosting images)
 
-Once these are setup, the installation for the acme_workflow is straightforward.
+Once these are setup, the installation for the processflow is straightforward. If you're running on acme1, aims4, or Edison you shouldnt have to setup
+any of these services as they should all be running. If you're running and already have your data local, you dont need globus.
 
 Note:
 _____
@@ -26,7 +27,7 @@ All these commands assume you're using a bash environment. Other shells may not 
 
 .. code-block:: bash
 
-    conda create --name <SOME_ENVIRONMENT_NAME> -c acme -c conda-forge -c uvcdat processflow
+    conda create --name <SOME_ENVIRONMENT_NAME> -c e3sm -c conda-forge -c cdat processflow
     conda activate <SOME_ENVIRONMENT_NAME>
 
 
@@ -34,12 +35,12 @@ If you already have an installation and want to upgrade, first source your envir
 
 .. code-block:: bash
 
-    conda update -c acme -c conda-forge -c uvcdat processflow
+    conda update -c e3sm -c conda-forge -c cdat processflow
 
 Or upgrade from the nightly:
 
 .. code-block:: bash
 
-    conda update -c acme/label/nightly -c acme -c conda-forge -c uvcdat processflow
+    conda update -c e3sm/label/nightly -c e3sm -c conda-forge -c cdat processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`

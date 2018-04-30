@@ -8,11 +8,12 @@ This guide goes through each one of the options in the run configuration file.
 
 Project Path
 ------------
-The project_path is the root directory for your processflow run. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
+The project_path is the root directory for your processflow run on your local machine. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
+If you like, you can pre-stage your data (for example if your machine doesnt have a globus node) under <project_path>/input/<data_type>
 
 Source Path
 -----------
-The source_path is the location of your remote data source. This is the path on the remote machine that created the model output. If running from local pre-staged data, this key is ignored.
+The source_path is the location of your data on the remote machine. This is the path on the remote machine that created the model output. If running from local pre-staged data, this key is ignored.
 
 Short Term Archive
 ------------------
@@ -59,7 +60,7 @@ The remap_grid_name should be the name of the remapped grid, but can be any name
 
 Img Host Server
 ---------------
-The url prefix for the server that will be hosting the diagnostic plots, e.g. https://acme-viewer.llnl.gov
+The url prefix for the server that will be hosting the diagnostic plots, e.g. https://acme-viewer.llnl.gov for acme1.llnl.gov.
 
 Host Directory
 --------------
@@ -68,7 +69,26 @@ The path the processflow should copy diagnostic plots to so they can be hosted. 
 File Types
 ----------
 The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
-Accepted file types are: 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport'
+Accepted file types are: 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport', 'lnd'. Data types map to the following directories
+
+├── atm
+│   └── CASE_ID.cam.h0.YYYY-MM.nc
+├── ice
+│   └── mpascice.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
+├── lnd
+│   └── CASE_ID.clm2.h0.YYYY-MM.nc
+├── mpas
+│   ├── mpas-cice_in
+│   ├── mpaso.hist.am.meridionalHeatTransport.YYYY-MM-DD.nc
+│   ├── mpas-o_in
+│   ├── streams.cice
+│   └── streams.ocean
+├── ocn
+│   └── mpaso.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
+└── rest
+    ├── mpascice.rst.YYYY-MM-DD_00000.nc
+    └── mpaso.rst.YYYY-MM-DD_00000.nc
+
 
 Set Jobs
 --------

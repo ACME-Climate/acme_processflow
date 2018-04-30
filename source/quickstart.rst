@@ -16,8 +16,8 @@ default and edit it to suit your case. You can find a :ref:`Sample` configuratio
 
 .. code-block: bash
 
-    conda create -n processflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
-    source activate processflow
+    conda create -n <some_environment_name> -c e3sm -c conda-forge -c cdat  processflow
+    conda activate <some_environment_name>
 
 
 Run Configuration
@@ -75,23 +75,38 @@ The acme_processflow has two run modes, interactive and headless. In headless mo
 
 .. code-block:: bash
 
-    usage: processflow.py [-h] [-c CONFIG] [-u] [-l LOG] [-n] [-m] [-f]
-                      [-r RESOURCE_DIR]
+    usage: processflow.py [-h] [-c CONFIG] [-v] [-u] [-l LOG] [-n] [-m] [-s] [-f]
+                      [-r RESOURCE_DIR] [-i INPUT_PATH] [-o OUTPUT_PATH] [-a]
+                      [--custom-archive-path CUSTOM_ARCHIVE_PATH]
 
     optional arguments:
     -h, --help            show this help message and exit
     -c CONFIG, --config CONFIG
                             Path to configuration file.
+    -v, --version         Print version informat and exit.
     -u, --ui              Turn on the GUI.
     -l LOG, --log LOG     Path to logging output file.
-    -n, --no-cleanup      Don't perform post run cleanup. This will leave all
-                            files in place.
+    -n, --no-host         Don't move output plots into the web host directory.
     -m, --no-monitor      Don't run the remote monitor or move any files over
                             globus.
+    -s, --no-scripts      Don't copy the case_scripts directory from the remote
+                            machine.
     -f, --file-list       Turn on debug output of the internal file_list so you
                             can see what the current state of the model files are
     -r RESOURCE_DIR, --resource-dir RESOURCE_DIR
                             Path to custom resource directory
+    -i INPUT_PATH, --input-path INPUT_PATH
+                            Custom input path
+    -o OUTPUT_PATH, --output-path OUTPUT_PATH
+                            Custom output path
+    -a, --always-copy     Always copy diagnostic output, even if the output
+                            already exists in the host directory. This is much
+                            slower but ensures old output will be overwritten
+    --custom-archive-path CUSTOM_ARCHIVE_PATH
+                            A custom remote archive path used for short term
+                            archiving. This will over rule the normal path
+                            interpolation when moving files. This option should
+                            only be used when short term archiving is turned on
 
 Once you've configured your run, execute this command to start in interactive mode.
 
@@ -99,13 +114,14 @@ Once you've configured your run, execute this command to start in interactive mo
 
     processflow.py -c run.cfg
 
-When run in interactive mode, the acme_processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
+When run in interactive mode, the processflow will exit if the terminal window is closed. For long running jobs, 
+the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run:
 
 .. code-block:: bash
 
     nohup processflow.py -c /PATH/TO/YOUR/CONFIG &
 
-Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. 
+Once the run starts, you may be prompted to authenticate with globus (if the nodes arent already activated). Simply copy the address provided and paste into your browser. 
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
 
 Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt
