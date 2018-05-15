@@ -13,8 +13,6 @@
 
   
   
-  
-  
 
   
 
@@ -32,9 +30,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="processflow 1.0.0-rc5 documentation" href="#"/>
         <link rel="next" title="Installation" href="installation.html"/> 
 
@@ -45,7 +40,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -86,10 +80,7 @@
           
             
             
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+                <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
@@ -112,10 +103,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">processflow</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">processflow</a>
       </nav>
 
 
@@ -124,53 +113,36 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="#">Docs</a> &raquo;</li>
-        
-      <li>Processflow’s documentation</li>
-    
-    
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Processflow&#8217;s documentation</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="processflow-s-documentation">
-<h1>Processflow’s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Processflow&#8217;s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-the-processflow">
 <h2>What is the processflow?<a class="headerlink" href="#what-is-the-processflow" title="Permalink to this headline">¶</a></h2>
 <p>The processflow is a command line tool to automatically run post processing jobs for E3SM model output.</p>
 <p>The tool takes a single configuration files and runs a series of data transfer
 and processing jobs on any amount of model output, running the jobs on any number of set lengths. The output
-doesn’t have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
+doesn&#8217;t have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
 generated it will transfer, and start the processing and diagnostics as soon as the first complete set is available.</p>
 <p>Transfer jobs will be generated to match the data requirements of the processing jobs, and the processing jobs will
 wait to run until after the data has been made available. Once the diagnostics complete, the tool transfers the plots to a hosting directory,
@@ -186,7 +158,7 @@ and emails links with the completed output to the user.</p>
 </ul>
 <p>Each job has a set of dependent jobs it waits to finish before running, for example E3SM diags will wait for ncclimo to complete.</p>
 <p><strong>Shell</strong></p>
-<p>All commands are written for BASH. If you’re using tcsh or zsh you will need to first run the <cite>bash</cite> command to enter a bash shell.</p>
+<p>All commands are written for BASH. If you&#8217;re using tcsh or zsh you will need to first run the <cite>bash</cite> command to enter a bash shell.</p>
 <p><strong>Dependencies:</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
@@ -196,8 +168,8 @@ and emails links with the completed output to the user.</p>
 <li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></li>
 <li>BASH</li>
 </ul>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<div class="toctree-wrapper compound" id="contents">
+<p class="caption"><span class="caption-text">Contents:</span><a class="headerlink" href="#contents" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#note">Note:</a></li>
@@ -316,15 +288,12 @@ will be copied into the input directory. Once the run has completed the director
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -359,8 +328,7 @@ will be copied into the input directory. Once the run has completed the director
             VERSION:'1.0.0-rc5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
