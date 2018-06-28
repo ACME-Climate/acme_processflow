@@ -10,37 +10,34 @@ Processflow's documentation
 What is the processflow?
 ===============================
 
-The processflow is a command line tool to automatically run post processing jobs for E3SM model output.
+The processflow is a command line tool to automatically run post processing and diagnostic jobs for E3SM model output.
 
 The tool takes a single configuration files and runs a series of data transfer
-and processing jobs on any amount of model output, running the jobs on any number of set lengths. The output
-doesn't have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
-generated it will transfer, and start the processing and diagnostics as soon as the first complete set is available.
+and processing jobs on any amount of model output, running the jobs on any number of set lengths.
 
-Transfer jobs will be generated to match the data requirements of the processing jobs, and the processing jobs will 
-wait to run until after the data has been made available. Once the diagnostics complete, the tool transfers the plots to a hosting directory, 
+Transfer jobs will be generated to match the data requirements of the processing jobs, and the processflow will wait
+to run jobs until after the data transfer has completed. Once the diagnostics complete, the tool transfers the plots to a hosting directory, 
 and emails links with the completed output to the user. 
 
 **Jobs:**
 
 * Globus Transfer
-* AMWG diagnostic
-* Regridding and Climatologies
+* Regridded climatology generation
 * Time series variable extraction
+* atm, lnd, and ocn regridding
+* AMWG diagnostic
 * A-Prime diagnostic
 * E3SM diags
 
-Each job has a set of dependent jobs it waits to finish before running, for example E3SM diags will wait for ncclimo to complete.
 
-**Shell**
+**System Dependencies:**
+If installing the processflow from scratch on a new system, the following utilities will need to be in place. 
+Most systems that E3SM runs on should already have these installed.
 
-All commands are written for BASH. If you're using tcsh or zsh you will need to first run the `bash` command to enter a bash shell.
-
-**Dependencies:**
 
 * Anaconda_
 * Slurm_
-* Globus_
+* Globus_ (Only needed if using globus transfer)
 * NCL_
 * APACHE_
 * BASH

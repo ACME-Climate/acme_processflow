@@ -1,140 +1,70 @@
 .. _configuration:
 
-*************
-Configuration
-*************
+*****************
+Run Configuration
+*****************
 
-This guide goes through each one of the options in the run configuration file.
 
-Project Path
-------------
-The project_path is the root directory for your processflow run on your local machine. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
-If you like, you can pre-stage your data (for example if your machine doesnt have a globus node) under <project_path>/input/<data_type>
+Run configuration is broken into 6 major sections:
 
-Source Path
+    * global: options used by all components
+    * img_hosting: options used for hosting diagnostic output
+    * simulations: options related to each case being run, and how case-vs-case comparisons should be configured
+    * post-processing: all options related to post processing jobs
+    * diags: all options related to diagnostic runs
+    * data_types: definitions of which data types are required, and how to find data files
+
+
+global
+------
+
+The global section has the following keys: 
+    * project_path: This is the base of the project directory tree. All input and output will be stored here under /input/ and /output/
+    * email: This is an email address to send notification emails to
+    * native_grid_cleanup: This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete
+    * local_globus_uuid: The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers
+
+img_hosting
 -----------
-The source_path is the location of your data on the remote machine. This is the path on the remote machine that created the model output. If running from local pre-staged data this key should still be set, but should be set to the local path of the data.
 
-Short Term Archive
-------------------
-This should be turned on (1) if the remote data source has had short term archiving run on the model data. Otherwise turn off (0).
+This is an optional section, only needed if the user would like to turn on web hosting for diagnostic plot output. To turn this off, simply remove this section from the configuration.
+    * img_host_server: The base url of the webserver, used for constructing the notification email links.
+    * host_directory: The base directory for where to put output for web hosting, the user must have write permission here. Directories will be created for each simulation case, with jobs for the case stored below it.
+    * url_prefix: Notification urls are constructed as https://{img_host_server}/{url_prefix}/{case}/{diagnostic} 
 
-Simulation Start Year
----------------------
-The simulation_start_year is the first year of data to move and process. This doesnt have to be the first year of model data produced, it just has to be any number between 1 and the last year of data.
+simulations
+-----------
 
-Simulation End Year
--------------------
-The simulation_start_year key is the last year of model data to process. It doesnt have to be the last year of produced data, and can be any positive number. If the model is still running 
-and the simulation_end_year is larger then the latest year produced, the processflow will wait as the data is generated and run jobs once the data is ready.
+This section is used for configuring each case. As many cases can be placed here as the user would like. 
+The cases can be very different from each other, use different naming conventions (see data_types), and have their data stored in different file structures. 
+The one thing they must all share in common is the start_year and end_year.
+    * start_year: the first year of data to be used. For example, if start_year is set to 5, then files with years >= 5 && <= end_year will be concidered as part of the data set.
+    * end_year: the last year of data. For example if end_year is 10, then files with years >= start_year && <= 10 will be concidered as part of the dataset.
 
-Experiment
-----------
-The experiment key is the name of the experiment and is used to find all the input data files. This should be the prefix to the model output files, e.g. if your datafiles are named
-"20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.cam.h0.0100-12.nc," the experiment would be "20171122.beta3rc10_1850.ne30_oECv3_ICG.edison."
+    Each case must exist in its own config section, denoted by [[CASEID]] the double brackets are important.
+    * [[CASEID]] this should be the full case name e.g. 20180129.DECKv1b_piControl.ne30_oEC.edison
+    * transfer_type: this can be any of three values, 'local', 'globus', or 'sftp'
+    * ---> if transfer_type == 'globus' then remote_uuid and remote_path must be included
+    * ---> if transfer_type == 'sftp' then remote_hostname and remote_path must be included
+    * ---> if transfer_type == 'local' then local_path must be included
+    * short_name: a nice short name for the case
+    * native_grid_name: the name of the native grid used in the land and atmospheric components
+    * native_mpas_grid_name: the name of the mpas grid
+    * data_types: which data types should be copied for this case, this must include all data_types needed for jobs this case will be running
+    * job_types: which of the job types should be run on this case. Use the keyword 'all' to run all defined jobs on this case
 
-Short name
-----------
-A short name for the experiment that will be used in the AMWG and E3SM diags plots.
+    If running diagnostic jobs, the following section must be included
+    * [[comparisons]] this is the list of comparisons between for each case. Each case should have an entry here, followed by which other cases it should be compared to
+    
+    example:
+    * case_1: obs (a key word denoting model-vs-obs comparison), case_2
+    * case_2: case_3
+    * case_3: all
 
-Set Frequency
--------------
-The set_frequency are the year lengths that the jobs will be run on. This can be one number or a list of numbers, for example set_frequency = 5, 20 would setup jobs to run
-every 5 years as well as every 20 years.
-
-Email
------
-The email address to send notifications to when all processing is complete, leave commented out to turn off.
-
-Native Grid Cleanup
--------------------
-If turned on (1) the native_grid_cleanup option will cause native grid climatology files to be discarded after a successful run. To keep the native grid files, turn the option off (0).
-
-Native Grid Name
-----------------
-The native_grid_name should be the name of the native grid, but can be any name for the directory that holds native grid files. 
-
-Remap Grid Name
----------------
-The remap_grid_name should be the name of the remapped grid, but can be any name for the directory that holds the regridded file.
-
-Img Host Server
----------------
-The url prefix for the server that will be hosting the diagnostic plots, e.g. https://acme-viewer.llnl.gov for acme1.llnl.gov.
-
-Host Directory
---------------
-The path the processflow should copy diagnostic plots to so they can be hosted. This is whatever directory apache has been configured to host files from.
-
-File Types
-----------
-The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
-Accepted file types are: 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport', 'lnd'. Data types map to the following directories
-
-.. code-block:: bash
-
-    ├── atm
-    │   └── CASE_ID.cam.h0.YYYY-MM.nc
-    ├── ice
-    │   └── mpascice.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-    ├── lnd
-    │   └── CASE_ID.clm2.h0.YYYY-MM.nc
-    ├── mpas
-    │   ├── mpas-cice_in
-    │   ├── mpaso.hist.am.meridionalHeatTransport.YYYY-MM-DD.nc
-    │   ├── mpas-o_in
-    │   ├── streams.cice
-    │   └── streams.ocean
-    ├── ocn
-    │   └── mpaso.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-    └── rest
-        ├── mpascice.rst.YYYY-MM-DD_00000.nc
-        └── mpaso.rst.YYYY-MM-DD_00000.nc
+    In this example the following comparison diagnostics jobs will be generated:
+    * case_1-vs-obs, case_1-vs-case_2
+    * case_2-vs-case_3
+    * case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs
+    * note how case_2-vs-case_3 and case_3-vs-case_2 were both created
 
 
-Set Jobs
---------
-The set_jobs section is where you configure which jobs will be run on which year sets. For each job, list which year sets you would like it to be run on.
-For example if you had used the set_frequency key to create 5 and 20 year sets, and you wanted all the diagnostics run on the 20 years, but only e3sm_diags on the 5 years
-then you could use the following:
-
-.. code-block:: python
-
-    [[set_jobs]]
-    ncclimo = 5, 20
-    timeseries = 20
-    amwg = 20
-    aprime_diags = 20
-    e3sm_diags = 5
-
-
-E3SM Diags
-----------
-Each of the jobs has their own configuration options. The E3SM options available are:
-    * host_directory: the name that should be used when hosting this job. e.g. e3sm_diags
-    * backend: the plotting backend, either vcs or mpl
-    * seasons: Which seasoms to run on (any or all) DJF, MAM, JJA, SON, ANN
-    * reference_data_path: the path to reference data, e.g. /p/cscratch/acme/data/obs_for_acme_diags
-    * sets: which plot sets should be produced (any or all) 3, 4, 5, 7, 13
-
-Transfer
---------
-    * destination_endpoint: The globus endpoint ID of the local machine (the transfer destination when moving from the remote server).
-    * source_endpoint: The Globus endpoint ID for the remote host
-
-AMWG
-----
-    * diag_home: The code path to where amwg is installed.
-    * host_directory: the directory name to use when hosting the amwg output. e.g. amwg
-
-Ncclimo
--------
-    * regrid_map_path: The path to the regrid map. On acme1 the ne30 to fv129x256 map is located at /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
-    * var_list: This is a list of variables to extract as time series files when running the timeseries job.
-
-APrime Diags
-------------
-    * host_directory: the directory name to use when hosting the amwg output. e.g. aprime
-    * aprime_code_path: the path to where the aprime repository has been cloned. On acme1 it can be found at /p/cscratch/acme/data/a-prime
-    * test_atm_res: The native atm grid name
-    * test_mpas_mesh_name: The native mpas grid name

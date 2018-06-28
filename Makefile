@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = acme_processflow
+SPHINXPROJ    = processflow
 SOURCEDIR     = source
 BUILDDIR      = docs
 
