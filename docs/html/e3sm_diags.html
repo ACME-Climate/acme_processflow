@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Globus Transfer &mdash; processflow 2.0.0-beta1 documentation</title>
+  <title>ACME Diagnostic &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
   
@@ -35,9 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
-        <link rel="next" title="AMWG Diagnostic" href="amwg.html"/>
-        <link rel="prev" title="Run Configuration" href="configuration.html"/> 
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,15 +89,11 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Globus Transfer</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
@@ -148,13 +142,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Globus Transfer</li>
+      <li>ACME Diagnostic</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/transfer.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/e3sm_diags.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,40 +161,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="globus-transfer">
-<h1>Globus Transfer<a class="headerlink" href="#globus-transfer" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://www.globus.org/">Globus</a> is a tool for the bulk site to site transfer or large datasets.</p>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>You will need to find the globus node UUIDs for your source and destination nodes. They can be found by logging into Globus <a class="reference external" href="https://www.globus.org/app/login">here</a>,
-navigating to Endpoints in the upper right, searching for the DTN and looking for its UUID in the node attributes.</p>
+  <div class="section" id="acme-diagnostic">
+<h1>ACME Diagnostic<a class="headerlink" href="#acme-diagnostic" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://github.com/ACME-Climate/acme_diags">E3SM Diags</a> is the Diagnostic
+ploting software made at LLNL to modernize many of the features of AMWG.</p>
+<p>These are the relavent configuration options for e3sm_diags.
+Configuration
+————-</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="o">...</span>
-<span class="c1"># The directory to store model output on the local machine</span>
-<span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
+<span class="o">...</span>
+<span class="n">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>
+<span class="o">...</span>
 
-<span class="c1"># This is the remote path to the run directory for your experiment. For example if your simulation was run on edison</span>
-<span class="c1"># the path would look something like</span>
-<span class="c1"># /scratch2/scratchdirs/golaz/ACME_simulations/20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison</span>
-<span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">SOME</span><span class="o">/</span><span class="n">PATH</span><span class="o">/</span><span class="n">TO</span><span class="o">/</span><span class="n">AN</span><span class="o">/</span><span class="n">EXPERIMENT</span><span class="o">/</span>
+<span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+    <span class="n">ncclimo</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
+    <span class="n">e3sm_diags</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">some_length</span><span class="o">&gt;</span>
 
-<span class="p">[</span><span class="n">transfer</span><span class="p">]</span>
-<span class="c1"># The Globus endpoint ID for the local host</span>
-<span class="n">destination_endpoint</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
+<span class="p">[</span><span class="n">e3sm_diags</span><span class="p">]</span>
+<span class="c1"># The directory to copy output to for web hosting</span>
+<span class="c1"># This path is relative to the global host_prefix</span>
+<span class="n">host_directory</span> <span class="o">=</span> <span class="n">e3sm</span><span class="o">-</span><span class="n">diags</span>
 
-<span class="c1"># The Globus endpoint ID for the remote host</span>
-<span class="n">source_endpoint</span> <span class="o">=</span> <span class="n">b9d02196</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>
+<span class="c1"># ACME diags can use several backends to generate plots, currently matplotlib (mpl) and vcs (vcs) are supported.</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
+
+<span class="c1"># seasons list to generate plots for</span>
+<span class="n">seasons</span> <span class="o">=</span> <span class="n">DJF</span><span class="p">,</span> <span class="n">MAM</span><span class="p">,</span> <span class="n">JJA</span><span class="p">,</span> <span class="n">SON</span><span class="p">,</span> <span class="n">ANN</span>
+
+<span class="c1"># path to observation data</span>
+<span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+
+<span class="c1"># list of diagnostic sets to run</span>
+<span class="n">sets</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span>
 </pre></div>
-</div>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The data transfer job is the base job that starts all runs (unless you already have your data local). The acme_processflow will automatically
-generate transfer jobs dynamically as the monitor detects files on the remote host. This means you can start the acme_processflow at the same
-time you start the simulation, and it will wait for data to be generated and transfer it as it is created.</p>
-<p>Once you start your run, if the source and destination nodes have not been activated with your credentials you will be prometed to
-log into Globus and activate the nodes. If you’re running in headless mode, you will be sent an email with activation links, and the workflow
-will pause until you finish the activation process.</p>
+<p>The ACME diagnostic is very similar to AMWG but more modern. It has the same data requirement that ncclimo produce regridded climatologies. As such, for each year_set that e3sm_diags runs, ncclimo must also run.</p>
 </div>
 </div>
 
@@ -211,15 +210,6 @@ will pause until you finish the activation process.</p>
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="amwg.html" class="btn btn-neutral float-right" title="AMWG Diagnostic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="configuration.html" class="btn btn-neutral" title="Run Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

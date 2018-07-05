@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Installation &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="processflow 1.0.0-rc5 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
         <link rel="next" title="Quick Start" href="quickstart.html"/>
         <link rel="prev" title="Processflow’s documentation" href="index.html"/> 
 
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                2.0.0
               </div>
             
           
@@ -81,19 +87,21 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#note">Note:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -107,8 +115,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">processflow</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">processflow</a>
+        
       </nav>
 
 
@@ -117,23 +127,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Installation</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -149,11 +176,11 @@
 <li><a class="reference external" href="https://www.ncl.ucar.edu/(onlyrequiredifrunningAMWG)">NCL</a></li>
 <li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps(onlyrequiredifhostingimages)">APACHE</a></li>
 </ul>
-<p>Once these are setup, the installation for the processflow is straightforward. If you&#8217;re running on acme1, aims4, or Edison you shouldnt have to setup
-any of these services as they should all be running. If you&#8217;re running and already have your data local, you dont need globus.</p>
+<p>Once these are setup, the installation for the processflow is straightforward. If you’re running on acme1, aims4, or Edison you shouldnt have to setup
+any of these services as they should all be running. If you’re running and already have your data local, you dont need globus.</p>
 <div class="section" id="note">
 <h2>Note:<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
-<p>All these commands assume you&#8217;re using a bash environment. Other shells may not work correctly with conda</p>
+<p>All these commands assume you’re using a bash environment. Other shells may not work correctly with conda</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>conda create --name &lt;SOME_ENVIRONMENT_NAME&gt; -c e3sm -c conda-forge -c cdat processflow
 conda activate &lt;SOME_ENVIRONMENT_NAME&gt;
 </pre></div>
@@ -172,15 +199,18 @@ conda activate &lt;SOME_ENVIRONMENT_NAME&gt;
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Processflow’s documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Processflow’s documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -211,10 +241,11 @@ conda activate &lt;SOME_ENVIRONMENT_NAME&gt;
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0-rc5',
+            VERSION:'2.0.0-beta1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -1,139 +1,409 @@
 .. _configuration:
 
-*************
-Configuration
-*************
+*****************
+Run Configuration
+*****************
 
-This guide goes through each one of the options in the run configuration file.
 
-Project Path
-------------
-The project_path is the root directory for your processflow run on your local machine. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
-If you like, you can pre-stage your data (for example if your machine doesnt have a globus node) under <project_path>/input/<data_type>
+Run configuration is broken into 6 major sections:
 
-Source Path
+    * :ref:`global_config`  options used by all components
+    * :ref:`img_hosting` options used for hosting diagnostic output
+    * :ref:`simulations` options related to each case being run, and how case-vs-case comparisons should be configured
+    * :ref:`post-processing` all options related to post processing jobs
+    * :ref:`diags` all options related to diagnostic runs
+    * :ref:`data_types` definitions of which data types are required, and how to find data files
+
+.. _global_config:
+
+global
+------
+
+The global section has the following keys: 
+    * project_path: This is the base of the project directory tree. All input and output will be stored here under /input/ and /output/
+    * email: This is an email address to send notification emails to
+    * native_grid_cleanup: This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete
+    * local_globus_uuid: The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers
+
+**example**
+::
+
+        [global]
+            project_path = /path/to/local/project
+            email = YOUREMAIL@INSTITUTION.DOMAIN
+            native_grid_cleanup = False
+            local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b
+
+.. _img_hosting:
+
+img_hosting
 -----------
-The source_path is the location of your data on the remote machine. This is the path on the remote machine that created the model output. If running from local pre-staged data this key should still be set, but should be set to the local path of the data.
 
-Short Term Archive
-------------------
-This should be turned on (1) if the remote data source has had short term archiving run on the model data. Otherwise turn off (0).
+This is an optional section, only needed if the user would like to turn on web hosting for diagnostic plot output. To turn this off, simply remove this section from the configuration.
+    * img_host_server: The base url of the webserver, used for constructing the notification email links.
+    * host_directory: The base directory for where to put output for web hosting, the user must have write permission here. Directories will be created for each simulation case, with jobs for the case stored below it.
+    * url_prefix: Notification urls are constructed as https://{img_host_server}/{url_prefix}/{case}/{diagnostic}
 
-Simulation Start Year
----------------------
-The simulation_start_year is the first year of data to move and process. This doesnt have to be the first year of model data produced, it just has to be any number between 1 and the last year of data.
+**example**
+::
 
-Simulation End Year
--------------------
-The simulation_start_year key is the last year of model data to process. It doesnt have to be the last year of produced data, and can be any positive number. If the model is still running 
-and the simulation_end_year is larger then the latest year produced, the processflow will wait as the data is generated and run jobs once the data is ready.
+        [img_hosting]
+            img_host_server = your-web-server.institution.domain
+            host_directory = /path/to/where/you/host/your/files/
+            url_prefix = /any/prefix/you/need/
 
-Experiment
-----------
-The experiment key is the name of the experiment and is used to find all the input data files. This should be the prefix to the model output files, e.g. if your datafiles are named
-"20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.cam.h0.0100-12.nc," the experiment would be "20171122.beta3rc10_1850.ne30_oECv3_ICG.edison."
+.. _simulations:
 
-Short name
-----------
-A short name for the experiment that will be used in the AMWG and E3SM diags plots.
+simulations
+-----------
 
-Set Frequency
--------------
-The set_frequency are the year lengths that the jobs will be run on. This can be one number or a list of numbers, for example set_frequency = 5, 20 would setup jobs to run
-every 5 years as well as every 20 years.
+This section is used for configuring each case. As many cases can be placed here as the user would like. 
+The cases can be very different from each other, use different naming conventions (see data_types), and have their data stored in different file structures. 
+The one thing they must all share in common is the start_year and end_year.
 
-Email
+    * start_year: the first year of data to be used. For example, if start_year is set to 5, then files with years >= 5 && <= end_year will be concidered as part of the data set.
+    * end_year: the last year of data. For example if end_year is 10, then files with years >= start_year && <= 10 will be concidered as part of the dataset.
+
+**Each case must exist in its own config section, denoted by [[CASEID]] the double brackets are important.**
+
+    * [[CASEID]] this should be the full case name e.g. [[20180129.DECKv1b_piControl.ne30_oEC.edison]]
+    * short_name: a nice short name for the case, this can be any string identifier for this case
+    * native_grid_name: the name of the native grid used in the land and atmospheric components
+    * native_mpas_grid_name: the name of the mpas grid
+    * data_types: which data types should be copied for this case, this must include all data_types needed for jobs this case will be running. Can be set to 'all' to mean all data types described in the data_types section
+    * job_types: which of the job types should be run on this case. Use the keyword 'all' to run all defined jobs on this case.
+
+**If running diagnostic jobs, the following section must be included: [[comparisons]]**
+    
+This is the list of comparisons between for each case. 
+Each case running diagnostics should have an entry here, followed by which other cases it should be compared to. 
+This can include the keywords 'all' for all possible comparisons, or 'obs' for model-vs-obs comparisons. The 'all' keyword will add comparisons with each other case as well as model-vs-obs.
+    
+example:
+    * case_1: obs , case_2
+    * case_2: case_3
+    * case_3: all
+
+In this example the following comparison diagnostics jobs will be generated:
+    * case_1-vs-obs, case_1-vs-case_2
+    * case_2-vs-case_3
+    * case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs
+
+Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.
+
+
+**transfer_type**
+Each simulated case needs to have a transfer type. Transfer_type can be one of three different values, which force certain values to be included for the case:
+
+    * 'local' --> the case must then also have 'local_path,' which is then used to specify the location for each datatype in the data_types section
+    * 'sftp' --> the case must then also have 'remote_hostname,' which is the remote server to connect to and 'remote_path'
+    * 'globus' --> the case must then also have 'remote_uuid,' which is the globus unique identifier for the remote node, and 'remote_path'. The 'global' section should also include the 'local_globus_uuid' key.
+
+**example**
+::
+
+        [simulations]
+            start_year = 1
+            end_year = 2
+            [[20180129.DECKv1b_piControl.ne30_oEC.edison]]
+                transfer_type = globus
+                remote_uuid = 9d6d994a-6d04-11e5-ba46-22000b92c6ec
+                remote_path = /global/homes/r/renata/ACME_simulations/20180129.DECKv1b_piControl.ne30_oEC.edison
+                short_name = piControl
+                native_grid_name = ne30
+                native_mpas_grid_name = oEC60to30v3
+                data_types = all
+                job_types = all
+            [[20180215.DECKv1b_1pctCO2.ne30_oEC.edison]]
+                transfer_type = sftp
+                remote_hostname = edison.nersc.gov
+                remote_path = /global/homes/r/renata/ACME_simulations/20180215.DECKv1b_1pctCO2.ne30_oEC.edison
+                short_name = 1pctCO2
+                native_grid_name = ne30
+                native_mpas_grid_name = oEC60to30v3
+                data_types = all
+                job_types = all
+            [[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]
+                transfer_type = local
+                local_path = /p/user_pub/e3sm/baldwin32/deck/v1_DECK_abrupt-4xCO2/input
+                short_name = abrupt4xCO2
+                native_grid_name = ne30
+                native_mpas_grid_name = oEC60to30v3
+                data_types = atm, lnd
+                job_types = e3sm_diags, amwg, climo
+            [[comparisons]]
+                20180129.DECKv1b_piControl.ne30_oEC.edison = obs
+                20180215.DECKv1b_1pctCO2.ne30_oEC.edison = 20180129.DECKv1b_piControl.ne30_oEC.edison
+                20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison = all
+
+
+.. _post-processing:
+
+Post processing
+---------------
+
+This section of the config is used to configure all post processing jobs. Supported job types are:
+
+    * :ref:`climo`
+    * :ref:`timeseries`
+    * :ref:`regrid`
+
+.. _climo:
+
+Climo
 -----
-The email address to send notifications to when all processing is complete, leave commented out to turn off.
 
-Native Grid Cleanup
--------------------
-If turned on (1) the native_grid_cleanup option will cause native grid climatology files to be discarded after a successful run. To keep the native grid files, turn the option off (0).
+Produces regridded climatologies using ncclimo. Requires the 'atm' data type.
 
-Native Grid Name
-----------------
-The native_grid_name should be the name of the native grid, but can be any name for the directory that holds native grid files. 
+**example**
 
-Remap Grid Name
----------------
-The remap_grid_name should be the name of the remapped grid, but can be any name for the directory that holds the regridded file.
+::
 
-Img Host Server
----------------
-The url prefix for the server that will be hosting the diagnostic plots, e.g. https://acme-viewer.llnl.gov for acme1.llnl.gov.
+        [post-processing]
+            [[climo]]
+                run_frequency = 2
+                destination_grid_name = fv129x256
+                regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
 
-Host Directory
---------------
-The path the processflow should copy diagnostic plots to so they can be hosted. This is whatever directory apache has been configured to host files from.
+.. _timeseries:
 
-File Types
+Timeseries
 ----------
-The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
-Accepted file types are: 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport', 'lnd'. Data types map to the following directories
 
-.. code-block:: bash
-    ├── atm
-    │   └── CASE_ID.cam.h0.YYYY-MM.nc
-    ├── ice
-    │   └── mpascice.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-    ├── lnd
-    │   └── CASE_ID.clm2.h0.YYYY-MM.nc
-    ├── mpas
-    │   ├── mpas-cice_in
-    │   ├── mpaso.hist.am.meridionalHeatTransport.YYYY-MM-DD.nc
-    │   ├── mpas-o_in
-    │   ├── streams.cice
-    │   └── streams.ocean
-    ├── ocn
-    │   └── mpaso.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-    └── rest
-        ├── mpascice.rst.YYYY-MM-DD_00000.nc
-        └── mpaso.rst.YYYY-MM-DD_00000.nc
+Produces single-variable-per-file timeseries files from monthly model output files. Optionally regrids the timeseries output files.
 
+**example**
 
-Set Jobs
---------
-The set_jobs section is where you configure which jobs will be run on which year sets. For each job, list which year sets you would like it to be run on.
-For example if you had used the set_frequency key to create 5 and 20 year sets, and you wanted all the diagnostics run on the 20 years, but only e3sm_diags on the 5 years
-then you could use the following:
+::
 
-.. code-block:: python
+        [post-processing]
+            [[timeseries]]
+                run_frequency = 2
+                destination_grid_name = fv129x256
+                regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+                lnd = SOILICE, SOILLIQ, SOILWATER_10CM, QINTR, QOVER, QRUNOFF, QSOIL, QVEGT, TSOI
+                atm = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
 
-    [[set_jobs]]
-    ncclimo = 5, 20
-    timeseries = 20
-    amwg = 20
-    aprime_diags = 20
-    e3sm_diags = 5
+.. _regrid:
 
+Regrid
+------
 
-E3SM Diags
-----------
-Each of the jobs has their own configuration options. The E3SM options available are:
-    * host_directory: the name that should be used when hosting this job. e.g. e3sm_diags
-    * backend: the plotting backend, either vcs or mpl
-    * seasons: Which seasoms to run on (any or all) DJF, MAM, JJA, SON, ANN
-    * reference_data_path: the path to reference data, e.g. /p/cscratch/acme/data/obs_for_acme_diags
-    * sets: which plot sets should be produced (any or all) 3, 4, 5, 7, 13
+Translates model output files from one grid into another.
 
-Transfer
---------
-    * destination_endpoint: The globus endpoint ID of the local machine (the transfer destination when moving from the remote server).
-    * source_endpoint: The Globus endpoint ID for the remote host
+**example**
+
+::
+
+    [post-processing]
+        [[regrid]]
+            [[[lnd]]]
+                source_grid_path = /export/zender1/data/grids/ne30np4_pentagons.091226.nc
+                destination_grid_path = /export/zender1/data/grids/129x256_SCRIP.20150901.nc
+                destination_grid_name = fv129x256
+            [[[atm]]]
+                regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+                destination_grid_name = fv129x256
+            [[[ocn]]]
+                regrid_map_path = ~/grids/map_oEC60to30v3_to_0.5x0.5degree_bilinear.nc
+                destination_grid_name = 0.5x0.5degree_bilinear
+
+.. _diags:
+
+Diags
+-----
+
+This section contains all config options for diagnostic jobs. Currently supported diagnostics are:
+
+    * :ref:`amwg`
+    * :ref:`e3sm_diags`
+    * :ref:`aprime`
+
+.. _amwg:
 
 AMWG
 ----
-    * diag_home: The code path to where amwg is installed.
-    * host_directory: the directory name to use when hosting the amwg output. e.g. amwg
 
-Ncclimo
--------
-    * regrid_map_path: The path to the regrid map. On acme1 the ne30 to fv129x256 map is located at /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
-    * var_list: This is a list of variables to extract as time series files when running the timeseries job.
+The AMWG diagnostic suite needs the 'atm' data type, and the 'climo' job type
 
-APrime Diags
-------------
-    * host_directory: the directory name to use when hosting the amwg output. e.g. aprime
-    * aprime_code_path: the path to where the aprime repository has been cloned. On acme1 it can be found at /p/cscratch/acme/data/a-prime
-    * test_atm_res: The native atm grid name
-    * test_mpas_mesh_name: The native mpas grid name
+**example**
+
+::
+
+    [diags]
+        [[amwg]]
+            run_frequency = 2
+            diag_home = /p/cscratch/acme/amwg/amwg_diag
+
+.. _e3sm_diags:
+
+e3sm_diags
+----------
+
+The e3sm_diags suite needs the 'atm' data type, and the 'climo' job type.
+
+**example**
+
+::
+
+        [diags]
+            run_frequency = 2
+            backend = mpl
+            reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
+
+.. _aprime:
+
+Aprime
+------
+
+The aprime diagnostic suite requires the following data types, and no job types:
+    * atm
+    * cice
+    * cice_restart
+    * cice_streams
+    * cice_in
+    * ocn
+    * ocn_restart
+    * ocn_streams
+    * ocn_in
+    * meridionalHeatTransport
+
+**example**
+
+::
+
+        [diags]
+            [[aprime]]
+                run_frequency = 2
+                aprime_code_path = /p/cscratch/acme/data/a-prime
+
+.. _data_types:
+
+Data types
+----------
+
+This section defines each of the data types for your jobs. Each data type is denoted by creating a new config section using double brackets [[new_data_type]].
+Each section then has four keys. The values in these keys can contain a set of keywords that are used to substitute values at run time. For example, the REMOTE_PATH keyword
+pulls in remote_path from the simulation config and substitures it. For example, a new data type could be specified using:
+
+::
+
+        [simulations]
+            start_year = 22
+            end_year = 44
+            [[some-case-id]]
+                remote_path = /export/my_user/model-output/my-case
+
+        [data_types]
+            [[my_new_custom_type]]
+                remote_path = 'REMOTE_PATH/archive/custom_component/hist'
+                file_format = 'CASEID.custom.value.YEAR-MONTH.nc'
+                local_path = '/my/custom/local/path/'
+                monthly = True
+
+This would create a new data type called "my_new_custom_type." The processflow would then take the cases "remote_path" and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
+/export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc
+
+The keywords you can use for substitution are:
+    * REMOTE_PATH: pulled from the simulation.case.remote_path
+    * PROJECT_PATH: pulled from global.project_path
+    * CASEID: pulled from simulations.case
+    * YEAR: created as a range from simulation.start_year to simulation.end_year if the data_type is marked as monthly
+    * MONTH: created as a range from 1 to 12 if the data_type is marked as monthly
+    * REST_YR: this is the "restart year," which is simulations.start_year + 1
+
+The four mandatory sections for each data type (remote_path, file_format, local_path, monthly) are applied to each case. Case specific options are allowed, and allow you to create user defined substutions.
+Simply add the caseid as a new section to the data_type section, and add your case specific keywords. These values for these keywords are then pulled from the simulation.caseid section. For example:
+
+::
+
+    [simulations]
+        start_year = 1
+        end_year = 2
+        [[my-fancy-case]]
+            my_custom_keyword = 'isnt-this-nice'
+            remote_path = /export/my_user/model-output/my-case
+        [[perfectly-ordinary-case]]
+            remote_path = /export/my_user/model-output/my-second-case
+
+    [data_types]
+        [[my_new_custom_type]]
+            remote_path = 'REMOTE_PATH/archive/custom_component/hist'
+            file_format = 'CASEID.custom.value.YEAR-MONTH.nc'
+            local_path = '/my/custom/local/path/'
+            monthly = True
+            [[[my-fancy-case]]]
+                remote_path = 'REMOTE_PATH/MY_CUSTOM_KEYWORD/CASEID'
+
+In this example the data type my_new_custom_type would specify that files coming from the case my-fancy-case would have the remote path:
+
+| {remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}
+| /export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case
+|
+
+
+
+**example**
+
+::
+
+    [data_types]
+        [[atm]]
+            remote_path = 'REMOTE_PATH/archive/atm/hist'
+            file_format = 'CASEID.cam.h0.YEAR-MONTH.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/atm'
+            monthly = True
+            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
+                local_path = 'LOCAL_PATH/atm'
+        [[lnd]]
+            remote_path = 'REMOTE_PATH/archive/lnd/hist'
+            file_format = 'CASEID.clm2.h0.YEAR-MONTH.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/lnd'
+            monthly = True
+            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
+                local_path = 'LOCAL_PATH/lnd'
+        [[cice]]
+            remote_path = 'REMOTE_PATH/archive/ice/hist'
+            file_format = 'mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/ice'
+            monthly = True
+        [[ocn]]
+            remote_path = 'REMOTE_PATH/archive/ocn/hist'
+            file_format = 'mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/ocn'
+            monthly = True
+        [[ocn_restart]]
+            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
+            file_format = 'mpaso.rst.REST_YR-01-01_00000.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            monthly = False
+        [[cice_restart]]
+            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
+            file_format = 'mpascice.rst.REST_YR-01-01_00000.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            monthly = False
+        [[ocn_streams]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'streams.ocean'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[cice_streams]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'streams.cice'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[ocn_in]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'mpas-o_in'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[cice_in]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'mpas-cice_in'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[meridionalHeatTransport]]
+            remote_path = 'REMOTE_PATH/archive/ocn/hist'
+            file_format = 'mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False

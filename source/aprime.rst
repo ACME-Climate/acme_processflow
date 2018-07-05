@@ -1,14 +1,31 @@
 ******************
-A-Prime Diagnostic
+APrime Diagnostics
 ******************
 
-`A-Prime <https://github.com/ACME-Climate/a-prime>`_ runs a subset of atmospheric plots, as well
-as the MPAS ocean analysis including ENSO diagnostics.
+`APrime <https://github.com/ACME-Climate/a-prime>`_ runs a subset of atmospheric plots, as well
+as the MPAS ocean analysis, including ENSO diagnostics.
 
-Configuration
--------------
+Prerequsite jobs and data
+-------------------------
 
-The A-Prime diagnostics required significantly more data then other diagnostic packages.
+Aprime diagnostics requires the following data types, and has no job type prerequsites:
+
+    * atm
+    * cice
+    * cice_restart
+    * cice_streams
+    * cice_in
+    * ocn
+    * ocn_restart
+    * ocn_streams
+    * ocn_in
+    * meridionalHeatTransport
+
+
+Sample Configuration
+--------------------
+
+See :doc:`configuration` for an explanation of each config option.
 
 .. code-block:: python
 
@@ -39,10 +56,7 @@ The A-Prime diagnostics required significantly more data then other diagnostic p
     [diags]
         [[aprime]]
             run_frequency = 2
-            host_directory = aprime-diags
             aprime_code_path = /p/cscratch/acme/data/a-prime
-            test_atm_res = ne30
-            test_mpas_mesh_name = oEC60to30v3
     
     [data_types]
         [[atm]]
@@ -118,15 +132,13 @@ The A-Prime diagnostics required significantly more data then other diagnostic p
 
 * [post-processing]: the config group for all post processing jobs
 * [[climo]]: The config group for generating climatologies
-* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then 
-climatology jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
+* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then climatology jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
 * regrid_map_path: The path a the appropriate regrid map file.
 * destination_grid_name: name of the destination grid, used to create the directory the regridded output is stored in, this can be any string.
 
 * [diags]: The config group for all diagnostic jobs
 * [[amwg]]: The config group for amwg jobs
-* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then 
-amwg jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
+* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then amwg jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
 
 * [data_types]: The config group to declare and define data types. For more detail see the data_types doc page.
 * [[atm]]: This is a special data type for atmospheric data. 
@@ -134,10 +146,3 @@ amwg jobs will be generated for each 5 years, 10 years, and 50 year set. For 100
 * file_format: This is the format for how to render the file name.
 * local_path: This denotes where to store the file on the local machine.
 * monthly: A boolean flag (should be either True or False) for if this is monthly output or a one-off file.
-
-
-Dependencies
-------------
-
-For the MPAS analysis to run, A-Prime needs atmospheric as well as all the MPAS ocean files. Because it computes its own climatologies it does
-not require ncclimo to run first.

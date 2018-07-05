@@ -4,6 +4,12 @@ AMWG Diagnostic
 
 The `AMWG Diagsnostic <http://www.cesm.ucar.edu/working_groups/Atmosphere/amwg-diagnostics-package/>`_ is the standard atmospheric diagnostic package.
 
+Prerequsite jobs and data
+-------------------------
+
+AMWG requires the 'atm' data type, and the 'climo' job type.
+
+
 Sample Configuration
 --------------------
 
@@ -76,15 +82,13 @@ a whole set of jobs at different years, or on many cases.
 
 * [post-processing]: the config group for all post processing jobs
 * [[climo]]: The config group for generating climatologies
-* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then 
-climatology jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
+* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then climatology jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
 * regrid_map_path: The path a the appropriate regrid map file.
 * destination_grid_name: name of the destination grid, used to create the directory the regridded output is stored in, this can be any string.
 
 * [diags]: The config group for all diagnostic jobs
 * [[amwg]]: The config group for amwg jobs
-* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then 
-amwg jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
+* run_frequency: This can be a single integer or a list of integers. It denotes the frequencies that the amwg job should be run. For example if set to 5, 10, 50, then amwg jobs will be generated for each 5 years, 10 years, and 50 year set. For 100 years of data there would be 20 sets of 5 yeas, 10 sets of 10 years, and 2 sets of 50 years.
 
 * [data_types]: The config group to declare and define data types. For more detail see the data_types doc page.
 * [[atm]]: This is a special data type for atmospheric data. 

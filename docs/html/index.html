@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processflow’s documentation &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Processflow’s documentation &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="processflow 1.0.0-rc5 documentation" href="#"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="#"/>
         <link rel="next" title="Installation" href="installation.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                1.0.0
+                2.0.0
               </div>
             
           
@@ -80,16 +86,19 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -103,8 +112,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">processflow</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">processflow</a>
+        
       </nav>
 
 
@@ -113,63 +124,78 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>Processflow&#8217;s documentation</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Processflow’s documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="processflow-s-documentation">
-<h1>Processflow&#8217;s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Processflow’s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-the-processflow">
 <h2>What is the processflow?<a class="headerlink" href="#what-is-the-processflow" title="Permalink to this headline">¶</a></h2>
-<p>The processflow is a command line tool to automatically run post processing jobs for E3SM model output.</p>
+<p>The processflow is a command line tool to automatically run post processing and diagnostic jobs for E3SM model output.</p>
 <p>The tool takes a single configuration files and runs a series of data transfer
-and processing jobs on any amount of model output, running the jobs on any number of set lengths. The output
-doesn&#8217;t have to exist before the tool is run, meaning it can be started at the same time as the model and as data is
-generated it will transfer, and start the processing and diagnostics as soon as the first complete set is available.</p>
-<p>Transfer jobs will be generated to match the data requirements of the processing jobs, and the processing jobs will
-wait to run until after the data has been made available. Once the diagnostics complete, the tool transfers the plots to a hosting directory,
+and processing jobs on any amount of model output, running the jobs on any number of set lengths.</p>
+<p>Transfer jobs will be generated to match the data requirements of the processing jobs, and the processflow will wait
+to run jobs until after the data transfer has completed. Once the diagnostics complete, the tool transfers the plots to a hosting directory,
 and emails links with the completed output to the user.</p>
 <p><strong>Jobs:</strong></p>
 <ul class="simple">
 <li>Globus Transfer</li>
-<li>AMWG diagnostic</li>
-<li>Regridding and Climatologies</li>
+<li>Regridded climatology generation</li>
 <li>Time series variable extraction</li>
+<li>atm, lnd, and ocn regridding</li>
+<li>AMWG diagnostic</li>
 <li>A-Prime diagnostic</li>
 <li>E3SM diags</li>
 </ul>
-<p>Each job has a set of dependent jobs it waits to finish before running, for example E3SM diags will wait for ncclimo to complete.</p>
-<p><strong>Shell</strong></p>
-<p>All commands are written for BASH. If you&#8217;re using tcsh or zsh you will need to first run the <cite>bash</cite> command to enter a bash shell.</p>
-<p><strong>Dependencies:</strong></p>
+<p><strong>System Dependencies:</strong>
+If installing the processflow from scratch on a new system, the following utilities will need to be in place.
+Most systems that E3SM runs on should already have these installed.</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
 <li><a class="reference external" href="https://slurm.schedmd.com/">Slurm</a></li>
-<li><a class="reference external" href="https://www.globus.org/">Globus</a></li>
+<li><a class="reference external" href="https://www.globus.org/">Globus</a> (Only needed if using globus transfer)</li>
 <li><a class="reference external" href="https://www.ncl.ucar.edu/">NCL</a></li>
 <li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></li>
 <li>BASH</li>
 </ul>
-<div class="toctree-wrapper compound" id="contents">
-<p class="caption"><span class="caption-text">Contents:</span><a class="headerlink" href="#contents" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#note">Note:</a></li>
@@ -181,28 +207,19 @@ and emails links with the completed output to the user.</p>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#execution">Execution</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#project-path">Project Path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#source-path">Source Path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#short-term-archive">Short Term Archive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#simulation-start-year">Simulation Start Year</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#simulation-end-year">Simulation End Year</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#experiment">Experiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#short-name">Short name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#set-frequency">Set Frequency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#email">Email</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#native-grid-cleanup">Native Grid Cleanup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#native-grid-name">Native Grid Name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#remap-grid-name">Remap Grid Name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#img-host-server">Img Host Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#host-directory">Host Directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#file-types">File Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#set-jobs">Set Jobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#e3sm-diags">E3SM Diags</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#transfer">Transfer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#global">global</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#img-hosting">img_hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#simulations">simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#post-processing">Post processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#climo">Climo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#timeseries">Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#regrid">Regrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#diags">Diags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#amwg">AMWG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#ncclimo">Ncclimo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#aprime-diags">APrime Diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#e3sm-diags">e3sm_diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#aprime">Aprime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#data-types">Data types</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a><ul>
@@ -211,7 +228,8 @@ and emails links with the completed output to the user.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="amwg.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="amwg.html#prerequsite-jobs-and-data">Prerequsite jobs and data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="amwg.html#sample-configuration">Sample Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amwg.html#dependencies">Dependencies</a></li>
 </ul>
 </li>
@@ -220,13 +238,13 @@ and emails links with the completed output to the user.</p>
 <li class="toctree-l2"><a class="reference internal" href="ncclimo.html#dependencies">Dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aprime.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="aprime.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aprime.html#prerequsite-jobs-and-data">Prerequsite jobs and data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aprime.html#sample-configuration">Sample Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="acme_diags.html#dependencies">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="e3sm_diags.html#dependencies">Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
@@ -237,63 +255,62 @@ and emails links with the completed output to the user.</p>
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
 <p>During the processflow run it will create the required input/output directories based on the project_path config option. The only file that needs to be in place before the run is the config file for that run, which
 will be copied into the input directory. Once the run has completed the directories will have the following structure:</p>
-<p>( this example was run with all the diagnostics on 100 years with frequency = 5, 100, with the ne30 and fv129x256 grids )
-.. code-block:: bash</p>
-<blockquote>
-<div><p>project_path
+<p>( this example was run with all the diagnostics on 100 years with frequency = 5, 100, with the ne30 and fv129x256 grids )</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>project_path
 ├── input
-│&nbsp;&nbsp; ├── atm
-│&nbsp;&nbsp; ├── ice
-│&nbsp;&nbsp; ├── mpas
-│&nbsp;&nbsp; ├── ocn
-│&nbsp;&nbsp; ├── processflow.db
-│&nbsp;&nbsp; ├── rest
-│&nbsp;&nbsp; └── run.cfg
-└── output</p>
-<blockquote>
-<div><p>├── diags
-│&nbsp;&nbsp; └── fv129x256
-│&nbsp;&nbsp;     ├── amwg
-│&nbsp;&nbsp;     ├── a-prime
-│&nbsp;&nbsp;     └── e3sm_diags
-├── file_list.txt
-├── pp
-│&nbsp;&nbsp; ├── fv129x256
-│&nbsp;&nbsp; │&nbsp;&nbsp; ├── climo
-│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── 100yr
-│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── 5yr
-│&nbsp;&nbsp; │&nbsp;&nbsp; └── ts
-│&nbsp;&nbsp; │&nbsp;&nbsp;     └── monthly
-│&nbsp;&nbsp; │&nbsp;&nbsp;         ├── 100yr
-│&nbsp;&nbsp; │&nbsp;&nbsp;         └── 5yr
-│&nbsp;&nbsp; └── ne30
-│&nbsp;&nbsp;     ├── climo
-│&nbsp;&nbsp;     │&nbsp;&nbsp; ├── 100yr
-│&nbsp;&nbsp;     │&nbsp;&nbsp; └── 5yr
-│&nbsp;&nbsp;     └── ts
-│&nbsp;&nbsp;         └── monthly
-│&nbsp;&nbsp;             ├── 100yr
-│&nbsp;&nbsp;             └── 5yr
-├── run_scripts
-├── run_state.txt
-└── tmp</p>
-<blockquote>
-<div>├── amwg
-├── aprime
-└── e3sm_diags</div></blockquote>
-</div></blockquote>
-</div></blockquote>
+│   ├── atm
+│   ├── ice
+│   ├── mpas
+│   ├── ocn
+│   ├── processflow.db
+│   ├── rest
+│   └── run.cfg
+└── output
+    ├── diags
+    │   └── fv129x256
+    │       ├── amwg
+    │       ├── a-prime
+    │       └── e3sm_diags
+    ├── file_list.txt
+    ├── pp
+    │   ├── fv129x256
+    │   │   ├── climo
+    │   │   │   ├── 100yr
+    │   │   │   └── 5yr
+    │   │   └── ts
+    │   │       └── monthly
+    │   │           ├── 100yr
+    │   │           └── 5yr
+    │   └── ne30
+    │       ├── climo
+    │       │   ├── 100yr
+    │       │   └── 5yr
+    │       └── ts
+    │           └── monthly
+    │               ├── 100yr
+    │               └── 5yr
+    ├── run_scripts
+    ├── run_state.txt
+    └── tmp
+        ├── amwg
+        ├── aprime
+        └── e3sm_diags
+</pre></div>
+</div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -325,10 +342,11 @@ will be copied into the input directory. Once the run has completed the director
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0-rc5',
+            VERSION:'2.0.0-beta1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

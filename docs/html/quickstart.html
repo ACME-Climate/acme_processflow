@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Start &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Quick Start &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,8 +32,11 @@
   
 
   
-    <link rel="top" title="processflow 1.0.0-rc5 documentation" href="index.html"/>
-        <link rel="next" title="Configuration" href="configuration.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
+        <link rel="next" title="Run Configuration" href="configuration.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
   
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                2.0.0
               </div>
             
           
@@ -81,7 +87,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
@@ -90,12 +99,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -109,8 +118,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">processflow</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">processflow</a>
+        
       </nav>
 
 
@@ -119,23 +130,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Quick Start</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Quick Start</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/quickstart.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -189,41 +217,32 @@ e3sm_diags = 10</dd>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py [-h] [-c CONFIG] [-v] [-u] [-l LOG] [-n] [-m] [-s] [-f]
-                  [-r RESOURCE_DIR] [-i INPUT_PATH] [-o OUTPUT_PATH] [-a]
-                  [--custom-archive-path CUSTOM_ARCHIVE_PATH]
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span>
+                  <span class="o">[</span>-r RESOURCE_PATH<span class="o">]</span> <span class="o">[</span>-a<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>--dryrun<span class="o">]</span> <span class="o">[</span>-m MAX_JOBS<span class="o">]</span>
 
 optional arguments:
--h, --help            show this help message and exit
+-h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
 -c CONFIG, --config CONFIG
                         Path to configuration file.
 -v, --version         Print version informat and exit.
--u, --ui              Turn on the GUI.
 -l LOG, --log LOG     Path to logging output file.
--n, --no-host         Don&#39;t move output plots into the web host directory.
--m, --no-monitor      Don&#39;t run the remote monitor or move any files over
-                        globus.
--s, --no-scripts      Don&#39;t copy the case_scripts directory from the remote
+-s, --scripts         Copy the case_scripts directory from the remote
                         machine.
 -f, --file-list       Turn on debug output of the internal file_list so you
                         can see what the current state of the model files are
--r RESOURCE_DIR, --resource-dir RESOURCE_DIR
+-r RESOURCE_PATH, --resource-path RESOURCE_PATH
                         Path to custom resource directory
--i INPUT_PATH, --input-path INPUT_PATH
-                        Custom input path
--o OUTPUT_PATH, --output-path OUTPUT_PATH
-                        Custom output path
--a, --always-copy     Always copy diagnostic output, even if the output
+-a, --always-copy     Always copy diagnostic output, even <span class="k">if</span> the output
                         already exists in the host directory. This is much
                         slower but ensures old output will be overwritten
---custom-archive-path CUSTOM_ARCHIVE_PATH
-                        A custom remote archive path used for short term
-                        archiving. This will over rule the normal path
-                        interpolation when moving files. This option should
-                        only be used when short term archiving is turned on
+-d, --debug           Set log level to debug
+--dryrun              Do everything up to starting the jobs, but dont start
+                        any <span class="nb">jobs</span>
+-m MAX_JOBS, --max-jobs MAX_JOBS
+                        maximum number of running <span class="nb">jobs</span>
 </pre></div>
 </div>
-<p>Once you&#8217;ve configured your run, execute this command to start in interactive mode.</p>
+<p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>processflow.py -c run.cfg
 </pre></div>
 </div>
@@ -244,15 +263,18 @@ If the node needs to be activated you will be prompted, if your credentials are 
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Run Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -283,10 +305,11 @@ If the node needs to be activated you will be prompted, if your credentials are 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0-rc5',
+            VERSION:'2.0.0-beta1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

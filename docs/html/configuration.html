@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Run Configuration &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="processflow 1.0.0-rc5 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
         <link rel="next" title="Globus Transfer" href="transfer.html"/>
         <link rel="prev" title="Quick Start" href="quickstart.html"/> 
 
@@ -41,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                2.0.0
               </div>
             
           
@@ -81,39 +87,33 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#project-path">Project Path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source-path">Source Path</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#short-term-archive">Short Term Archive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simulation-start-year">Simulation Start Year</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simulation-end-year">Simulation End Year</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#experiment">Experiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#short-name">Short name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-frequency">Set Frequency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#email">Email</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#native-grid-cleanup">Native Grid Cleanup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#native-grid-name">Native Grid Name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#remap-grid-name">Remap Grid Name</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#img-host-server">Img Host Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#host-directory">Host Directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#file-types">File Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-jobs">Set Jobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#e3sm-diags">E3SM Diags</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#transfer">Transfer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Run Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#global">global</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#img-hosting">img_hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulations">simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-processing">Post processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#climo">Climo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeseries">Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regrid">Regrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diags">Diags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#amwg">AMWG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ncclimo">Ncclimo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#aprime-diags">APrime Diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#e3sm-diags">e3sm_diags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aprime">Aprime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-types">Data types</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -127,8 +127,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">processflow</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">processflow</a>
+        
       </nav>
 
 
@@ -137,194 +139,442 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Configuration</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Run Configuration</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/configuration.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
-<p>This guide goes through each one of the options in the run configuration file.</p>
-<div class="section" id="project-path">
-<h2>Project Path<a class="headerlink" href="#project-path" title="Permalink to this headline">¶</a></h2>
-<p>The project_path is the root directory for your processflow run on your local machine. All the input and output is stored by default under this directory. This can be a new directory, or one that already exists.
-If you like, you can pre-stage your data (for example if your machine doesnt have a globus node) under &lt;project_path&gt;/input/&lt;data_type&gt;</p>
-</div>
-<div class="section" id="source-path">
-<h2>Source Path<a class="headerlink" href="#source-path" title="Permalink to this headline">¶</a></h2>
-<p>The source_path is the location of your data on the remote machine. This is the path on the remote machine that created the model output. If running from local pre-staged data this key should still be set, but should be set to the local path of the data.</p>
-</div>
-<div class="section" id="short-term-archive">
-<h2>Short Term Archive<a class="headerlink" href="#short-term-archive" title="Permalink to this headline">¶</a></h2>
-<p>This should be turned on (1) if the remote data source has had short term archiving run on the model data. Otherwise turn off (0).</p>
-</div>
-<div class="section" id="simulation-start-year">
-<h2>Simulation Start Year<a class="headerlink" href="#simulation-start-year" title="Permalink to this headline">¶</a></h2>
-<p>The simulation_start_year is the first year of data to move and process. This doesnt have to be the first year of model data produced, it just has to be any number between 1 and the last year of data.</p>
-</div>
-<div class="section" id="simulation-end-year">
-<h2>Simulation End Year<a class="headerlink" href="#simulation-end-year" title="Permalink to this headline">¶</a></h2>
-<p>The simulation_start_year key is the last year of model data to process. It doesnt have to be the last year of produced data, and can be any positive number. If the model is still running
-and the simulation_end_year is larger then the latest year produced, the processflow will wait as the data is generated and run jobs once the data is ready.</p>
-</div>
-<div class="section" id="experiment">
-<h2>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h2>
-<p>The experiment key is the name of the experiment and is used to find all the input data files. This should be the prefix to the model output files, e.g. if your datafiles are named
-&#8220;20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.cam.h0.0100-12.nc,&#8221; the experiment would be &#8220;20171122.beta3rc10_1850.ne30_oECv3_ICG.edison.&#8221;</p>
-</div>
-<div class="section" id="short-name">
-<h2>Short name<a class="headerlink" href="#short-name" title="Permalink to this headline">¶</a></h2>
-<p>A short name for the experiment that will be used in the AMWG and E3SM diags plots.</p>
-</div>
-<div class="section" id="set-frequency">
-<h2>Set Frequency<a class="headerlink" href="#set-frequency" title="Permalink to this headline">¶</a></h2>
-<p>The set_frequency are the year lengths that the jobs will be run on. This can be one number or a list of numbers, for example set_frequency = 5, 20 would setup jobs to run
-every 5 years as well as every 20 years.</p>
-</div>
-<div class="section" id="email">
-<h2>Email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h2>
-<p>The email address to send notifications to when all processing is complete, leave commented out to turn off.</p>
-</div>
-<div class="section" id="native-grid-cleanup">
-<h2>Native Grid Cleanup<a class="headerlink" href="#native-grid-cleanup" title="Permalink to this headline">¶</a></h2>
-<p>If turned on (1) the native_grid_cleanup option will cause native grid climatology files to be discarded after a successful run. To keep the native grid files, turn the option off (0).</p>
-</div>
-<div class="section" id="native-grid-name">
-<h2>Native Grid Name<a class="headerlink" href="#native-grid-name" title="Permalink to this headline">¶</a></h2>
-<p>The native_grid_name should be the name of the native grid, but can be any name for the directory that holds native grid files.</p>
-</div>
-<div class="section" id="remap-grid-name">
-<h2>Remap Grid Name<a class="headerlink" href="#remap-grid-name" title="Permalink to this headline">¶</a></h2>
-<p>The remap_grid_name should be the name of the remapped grid, but can be any name for the directory that holds the regridded file.</p>
-</div>
-<div class="section" id="img-host-server">
-<h2>Img Host Server<a class="headerlink" href="#img-host-server" title="Permalink to this headline">¶</a></h2>
-<p>The url prefix for the server that will be hosting the diagnostic plots, e.g. <a class="reference external" href="https://acme-viewer.llnl.gov">https://acme-viewer.llnl.gov</a> for acme1.llnl.gov.</p>
-</div>
-<div class="section" id="host-directory">
-<h2>Host Directory<a class="headerlink" href="#host-directory" title="Permalink to this headline">¶</a></h2>
-<p>The path the processflow should copy diagnostic plots to so they can be hosted. This is whatever directory apache has been configured to host files from.</p>
-</div>
-<div class="section" id="file-types">
-<h2>File Types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
-<p>The file_types is a list of file types that are required to run the jobs. If running with only AMWG or E3SM, only atm files are required. All others are needed for aprime diags.
-Accepted file types are: &#8216;atm&#8217;, &#8216;ice&#8217;, &#8216;ocn&#8217;, &#8216;rest&#8217;, &#8216;streams.ocean&#8217;, &#8216;streams.cice&#8217;, &#8216;mpas-o_in&#8217;, &#8216;mpas-cice_in&#8217;, &#8216;meridionalHeatTransport&#8217;, &#8216;lnd&#8217;. Data types map to the following directories</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>├── atm
-│   └── CASE_ID.cam.h0.YYYY-MM.nc
-├── ice
-│   └── mpascice.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-├── lnd
-│   └── CASE_ID.clm2.h0.YYYY-MM.nc
-├── mpas
-│   ├── mpas-cice_in
-│   ├── mpaso.hist.am.meridionalHeatTransport.YYYY-MM-DD.nc
-│   ├── mpas-o_in
-│   ├── streams.cice
-│   └── streams.ocean
-├── ocn
-│   └── mpaso.hist.am.timeSeriesStatsMonthly.YYYY-MM-DD.nc
-└── rest
-    ├── mpascice.rst.YYYY-MM-DD_00000.nc
-    └── mpaso.rst.YYYY-MM-DD_00000.nc
-</pre></div>
-</div>
-</div>
-<div class="section" id="set-jobs">
-<h2>Set Jobs<a class="headerlink" href="#set-jobs" title="Permalink to this headline">¶</a></h2>
-<p>The set_jobs section is where you configure which jobs will be run on which year sets. For each job, list which year sets you would like it to be run on.
-For example if you had used the set_frequency key to create 5 and 20 year sets, and you wanted all the diagnostics run on the 20 years, but only e3sm_diags on the 5 years
-then you could use the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
-<span class="n">ncclimo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span>
-<span class="n">timeseries</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">amwg</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">aprime_diags</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">e3sm_diags</span> <span class="o">=</span> <span class="mi">5</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="e3sm-diags">
-<h2>E3SM Diags<a class="headerlink" href="#e3sm-diags" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="run-configuration">
+<span id="configuration"></span><h1>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Run configuration is broken into 6 major sections:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#global-config"><span class="std std-ref">global</span></a>  options used by all components</li>
+<li><a class="reference internal" href="#img-hosting"><span class="std std-ref">img_hosting</span></a> options used for hosting diagnostic output</li>
+<li><a class="reference internal" href="#simulations"><span class="std std-ref">simulations</span></a> options related to each case being run, and how case-vs-case comparisons should be configured</li>
+<li><a class="reference internal" href="#post-processing"><span class="std std-ref">Post processing</span></a> all options related to post processing jobs</li>
+<li><a class="reference internal" href="#diags"><span class="std std-ref">Diags</span></a> all options related to diagnostic runs</li>
+<li><a class="reference internal" href="#data-types"><span class="std std-ref">Data types</span></a> definitions of which data types are required, and how to find data files</li>
+</ul>
+</div></blockquote>
+<div class="section" id="global">
+<span id="global-config"></span><h2>global<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
-<dt>Each of the jobs has their own configuration options. The E3SM options available are:</dt>
+<dt>The global section has the following keys:</dt>
 <dd><ul class="first last simple">
-<li>host_directory: the name that should be used when hosting this job. e.g. e3sm_diags</li>
-<li>backend: the plotting backend, either vcs or mpl</li>
-<li>seasons: Which seasoms to run on (any or all) DJF, MAM, JJA, SON, ANN</li>
-<li>reference_data_path: the path to reference data, e.g. /p/cscratch/acme/data/obs_for_acme_diags</li>
-<li>sets: which plot sets should be produced (any or all) 3, 4, 5, 7, 13</li>
+<li>project_path: This is the base of the project directory tree. All input and output will be stored here under /input/ and /output/</li>
+<li>email: This is an email address to send notification emails to</li>
+<li>native_grid_cleanup: This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete</li>
+<li>local_globus_uuid: The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers</li>
 </ul>
 </dd>
 </dl>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">project</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">YOUREMAIL</span><span class="nd">@INSTITUTION</span><span class="o">.</span><span class="n">DOMAIN</span>
+    <span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">local_globus_uuid</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
+</pre></div>
 </div>
-<div class="section" id="transfer">
-<h2>Transfer<a class="headerlink" href="#transfer" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="img-hosting">
+<span id="id1"></span><h2>img_hosting<a class="headerlink" href="#img-hosting" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>This is an optional section, only needed if the user would like to turn on web hosting for diagnostic plot output. To turn this off, simply remove this section from the configuration.</dt>
+<dd><ul class="first last simple">
+<li>img_host_server: The base url of the webserver, used for constructing the notification email links.</li>
+<li>host_directory: The base directory for where to put output for web hosting, the user must have write permission here. Directories will be created for each simulation case, with jobs for the case stored below it.</li>
+<li>url_prefix: Notification urls are constructed as <a class="reference external" href="https:/">https:/</a>/{img_host_server}/{url_prefix}/{case}/{diagnostic}</li>
+</ul>
+</dd>
+</dl>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">your</span><span class="o">-</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">institution</span><span class="o">.</span><span class="n">domain</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">where</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">host</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">prefix</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">need</span><span class="o">/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="simulations">
+<span id="id2"></span><h2>simulations<a class="headerlink" href="#simulations" title="Permalink to this headline">¶</a></h2>
+<p>This section is used for configuring each case. As many cases can be placed here as the user would like.
+The cases can be very different from each other, use different naming conventions (see data_types), and have their data stored in different file structures.
+The one thing they must all share in common is the start_year and end_year.</p>
 <blockquote>
 <div><ul class="simple">
-<li>destination_endpoint: The globus endpoint ID of the local machine (the transfer destination when moving from the remote server).</li>
-<li>source_endpoint: The Globus endpoint ID for the remote host</li>
+<li>start_year: the first year of data to be used. For example, if start_year is set to 5, then files with years &gt;= 5 &amp;&amp; &lt;= end_year will be concidered as part of the data set.</li>
+<li>end_year: the last year of data. For example if end_year is 10, then files with years &gt;= start_year &amp;&amp; &lt;= 10 will be concidered as part of the dataset.</li>
+</ul>
+</div></blockquote>
+<p><strong>Each case must exist in its own config section, denoted by [[CASEID]] the double brackets are important.</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>[[CASEID]] this should be the full case name e.g. [[20180129.DECKv1b_piControl.ne30_oEC.edison]]</li>
+<li>short_name: a nice short name for the case, this can be any string identifier for this case</li>
+<li>native_grid_name: the name of the native grid used in the land and atmospheric components</li>
+<li>native_mpas_grid_name: the name of the mpas grid</li>
+<li>data_types: which data types should be copied for this case, this must include all data_types needed for jobs this case will be running. Can be set to ‘all’ to mean all data types described in the data_types section</li>
+<li>job_types: which of the job types should be run on this case. Use the keyword ‘all’ to run all defined jobs on this case.</li>
+</ul>
+</div></blockquote>
+<p><strong>If running diagnostic jobs, the following section must be included: [[comparisons]]</strong></p>
+<p>This is the list of comparisons between for each case.
+Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
+This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
+<dl class="docutils">
+<dt>example:</dt>
+<dd><ul class="first last simple">
+<li>case_1: obs , case_2</li>
+<li>case_2: case_3</li>
+<li>case_3: all</li>
+</ul>
+</dd>
+<dt>In this example the following comparison diagnostics jobs will be generated:</dt>
+<dd><ul class="first last simple">
+<li>case_1-vs-obs, case_1-vs-case_2</li>
+<li>case_2-vs-case_3</li>
+<li>case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs</li>
+</ul>
+</dd>
+</dl>
+<p>Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.</p>
+<p><strong>transfer_type</strong>
+Each simulated case needs to have a transfer type. Transfer_type can be one of three different values, which force certain values to be included for the case:</p>
+<blockquote>
+<div><ul class="simple">
+<li>‘local’ –&gt; the case must then also have ‘local_path,’ which is then used to specify the location for each datatype in the data_types section</li>
+<li>‘sftp’ –&gt; the case must then also have ‘remote_hostname,’ which is the remote server to connect to and ‘remote_path’</li>
+<li>‘globus’ –&gt; the case must then also have ‘remote_uuid,’ which is the globus unique identifier for the remote node, and ‘remote_path’. The ‘global’ section should also include the ‘local_globus_uuid’ key.</li>
+</ul>
+</div></blockquote>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">[[</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">globus</span>
+        <span class="n">remote_uuid</span> <span class="o">=</span> <span class="mi">9</span><span class="n">d6d994a</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">piControl</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">sftp</span>
+        <span class="n">remote_hostname</span> <span class="o">=</span> <span class="n">edison</span><span class="o">.</span><span class="n">nersc</span><span class="o">.</span><span class="n">gov</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="mi">1</span><span class="n">pctCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">local</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">deck</span><span class="o">/</span><span class="n">v1_DECK_abrupt</span><span class="o">-</span><span class="mi">4</span><span class="n">xCO2</span><span class="o">/</span><span class="nb">input</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">abrupt4xCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="n">atm</span><span class="p">,</span> <span class="n">lnd</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="n">e3sm_diags</span><span class="p">,</span> <span class="n">amwg</span><span class="p">,</span> <span class="n">climo</span>
+    <span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
+        <span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="n">obs</span>
+        <span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="nb">all</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-processing">
+<span id="id3"></span><h2>Post processing<a class="headerlink" href="#post-processing" title="Permalink to this headline">¶</a></h2>
+<p>This section of the config is used to configure all post processing jobs. Supported job types are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#climo"><span class="std std-ref">Climo</span></a></li>
+<li><a class="reference internal" href="#timeseries"><span class="std std-ref">Timeseries</span></a></li>
+<li><a class="reference internal" href="#regrid"><span class="std std-ref">Regrid</span></a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="climo">
+<span id="id4"></span><h2>Climo<a class="headerlink" href="#climo" title="Permalink to this headline">¶</a></h2>
+<p>Produces regridded climatologies using ncclimo. Requires the ‘atm’ data type.</p>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="timeseries">
+<span id="id5"></span><h2>Timeseries<a class="headerlink" href="#timeseries" title="Permalink to this headline">¶</a></h2>
+<p>Produces single-variable-per-file timeseries files from monthly model output files. Optionally regrids the timeseries output files.</p>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">timeseries</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+        <span class="n">lnd</span> <span class="o">=</span> <span class="n">SOILICE</span><span class="p">,</span> <span class="n">SOILLIQ</span><span class="p">,</span> <span class="n">SOILWATER_10CM</span><span class="p">,</span> <span class="n">QINTR</span><span class="p">,</span> <span class="n">QOVER</span><span class="p">,</span> <span class="n">QRUNOFF</span><span class="p">,</span> <span class="n">QSOIL</span><span class="p">,</span> <span class="n">QVEGT</span><span class="p">,</span> <span class="n">TSOI</span>
+        <span class="n">atm</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="regrid">
+<span id="id6"></span><h2>Regrid<a class="headerlink" href="#regrid" title="Permalink to this headline">¶</a></h2>
+<p>Translates model output files from one grid into another.</p>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">regrid</span><span class="p">]]</span>
+        <span class="p">[[[</span><span class="n">lnd</span><span class="p">]]]</span>
+            <span class="n">source_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="n">ne30np4_pentagons</span><span class="o">.</span><span class="mf">091226.</span><span class="n">nc</span>
+            <span class="n">destination_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="mi">129</span><span class="n">x256_SCRIP</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">atm</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">ocn</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~/</span><span class="n">grids</span><span class="o">/</span><span class="n">map_oEC60to30v3_to_0</span><span class="o">.</span><span class="mi">5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span><span class="o">.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="diags">
+<span id="id7"></span><h2>Diags<a class="headerlink" href="#diags" title="Permalink to this headline">¶</a></h2>
+<p>This section contains all config options for diagnostic jobs. Currently supported diagnostics are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#amwg"><span class="std std-ref">AMWG</span></a></li>
+<li><a class="reference internal" href="#e3sm-diags"><span class="std std-ref">e3sm_diags</span></a></li>
+<li><a class="reference internal" href="#aprime"><span class="std std-ref">Aprime</span></a></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="amwg">
-<h2>AMWG<a class="headerlink" href="#amwg" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li>diag_home: The code path to where amwg is installed.</li>
-<li>host_directory: the directory name to use when hosting the amwg output. e.g. amwg</li>
-</ul>
-</div></blockquote>
+<span id="id8"></span><h2>AMWG<a class="headerlink" href="#amwg" title="Permalink to this headline">¶</a></h2>
+<p>The AMWG diagnostic suite needs the ‘atm’ data type, and the ‘climo’ job type</p>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+</pre></div>
 </div>
-<div class="section" id="ncclimo">
-<h2>Ncclimo<a class="headerlink" href="#ncclimo" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li>regrid_map_path: The path to the regrid map. On acme1 the ne30 to fv129x256 map is located at /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc</li>
-<li>var_list: This is a list of variables to extract as time series files when running the timeseries job.</li>
-</ul>
-</div></blockquote>
 </div>
-<div class="section" id="aprime-diags">
-<h2>APrime Diags<a class="headerlink" href="#aprime-diags" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li>host_directory: the directory name to use when hosting the amwg output. e.g. aprime</li>
-<li>aprime_code_path: the path to where the aprime repository has been cloned. On acme1 it can be found at /p/cscratch/acme/data/a-prime</li>
-<li>test_atm_res: The native atm grid name</li>
-<li>test_mpas_mesh_name: The native mpas grid name</li>
+<div class="section" id="e3sm-diags">
+<span id="id9"></span><h2>e3sm_diags<a class="headerlink" href="#e3sm-diags" title="Permalink to this headline">¶</a></h2>
+<p>The e3sm_diags suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">mpl</span>
+    <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aprime">
+<span id="id10"></span><h2>Aprime<a class="headerlink" href="#aprime" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The aprime diagnostic suite requires the following data types, and no job types:</dt>
+<dd><ul class="first last simple">
+<li>atm</li>
+<li>cice</li>
+<li>cice_restart</li>
+<li>cice_streams</li>
+<li>cice_in</li>
+<li>ocn</li>
+<li>ocn_restart</li>
+<li>ocn_streams</li>
+<li>ocn_in</li>
+<li>meridionalHeatTransport</li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-types">
+<span id="id11"></span><h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<p>This section defines each of the data types for your jobs. Each data type is denoted by creating a new config section using double brackets [[new_data_type]].
+Each section then has four keys. The values in these keys can contain a set of keywords that are used to substitute values at run time. For example, the REMOTE_PATH keyword
+pulls in remote_path from the simulation config and substitures it. For example, a new data type could be specified using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">22</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">44</span>
+    <span class="p">[[</span><span class="n">some</span><span class="o">-</span><span class="n">case</span><span class="o">-</span><span class="nb">id</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">case</span>
+
+<span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">my_new_custom_type</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/custom_component/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.custom.value.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;/my/custom/local/path/&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>This would create a new data type called “my_new_custom_type.” The processflow would then take the cases “remote_path” and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
+/export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc</p>
+<dl class="docutils">
+<dt>The keywords you can use for substitution are:</dt>
+<dd><ul class="first last simple">
+<li>REMOTE_PATH: pulled from the simulation.case.remote_path</li>
+<li>PROJECT_PATH: pulled from global.project_path</li>
+<li>CASEID: pulled from simulations.case</li>
+<li>YEAR: created as a range from simulation.start_year to simulation.end_year if the data_type is marked as monthly</li>
+<li>MONTH: created as a range from 1 to 12 if the data_type is marked as monthly</li>
+<li>REST_YR: this is the “restart year,” which is simulations.start_year + 1</li>
+</ul>
+</dd>
+</dl>
+<p>The four mandatory sections for each data type (remote_path, file_format, local_path, monthly) are applied to each case. Case specific options are allowed, and allow you to create user defined substutions.
+Simply add the caseid as a new section to the data_type section, and add your case specific keywords. These values for these keywords are then pulled from the simulation.caseid section. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">[[</span><span class="n">my</span><span class="o">-</span><span class="n">fancy</span><span class="o">-</span><span class="n">case</span><span class="p">]]</span>
+        <span class="n">my_custom_keyword</span> <span class="o">=</span> <span class="s1">&#39;isnt-this-nice&#39;</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">case</span>
+    <span class="p">[[</span><span class="n">perfectly</span><span class="o">-</span><span class="n">ordinary</span><span class="o">-</span><span class="n">case</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">second</span><span class="o">-</span><span class="n">case</span>
+
+<span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">my_new_custom_type</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/custom_component/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.custom.value.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;/my/custom/local/path/&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="n">my</span><span class="o">-</span><span class="n">fancy</span><span class="o">-</span><span class="n">case</span><span class="p">]]]</span>
+            <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/MY_CUSTOM_KEYWORD/CASEID&#39;</span>
+</pre></div>
+</div>
+<p>In this example the data type my_new_custom_type would specify that files coming from the case my-fancy-case would have the remote path:</p>
+<div class="line-block">
+<div class="line">{remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}</div>
+<div class="line">/export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case</div>
+<div class="line"><br /></div>
+</div>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/atm/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.cam.h0.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/atm&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;LOCAL_PATH/atm&#39;</span>
+    <span class="p">[[</span><span class="n">lnd</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/lnd/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.clm2.h0.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/lnd&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;LOCAL_PATH/lnd&#39;</span>
+    <span class="p">[[</span><span class="n">cice</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ice/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/ice&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ocn/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/ocn&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn_restart</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/rest/REST_YR-01-01-00000/&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.rst.REST_YR-01-01_00000.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/rest&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_restart</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/rest/REST_YR-01-01-00000/&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpascice.rst.REST_YR-01-01_00000.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/rest&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_streams</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;streams.ocean&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_streams</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;streams.cice&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_in</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpas-o_in&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_in</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpas-cice_in&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">meridionalHeatTransport</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ocn/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="quickstart.html" class="btn btn-neutral" title="Quick Start" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -355,10 +605,11 @@ then you could use the following:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0-rc5',
+            VERSION:'2.0.0-beta1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

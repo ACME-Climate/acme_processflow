@@ -60,7 +60,7 @@ Most systems that E3SM runs on should already have these installed.
    amwg
    ncclimo
    aprime
-   acme_diags
+   e3sm_diags
    sample
 
 
@@ -71,7 +71,7 @@ During the processflow run it will create the required input/output directories 
 will be copied into the input directory. Once the run has completed the directories will have the following structure:
 
 ( this example was run with all the diagnostics on 100 years with frequency = 5, 100, with the ne30 and fv129x256 grids )
-.. code-block:: bash
+::
 
     project_path
     ├── input

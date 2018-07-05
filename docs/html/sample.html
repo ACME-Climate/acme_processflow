@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sample &mdash; processflow 1.0.0-rc5 documentation</title>
+  <title>Sample &mdash; processflow 2.0.0-beta1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,8 +32,11 @@
   
 
   
-    <link rel="top" title="processflow 1.0.0-rc5 documentation" href="index.html"/>
-        <link rel="prev" title="ACME Diagnostic" href="acme_diags.html"/> 
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
+        <link rel="prev" title="A-Prime Diagnostic" href="aprime.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                1.0.0
+                2.0.0
               </div>
             
           
@@ -80,16 +86,18 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Sample</a></li>
 </ul>
 
@@ -103,8 +111,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">processflow</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">processflow</a>
+        
       </nav>
 
 
@@ -113,23 +123,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Sample</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Sample</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/sample.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/sample.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -150,18 +177,18 @@
 <span class="c1"># The year to start the post processing, typically 1</span>
 <span class="c1"># If the first year of the simulation is 0001, use 1, but if</span>
 <span class="c1">#  it started later e.g. 1980, use 1980</span>
-<span class="nv">simulation_start_year</span> <span class="o">=</span>  51
+<span class="nv">simulation_start_year</span> <span class="o">=</span>  <span class="m">51</span>
 
 <span class="c1"># The last year to run post processing jobs on</span>
 <span class="c1"># The highest number year, so if your simulation starts in 1980</span>
 <span class="c1">#   and you want to process 20 years, this should be 2000</span>
-<span class="nv">simulation_end_year</span> <span class="o">=</span> 60
+<span class="nv">simulation_end_year</span> <span class="o">=</span> <span class="m">60</span>
 
 <span class="c1"># The list of year lengths to run jobs on</span>
 <span class="c1"># If you want the diagnostics run every 5 years, add 5 to this list</span>
 <span class="c1"># If you want a single time series run, add the length of the simulation to the list</span>
 <span class="c1">#   and just add timeseries to that frequency</span>
-<span class="nv">set_frequency</span> <span class="o">=</span> 5, 10
+<span class="nv">set_frequency</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
 
 <span class="c1"># The experiment name</span>
 <span class="c1"># for example 20170731.F20TR_ck10.ne30_ne30.edison</span>
@@ -175,10 +202,10 @@
 
 <span class="c1"># Turn on (1) if you&#39;ve run short term archiving on your model data</span>
 <span class="c1"># Turn off (0) otherwise</span>
-<span class="nv">short_term_archive</span> <span class="o">=</span> 0
+<span class="nv">short_term_archive</span> <span class="o">=</span> <span class="m">0</span>
 
 <span class="c1"># Should the native grid files be cleaned up on successful exit?</span>
-<span class="nv">native_grid_cleanup</span> <span class="o">=</span> 0
+<span class="nv">native_grid_cleanup</span> <span class="o">=</span> <span class="m">0</span>
 
 <span class="c1"># name of the native grid</span>
 <span class="nv">native_grid_name</span> <span class="o">=</span> <span class="s1">&#39;ne30&#39;</span>
@@ -198,21 +225,21 @@
 <span class="c1"># The jobs to run on each set, to turn off the job entirely leave its value blank</span>
 <span class="o">[[</span>set_jobs<span class="o">]]</span>
     <span class="c1"># this will run ncclimo for both 5 and 10</span>
-    <span class="nv">ncclimo</span> <span class="o">=</span> 5, 10
+    <span class="nv">ncclimo</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
     <span class="c1"># this will run time series only at 10</span>
-    <span class="nv">timeseries</span> <span class="o">=</span> 20
+    <span class="nv">timeseries</span> <span class="o">=</span> <span class="m">20</span>
     <span class="c1"># this will run amwg only at 5</span>
-    <span class="nv">amwg</span> <span class="o">=</span> 5, 10
+    <span class="nv">amwg</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
     <span class="c1"># this will turn off the coupled diag</span>
     <span class="nv">aprime_diags</span> <span class="o">=</span>
-    <span class="nv">e3sm_diags</span> <span class="o">=</span> 10
+    <span class="nv">e3sm_diags</span> <span class="o">=</span> <span class="m">10</span>
 
 <span class="o">[</span>e3sm_diags<span class="o">]</span>
 <span class="nv">host_directory</span> <span class="o">=</span> e3sm-diags
 <span class="nv">backend</span> <span class="o">=</span> mpl
 <span class="nv">seasons</span> <span class="o">=</span> DJF, MAM, JJA, SON, ANN
 <span class="nv">reference_data_path</span> <span class="o">=</span> /p/cscratch/acme/data/obs_for_acme_diags
-<span class="nv">sets</span> <span class="o">=</span> 3, 4, 5, 7, 13
+<span class="nv">sets</span> <span class="o">=</span> <span class="m">3</span>, <span class="m">4</span>, <span class="m">5</span>, <span class="m">7</span>, <span class="m">13</span>
 
 <span class="o">[</span>transfer<span class="o">]</span>
 <span class="c1"># The Globus endpoint ID for the local host</span>
@@ -252,13 +279,16 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="acme_diags.html" class="btn btn-neutral" title="ACME Diagnostic" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="aprime.html" class="btn btn-neutral" title="A-Prime Diagnostic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -289,10 +319,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0-rc5',
+            VERSION:'2.0.0-beta1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
