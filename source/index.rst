@@ -75,13 +75,21 @@ will be copied into the input directory. Once the run has completed the director
 
     project_path
     ├── input
-    │   ├── atm
-    │   ├── ice
-    │   ├── mpas
-    │   ├── ocn
-    │   ├── processflow.db
-    │   ├── rest
-    │   └── run.cfg
+    |   ├── case.id.1
+    │   │   ├── atm
+    │   │   ├── ice
+    │   │   ├── mpas
+    │   │   ├── ocn
+    │   │   ├── processflow.db
+    │   │   ├── rest
+    │   │   └── run.cfg
+    ├── case.id.2
+    │   │   ├── atm
+    │   │   ├── ice
+    │   │   ├── mpas
+    │   │   ├── ocn
+    │   │   ├── rest
+    │   │   └── run.cfg
     └── output
         ├── diags
         │   └── fv129x256
