@@ -21,12 +21,12 @@ This guide assumes your system already has the prerequisit dependencies.
 Once these are setup, the installation for the processflow is straightforward. If you're running on acme1, aims4, or Edison you shouldnt have to setup
 any of these services as they should all be running. If you're running and already have your data local, you dont need globus.
 
-Note:
-_____
+Note
+----
 
 All these commands assume you're using a bash environment. Other shells may not work correctly with conda
 
-.. code-block: bash
+.. code-block:: bash
 
     conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
     conda activate processflow

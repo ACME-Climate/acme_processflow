@@ -93,7 +93,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#note">Note:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#note">Note</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
@@ -175,8 +175,12 @@
 <p>Once these are setup, the installation for the processflow is straightforward. If you’re running on acme1, aims4, or Edison you shouldnt have to setup
 any of these services as they should all be running. If you’re running and already have your data local, you dont need globus.</p>
 <div class="section" id="note">
-<h2>Note:<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
+<h2>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
 <p>All these commands assume you’re using a bash environment. Other shells may not work correctly with conda</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+conda activate processflow
+</pre></div>
+</div>
 <p>If you already have an installation and want to upgrade, first source your environment and then run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
 </pre></div>
