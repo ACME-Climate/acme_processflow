@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="processflow 2.0.0-beta1 documentation" href="index.html"/>
-        <link rel="next" title="Globus Transfer" href="transfer.html"/>
+        <link rel="next" title="Sample" href="sample.html"/>
         <link rel="prev" title="Quick Start" href="quickstart.html"/> 
 
   
@@ -107,13 +107,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#e3sm-diags">e3sm_diags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aprime">Aprime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-types">Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-configuration">Example Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -193,16 +189,15 @@
 </div></blockquote>
 <div class="section" id="global">
 <span id="global-config"></span><h2>global<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>The global section has the following keys:</dt>
-<dd><ul class="first last simple">
-<li>project_path: This is the base of the project directory tree. All input and output will be stored here under /input/ and /output/</li>
-<li>email: This is an email address to send notification emails to</li>
-<li>native_grid_cleanup: This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete</li>
-<li>local_globus_uuid: The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers</li>
+<p>The global section has the following keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li>project_path (string): This is the base of the processflow project directory tree. All input and output will be stored here under project_path/input/ and project_path/output/. Any required directories will be generated.</li>
+<li>email (string): This is the email address to send notifications to.</li>
+<li>native_grid_cleanup (bool): This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete</li>
+<li>local_globus_uuid (string): The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">project</span>
@@ -214,20 +209,19 @@
 </div>
 <div class="section" id="img-hosting">
 <span id="id1"></span><h2>img_hosting<a class="headerlink" href="#img-hosting" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>This is an optional section, only needed if the user would like to turn on web hosting for diagnostic plot output. To turn this off, simply remove this section from the configuration.</dt>
-<dd><ul class="first last simple">
-<li>img_host_server: The base url of the webserver, used for constructing the notification email links.</li>
-<li>host_directory: The base directory for where to put output for web hosting, the user must have write permission here. Directories will be created for each simulation case, with jobs for the case stored below it.</li>
-<li>url_prefix: Notification urls are constructed as <a class="reference external" href="https:/">https:/</a>/{img_host_server}/{url_prefix}/{case}/{diagnostic}</li>
+<p>This is an optional section, only needed if the user would like to turn on web hosting for diagnostic plot output. To turn off output hosting, simply remove this section from the configuration.</p>
+<blockquote>
+<div><ul class="simple">
+<li>img_host_server (string): The base url of the webserver, used for constructing the notification email links.</li>
+<li>host_directory (string): The base directory for where to put output for web hosting, the user must have permission to write here. Directories will be created for each simulation case, with jobs for the case stored below it.</li>
+<li>url_prefix (string): Notification urls are constructed as <a class="reference external" href="https:/">https:/</a>/{img_host_server}/{url_prefix}/{case}/{diagnostic}</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
     <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">your</span><span class="o">-</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">institution</span><span class="o">.</span><span class="n">domain</span>
     <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">where</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">host</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/</span>
-    <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">prefix</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">need</span><span class="o">/</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">statis</span><span class="o">/</span><span class="n">url</span><span class="o">/</span><span class="n">prefix</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">need</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
@@ -238,42 +232,21 @@ The cases can be very different from each other, use different naming convention
 The one thing they must all share in common is the start_year and end_year.</p>
 <blockquote>
 <div><ul class="simple">
-<li>start_year: the first year of data to be used. For example, if start_year is set to 5, then files with years &gt;= 5 &amp;&amp; &lt;= end_year will be concidered as part of the data set.</li>
-<li>end_year: the last year of data. For example if end_year is 10, then files with years &gt;= start_year &amp;&amp; &lt;= 10 will be concidered as part of the dataset.</li>
+<li>start_year (int): the first year of data to be used.</li>
+<li>end_year (int): the last year of data.</li>
 </ul>
 </div></blockquote>
-<p><strong>Each case must exist in its own config section, denoted by [[CASEID]] the double brackets are important.</strong></p>
+<p><strong>A new section is created for each case, allowing very different configs for the different cases.</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>[[CASEID]] this should be the full case name e.g. [[20180129.DECKv1b_piControl.ne30_oEC.edison]]</li>
-<li>short_name: a nice short name for the case, this can be any string identifier for this case</li>
-<li>native_grid_name: the name of the native grid used in the land and atmospheric components</li>
-<li>native_mpas_grid_name: the name of the mpas grid</li>
-<li>data_types: which data types should be copied for this case, this must include all data_types needed for jobs this case will be running. Can be set to ‘all’ to mean all data types described in the data_types section</li>
-<li>job_types: which of the job types should be run on this case. Use the keyword ‘all’ to run all defined jobs on this case.</li>
+<li>[[CASEID]] (string): this should be the full case name e.g. [[20180129.DECKv1b_piControl.ne30_oEC.edison]]</li>
+<li>short_name (string): a nice short name for the case, this can be any string identifier for this case</li>
+<li>native_grid_name (string): the name of the native grid used in the land and atmospheric components</li>
+<li>native_mpas_grid_name (string): the name of the mpas grid</li>
+<li>data_types (list): which data types should be copied for this case, this must include all data_types needed for jobs this case will be running in a space seperated list. Can be set to ‘all’ to mean all data types described in the data_types section.</li>
+<li>job_types (list): which of the job types should be run on this case. Use the keyword ‘all’ to run all defined jobs on this case.</li>
 </ul>
 </div></blockquote>
-<p><strong>If running diagnostic jobs, the following section must be included: [[comparisons]]</strong></p>
-<p>This is the list of comparisons between for each case.
-Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
-This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
-<dl class="docutils">
-<dt>example:</dt>
-<dd><ul class="first last simple">
-<li>case_1: obs , case_2</li>
-<li>case_2: case_3</li>
-<li>case_3: all</li>
-</ul>
-</dd>
-<dt>In this example the following comparison diagnostics jobs will be generated:</dt>
-<dd><ul class="first last simple">
-<li>case_1-vs-obs, case_1-vs-case_2</li>
-<li>case_2-vs-case_3</li>
-<li>case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs</li>
-</ul>
-</dd>
-</dl>
-<p>Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.</p>
 <p><strong>transfer_type</strong>
 Each simulated case needs to have a transfer type. Transfer_type can be one of three different values, which force certain values to be included for the case:</p>
 <blockquote>
@@ -283,13 +256,37 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <li>‘globus’ –&gt; the case must then also have ‘remote_uuid,’ which is the globus unique identifier for the remote node, and ‘remote_path’. The ‘global’ section should also include the ‘local_globus_uuid’ key.</li>
 </ul>
 </div></blockquote>
+<p><strong>If running diagnostic jobs, the [[comparisons]] section must be included</strong></p>
+<p>This is the list of comparisons between for each case.
+Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
+This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
+<p>example</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first last docutils">
+<dt>[[comparisons]]</dt>
+<dd>case_1 = obs, case_2
+case_2 = case_3
+case_3 = all</dd>
+</dl>
+</dd>
+</dl>
+<p>In this example the following comparison diagnostics jobs will be generated:</p>
+<blockquote>
+<div><ul class="simple">
+<li>case_1-vs-obs, case_1-vs-case_2</li>
+<li>case_2-vs-case_3</li>
+<li>case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs</li>
+</ul>
+</div></blockquote>
+<p>Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.</p>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
     <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="p">[[</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
         <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">globus</span>
-        <span class="n">remote_uuid</span> <span class="o">=</span> <span class="mi">9</span><span class="n">d6d994a</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>
+        <span class="n">remote_uuid</span> <span class="o">=</span> <span class="mi">9</span><span class="n">d6d994a</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>  <span class="c1"># required because transfer_type == &#39;globus&#39;</span>
         <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
         <span class="n">short_name</span> <span class="o">=</span> <span class="n">piControl</span>
         <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
@@ -298,7 +295,7 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
         <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
     <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
         <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">sftp</span>
-        <span class="n">remote_hostname</span> <span class="o">=</span> <span class="n">edison</span><span class="o">.</span><span class="n">nersc</span><span class="o">.</span><span class="n">gov</span>
+        <span class="n">remote_hostname</span> <span class="o">=</span> <span class="n">edison</span><span class="o">.</span><span class="n">nersc</span><span class="o">.</span><span class="n">gov</span>                  <span class="c1"># required because transfer_type == &#39;sftp&#39;</span>
         <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
         <span class="n">short_name</span> <span class="o">=</span> <span class="mi">1</span><span class="n">pctCO2</span>
         <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
@@ -307,7 +304,7 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
         <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
     <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
         <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">local</span>
-        <span class="n">local_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">deck</span><span class="o">/</span><span class="n">v1_DECK_abrupt</span><span class="o">-</span><span class="mi">4</span><span class="n">xCO2</span><span class="o">/</span><span class="nb">input</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">deck</span><span class="o">/</span><span class="n">v1_DECK_abrupt</span><span class="o">-</span><span class="mi">4</span><span class="n">xCO2</span><span class="o">/</span><span class="nb">input</span> <span class="c1"># required because transfer_type == &#39;local&#39;</span>
         <span class="n">short_name</span> <span class="o">=</span> <span class="n">abrupt4xCO2</span>
         <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
         <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
@@ -333,7 +330,14 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 </div>
 <div class="section" id="climo">
 <span id="id4"></span><h2>Climo<a class="headerlink" href="#climo" title="Permalink to this headline">¶</a></h2>
-<p>Produces regridded climatologies using ncclimo. Requires the ‘atm’ data type.</p>
+<p>Produces regridded climatologies using ncclimo. Requires the ‘atm’ data type. Uses the following config options:</p>
+<blockquote>
+<div><ul class="simple">
+<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>destination_grid_name (string): the name of the output grid. This can be any string identifier, its just used to group the output.</li>
+<li>regrid_map_path (string): the path on the local file system to a regrid map suitable for your data and desired output map.</li>
+</ul>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
@@ -346,6 +350,16 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <div class="section" id="timeseries">
 <span id="id5"></span><h2>Timeseries<a class="headerlink" href="#timeseries" title="Permalink to this headline">¶</a></h2>
 <p>Produces single-variable-per-file timeseries files from monthly model output files. Optionally regrids the timeseries output files.</p>
+<blockquote>
+<div><ul class="simple">
+<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>destination_grid_name (string): the name of the output grid. This can be any string identifier, its just used to group the output.</li>
+<li>regrid_map_path (string): the path on the local file system to a regrid map suitable for your data and desired output map.</li>
+<li>atm -&gt; include this key followed by variable names for each atmospheric variable you would like extracted (remote key to turn off atm timeseries generation)</li>
+<li>lnd -&gt; include this key followed by variable names for each land variable you would like extracted (remote key to turn off lnd timeseries generation)</li>
+<li>ocn -&gt; include this key followed by variable names for each ocean variable you would like extracted (remote key to turn off ocn timeseries generation)</li>
+</ul>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">timeseries</span><span class="p">]]</span>
@@ -354,12 +368,13 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
         <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
         <span class="n">lnd</span> <span class="o">=</span> <span class="n">SOILICE</span><span class="p">,</span> <span class="n">SOILLIQ</span><span class="p">,</span> <span class="n">SOILWATER_10CM</span><span class="p">,</span> <span class="n">QINTR</span><span class="p">,</span> <span class="n">QOVER</span><span class="p">,</span> <span class="n">QRUNOFF</span><span class="p">,</span> <span class="n">QSOIL</span><span class="p">,</span> <span class="n">QVEGT</span><span class="p">,</span> <span class="n">TSOI</span>
         <span class="n">atm</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
+        <span class="n">ocn</span> <span class="o">=</span> <span class="n">ssh</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="regrid">
 <span id="id6"></span><h2>Regrid<a class="headerlink" href="#regrid" title="Permalink to this headline">¶</a></h2>
-<p>Translates model output files from one grid into another.</p>
+<p>Translates model output files from one grid into another. Regridding is supported for atm, lnd, and ocn data types. Each regrid type requires its own config section, see example below. To turn off a data type, remove it from the config.</p>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">regrid</span><span class="p">]]</span>
@@ -389,7 +404,13 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 </div>
 <div class="section" id="amwg">
 <span id="id8"></span><h2>AMWG<a class="headerlink" href="#amwg" title="Permalink to this headline">¶</a></h2>
-<p>The AMWG diagnostic suite needs the ‘atm’ data type, and the ‘climo’ job type</p>
+<p>The AMWG diagnostic suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
+<blockquote>
+<div><ul class="simple">
+<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>diag_home (string): the path to where on the local file system the amwg code is located. All amwg jobs will be executed from this directory.</li>
+</ul>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
@@ -401,10 +422,17 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <div class="section" id="e3sm-diags">
 <span id="id9"></span><h2>e3sm_diags<a class="headerlink" href="#e3sm-diags" title="Permalink to this headline">¶</a></h2>
 <p>The e3sm_diags suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
+<blockquote>
+<div><ul class="simple">
+<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>backend (string): which graphing backend to use for generating the plots. Supported options are ‘vcs’ and ‘mpl’.</li>
+<li>reference_data_path (string): path to local copy of reference observational data.</li>
+</ul>
+</div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">backend</span> <span class="o">=</span> <span class="n">mpl</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
     <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
 </pre></div>
 </div>
@@ -493,10 +521,165 @@ Simply add the caseid as a new section to the data_type section, and add your ca
 <div class="line-block">
 <div class="line">{remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}</div>
 <div class="line">/export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case</div>
-<div class="line"><br /></div>
 </div>
+<p>In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving.
+For these two data types, the case is expected to use the standard everything-in-the-run-directory method. Note the local_path = ‘LOCAL_PATH/atm’</p>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/atm/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.cam.h0.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/atm&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;LOCAL_PATH/atm&#39;</span>
+    <span class="p">[[</span><span class="n">lnd</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/lnd/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.clm2.h0.YEAR-MONTH.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/lnd&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;LOCAL_PATH/lnd&#39;</span>
+    <span class="p">[[</span><span class="n">cice</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ice/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/ice&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ocn/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/ocn&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn_restart</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/rest/REST_YR-01-01-00000/&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.rst.REST_YR-01-01_00000.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/rest&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_restart</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/rest/REST_YR-01-01-00000/&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpascice.rst.REST_YR-01-01_00000.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/rest&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_streams</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;streams.ocean&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_streams</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;streams.cice&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_in</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpas-o_in&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_in</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/run&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpas-cice_in&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">meridionalHeatTransport</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/ocn/hist&#39;</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc&#39;</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;PROJECT_PATH/input/CASEID/mpas&#39;</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-configuration">
+<span id="example-config"></span><h2>Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h2>
+<p>This is an example configuration used on acme1 with three cases. Each case uses a different transfer method.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">model_v_model</span>
+<span class="n">email</span> <span class="o">=</span> <span class="n">baldwin32</span><span class="nd">@llnl</span><span class="o">.</span><span class="n">gov</span>
+<span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">local_globus_uuid</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
+
+<span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="s1">&#39;baldwin32&#39;</span>
+
+<span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">[[</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">globus</span>
+        <span class="n">remote_uuid</span> <span class="o">=</span> <span class="mi">9</span><span class="n">d6d994a</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">piControl</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">sftp</span>
+        <span class="n">remote_hostname</span> <span class="o">=</span> <span class="n">edison</span><span class="o">.</span><span class="n">nersc</span><span class="o">.</span><span class="n">gov</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">homes</span><span class="o">/</span><span class="n">r</span><span class="o">/</span><span class="n">renata</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="mi">1</span><span class="n">pctCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">transfer_type</span> <span class="o">=</span> <span class="n">local</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">deck</span><span class="o">/</span><span class="n">v1_DECK_abrupt</span><span class="o">-</span><span class="mi">4</span><span class="n">xCO2</span><span class="o">/</span><span class="nb">input</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">abrupt4xCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="n">atm</span><span class="p">,</span> <span class="n">lnd</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="n">e3sm_diags</span><span class="p">,</span> <span class="n">amwg</span><span class="p">,</span> <span class="n">climo</span>
+    <span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
+        <span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="n">obs</span>
+        <span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+        <span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span> <span class="o">=</span> <span class="nb">all</span>
+
+<span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+
+    <span class="p">[[</span><span class="n">timeseries</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+        <span class="n">atm</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
+        <span class="n">lnd</span> <span class="o">=</span> <span class="n">SOILICE</span><span class="p">,</span> <span class="n">SOILLIQ</span><span class="p">,</span> <span class="n">SOILWATER_10CM</span><span class="p">,</span> <span class="n">QINTR</span><span class="p">,</span> <span class="n">QOVER</span><span class="p">,</span> <span class="n">QRUNOFF</span><span class="p">,</span> <span class="n">QSOIL</span><span class="p">,</span> <span class="n">QVEGT</span><span class="p">,</span> <span class="n">TSOI</span>
+
+    <span class="p">[[</span><span class="n">regrid</span><span class="p">]]</span>
+        <span class="p">[[[</span><span class="n">lnd</span><span class="p">]]]</span>
+            <span class="n">source_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="n">ne30np4_pentagons</span><span class="o">.</span><span class="mf">091226.</span><span class="n">nc</span>
+            <span class="n">destination_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="mi">129</span><span class="n">x256_SCRIP</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">atm</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">ocn</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~/</span><span class="n">grids</span><span class="o">/</span><span class="n">map_oEC60to30v3_to_0</span><span class="o">.</span><span class="mi">5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span><span class="o">.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span>
+
+
+<span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">mpl</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">host_directory</span> <span class="o">=</span> <span class="n">aprime</span><span class="o">-</span><span class="n">diags</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+        <span class="n">test_atm_res</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">test_mpas_mesh_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+
+<span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>
         <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/atm/hist&#39;</span>
         <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.cam.h0.YEAR-MONTH.nc&#39;</span>
@@ -571,7 +754,7 @@ Simply add the caseid as a new section to the data_type section, and add your ca
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sample.html" class="btn btn-neutral float-right" title="Sample" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="quickstart.html" class="btn btn-neutral" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

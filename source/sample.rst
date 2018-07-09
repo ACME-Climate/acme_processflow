@@ -6,113 +6,155 @@ Sample
 
 This is a sample configuration file.
 
-.. code-block:: bash
+
+::
 
     [global]
-    # The root local directory to store project data as
-    # well as post processing output
-    project_path = /PATH/TO/YOUR/NEW/PROJECT/DIRECTORY
+    project_path = /p/user_pub/e3sm/baldwin32/model_v_model
+    email = baldwin32@llnl.gov
+    native_grid_cleanup = False
+    local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b
 
-    # The path on the remote machine to look for model output
-    # This should be on the remote machine that ran the simulation
-    source_path = /PATH/TO/YOUR/SIMULATION
+    [img_hosting]
+        img_host_server = acme-viewer.llnl.gov
+        host_directory = /var/www/acme/acme-diags/baldwin32/
+        url_prefix = 'baldwin32'
 
-    # The year to start the post processing, typically 1
-    # If the first year of the simulation is 0001, use 1, but if
-    #  it started later e.g. 1980, use 1980
-    simulation_start_year =  51
+    [simulations]
+        start_year = 1
+        end_year = 2
+        [[20180129.DECKv1b_piControl.ne30_oEC.edison]]
+            transfer_type = globus
+            remote_uuid = 9d6d994a-6d04-11e5-ba46-22000b92c6ec
+            remote_path = /global/homes/r/renata/ACME_simulations/20180129.DECKv1b_piControl.ne30_oEC.edison
+            short_name = piControl
+            native_grid_name = ne30
+            native_mpas_grid_name = oEC60to30v3
+            data_types = all
+            job_types = all
+        [[20180215.DECKv1b_1pctCO2.ne30_oEC.edison]]
+            transfer_type = sftp
+            remote_hostname = edison.nersc.gov
+            remote_path = /global/homes/r/renata/ACME_simulations/20180215.DECKv1b_1pctCO2.ne30_oEC.edison
+            short_name = 1pctCO2
+            native_grid_name = ne30
+            native_mpas_grid_name = oEC60to30v3
+            data_types = all
+            job_types = all
+        [[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]
+            transfer_type = local
+            local_path = /p/user_pub/e3sm/baldwin32/deck/v1_DECK_abrupt-4xCO2/input
+            short_name = abrupt4xCO2
+            native_grid_name = ne30
+            native_mpas_grid_name = oEC60to30v3
+            data_types = atm, lnd
+            job_types = e3sm_diags, amwg, climo
+        [[comparisons]]
+            20180129.DECKv1b_piControl.ne30_oEC.edison = obs
+            20180215.DECKv1b_1pctCO2.ne30_oEC.edison = 20180129.DECKv1b_piControl.ne30_oEC.edison
+            20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison = all
 
-    # The last year to run post processing jobs on
-    # The highest number year, so if your simulation starts in 1980
-    #   and you want to process 20 years, this should be 2000
-    simulation_end_year = 60
+    [post-processing]
+        [[climo]]
+            run_frequency = 2
+            destination_grid_name = fv129x256
+            regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
 
-    # The list of year lengths to run jobs on
-    # If you want the diagnostics run every 5 years, add 5 to this list
-    # If you want a single time series run, add the length of the simulation to the list
-    #   and just add timeseries to that frequency
-    set_frequency = 5, 10
+        [[timeseries]]
+            run_frequency = 2
+            destination_grid_name = fv129x256
+            regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+            atm = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
+            lnd = SOILICE, SOILLIQ, SOILWATER_10CM, QINTR, QOVER, QRUNOFF, QSOIL, QVEGT, TSOI
 
-    # The experiment name
-    # for example 20170731.F20TR_ck10.ne30_ne30.edison
-    experiment = YOUR.SIMULATION.NAME
-
-    # A nice short name for the AMWG and e3sm diags plots
-    short_name = 'MODEL_RUN_NAME'
-
-    # The email address to send to when all processing is complete, leave commented out to turn off
-    email = YOUREMAIL@INSTITUION.GOV
-
-    # Turn on (1) if you've run short term archiving on your model data
-    # Turn off (0) otherwise
-    short_term_archive = 0
-
-    # Should the native grid files be cleaned up on successful exit?
-    native_grid_cleanup = 0
-
-    # name of the native grid
-    native_grid_name = 'ne30'
-
-    # name of the remapped grid
-    remap_grid_name = 'fv129x256'
-
-    # The base URL for the server thats hosting image output
-    img_host_server = https://acme-viewer.llnl.gov
-
-    # the base path for web hosting
-    host_directory = /var/www/acme/acme-diags/
-
-    # Types of files to transfer
-    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport'
-
-    # The jobs to run on each set, to turn off the job entirely leave its value blank
-    [[set_jobs]]
-        # this will run ncclimo for both 5 and 10
-        ncclimo = 5, 10
-        # this will run time series only at 10
-        timeseries = 20
-        # this will run amwg only at 5
-        amwg = 5, 10
-        # this will turn off the coupled diag
-        aprime_diags =
-        e3sm_diags = 10
-
-    [e3sm_diags]
-    host_directory = e3sm-diags
-    backend = mpl
-    seasons = DJF, MAM, JJA, SON, ANN
-    reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
-    sets = 3, 4, 5, 7, 13
-
-    [transfer]
-    # The Globus endpoint ID for the local host
-    destination_endpoint = a871c6de-2acd-11e7-bc7c-22000b9a448b
-
-    # The Globus endpoint ID for the remote host
-    source_endpoint = 9d6d994a-6d04-11e5-ba46-22000b92c6ec
-
-    [amwg]
-    # The location of the amwg code
-    diag_home = /p/cscratch/acme/amwg/amwg_diag
-
-    # The directory to copy output to for hosting
-    host_directory = amwg
+        [[regrid]]
+            [[[lnd]]]
+                source_grid_path = /export/zender1/data/grids/ne30np4_pentagons.091226.nc
+                destination_grid_path = /export/zender1/data/grids/129x256_SCRIP.20150901.nc 
+                destination_grid_name = fv129x256
+            [[[atm]]]
+                regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+                destination_grid_name = fv129x256
+            [[[ocn]]]
+                regrid_map_path = ~/grids/map_oEC60to30v3_to_0.5x0.5degree_bilinear.nc
+                destination_grid_name = 0.5x0.5degree_bilinear
 
 
-    [ncclimo]
-    # Path to the regird map
-    regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+    [diags]
+        [[e3sm_diags]]
+            run_frequency = 2
+            backend = mpl
+            reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
 
-    # A list of variables to generate timeseries files for
-    var_list = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
+        [[amwg]]
+            run_frequency = 2
+            diag_home = /p/cscratch/acme/amwg/amwg_diag
+            
+        [[aprime]]
+            run_frequency = 2
+            host_directory = aprime-diags
+            aprime_code_path = /p/cscratch/acme/data/a-prime
+            test_atm_res = ne30
+            test_mpas_mesh_name = oEC60to30v3
 
-
-    [aprime_diags]
-    # The directory to copy plots for hosting
-    host_directory = aprime-diags
-
-    # The code directory for coupled_diags
-    aprime_code_path = /p/cscratch/acme/data/a-prime
-
-    test_atm_res = ne30
-    test_mpas_mesh_name = oEC60to30v3
+    [data_types]
+        [[atm]]
+            remote_path = 'REMOTE_PATH/archive/atm/hist'
+            file_format = 'CASEID.cam.h0.YEAR-MONTH.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/atm'
+            monthly = True
+            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
+                local_path = 'LOCAL_PATH/atm'
+        [[lnd]]
+            remote_path = 'REMOTE_PATH/archive/lnd/hist'
+            file_format = 'CASEID.clm2.h0.YEAR-MONTH.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/lnd'
+            monthly = True
+            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
+                local_path = 'LOCAL_PATH/lnd'
+        [[cice]]
+            remote_path = 'REMOTE_PATH/archive/ice/hist'
+            file_format = 'mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/ice'
+            monthly = True
+        [[ocn]]
+            remote_path = 'REMOTE_PATH/archive/ocn/hist'
+            file_format = 'mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/ocn'
+            monthly = True
+        [[ocn_restart]]
+            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
+            file_format = 'mpaso.rst.REST_YR-01-01_00000.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            monthly = False
+        [[cice_restart]]
+            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
+            file_format = 'mpascice.rst.REST_YR-01-01_00000.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            monthly = False
+        [[ocn_streams]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'streams.ocean'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[cice_streams]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'streams.cice'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[ocn_in]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'mpas-o_in'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[cice_in]]
+            remote_path = 'REMOTE_PATH/run'
+            file_format = 'mpas-cice_in'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+        [[meridionalHeatTransport]]
+            remote_path = 'REMOTE_PATH/archive/ocn/hist'
+            file_format = 'mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc'
+            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            monthly = False
+    
