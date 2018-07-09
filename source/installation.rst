@@ -42,6 +42,6 @@ Or upgrade from the nightly:
 
 :: 
 
-    conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow processflow
+    conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`
