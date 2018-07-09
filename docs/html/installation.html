@@ -177,16 +177,16 @@ any of these services as they should all be running. If you’re running and alr
 <div class="section" id="note">
 <h2>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
 <p>All these commands assume you’re using a bash environment. Other shells may not work correctly with conda</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
-conda activate processflow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">processflow</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">processflow</span>
 </pre></div>
 </div>
 <p>If you already have an installation and want to upgrade, first source your environment and then run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
 </pre></div>
 </div>
 <p>Or upgrade from the nightly:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow processflow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span> <span class="n">processflow</span>
 </pre></div>
 </div>
 <p>Instructions on configuration and execution can be found here <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quick Start</span></a></p>

@@ -26,7 +26,7 @@ Note
 
 All these commands assume you're using a bash environment. Other shells may not work correctly with conda
 
-.. code-block:: bash
+::
 
     conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
     conda activate processflow
@@ -34,13 +34,13 @@ All these commands assume you're using a bash environment. Other shells may not 
 
 If you already have an installation and want to upgrade, first source your environment and then run:
 
-.. code-block:: bash
+::
 
     conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
 
 Or upgrade from the nightly:
 
-.. code-block:: bash
+:: 
 
     conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow processflow
 
