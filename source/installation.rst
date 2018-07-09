@@ -23,24 +23,25 @@ any of these services as they should all be running. If you're running and alrea
 
 Note:
 _____
+
 All these commands assume you're using a bash environment. Other shells may not work correctly with conda
 
-.. code-block:: bash
+.. code-block: bash
 
-    conda create --name <SOME_ENVIRONMENT_NAME> -c e3sm -c conda-forge -c cdat processflow
-    conda activate <SOME_ENVIRONMENT_NAME>
+    conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+    conda activate processflow
 
 
 If you already have an installation and want to upgrade, first source your environment and then run:
 
 .. code-block:: bash
 
-    conda update -c e3sm -c conda-forge -c cdat processflow
+    conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
 
 Or upgrade from the nightly:
 
 .. code-block:: bash
 
-    conda update -c e3sm/label/nightly -c e3sm -c conda-forge -c cdat processflow
+    conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`

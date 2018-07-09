@@ -13,6 +13,7 @@ Run configuration is broken into 6 major sections:
     * :ref:`post-processing` all options related to post processing jobs
     * :ref:`diags` all options related to diagnostic runs
     * :ref:`data_types` definitions of which data types are required, and how to find data files
+    * :ref:`example_config` an example config file
 
 .. _global_config:
 
@@ -88,9 +89,9 @@ This is the list of comparisons between for each case.
 Each case running diagnostics should have an entry here, followed by which other cases it should be compared to. 
 This can include the keywords 'all' for all possible comparisons, or 'obs' for model-vs-obs comparisons. The 'all' keyword will add comparisons with each other case as well as model-vs-obs.
     
-example
-
+**example**
 ::
+
     [[comparisons]]
         case_1 = obs, case_2
         case_2 = case_3
@@ -328,7 +329,7 @@ pulls in remote_path from the simulation config and substitures it. For example,
 This would create a new data type called "my_new_custom_type." The processflow would then take the cases "remote_path" and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
 /export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc
 
-The keywords you can use for substitution are:
+Default keywords you can use for substitution are:
     * REMOTE_PATH: pulled from the simulation.case.remote_path
     * PROJECT_PATH: pulled from global.project_path
     * CASEID: pulled from simulations.case
@@ -363,6 +364,7 @@ In this example the data type my_new_custom_type would specify that files coming
 
 | {remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}
 | /export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case
+|
 
 
 

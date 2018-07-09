@@ -185,6 +185,7 @@
 <li><a class="reference internal" href="#post-processing"><span class="std std-ref">Post processing</span></a> all options related to post processing jobs</li>
 <li><a class="reference internal" href="#diags"><span class="std std-ref">Diags</span></a> all options related to diagnostic runs</li>
 <li><a class="reference internal" href="#data-types"><span class="std std-ref">Data types</span></a> definitions of which data types are required, and how to find data files</li>
+<li><a class="reference internal" href="#example-config"><span class="std std-ref">Example Configuration</span></a> an example config file</li>
 </ul>
 </div></blockquote>
 <div class="section" id="global">
@@ -260,17 +261,13 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <p>This is the list of comparisons between for each case.
 Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
 This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
-<p>example</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><dl class="first last docutils">
-<dt>[[comparisons]]</dt>
-<dd>case_1 = obs, case_2
-case_2 = case_3
-case_3 = all</dd>
-</dl>
-</dd>
-</dl>
+<p><strong>example</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
+    <span class="n">case_1</span> <span class="o">=</span> <span class="n">obs</span><span class="p">,</span> <span class="n">case_2</span>
+    <span class="n">case_2</span> <span class="o">=</span> <span class="n">case_3</span>
+    <span class="n">case_3</span> <span class="o">=</span> <span class="nb">all</span>
+</pre></div>
+</div>
 <p>In this example the following comparison diagnostics jobs will be generated:</p>
 <blockquote>
 <div><ul class="simple">
@@ -485,7 +482,7 @@ pulls in remote_path from the simulation config and substitures it. For example,
 <p>This would create a new data type called “my_new_custom_type.” The processflow would then take the cases “remote_path” and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
 /export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc</p>
 <dl class="docutils">
-<dt>The keywords you can use for substitution are:</dt>
+<dt>Default keywords you can use for substitution are:</dt>
 <dd><ul class="first last simple">
 <li>REMOTE_PATH: pulled from the simulation.case.remote_path</li>
 <li>PROJECT_PATH: pulled from global.project_path</li>
@@ -521,6 +518,7 @@ Simply add the caseid as a new section to the data_type section, and add your ca
 <div class="line-block">
 <div class="line">{remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}</div>
 <div class="line">/export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case</div>
+<div class="line"><br /></div>
 </div>
 <p>In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving.
 For these two data types, the case is expected to use the standard everything-in-the-run-directory method. Note the local_path = ‘LOCAL_PATH/atm’</p>

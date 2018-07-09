@@ -94,17 +94,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#anaconda">Anaconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-configuration">Run Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processflow-install">Processflow install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -173,91 +167,25 @@
 <span id="quickstart"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
 <p>This is a guide for a new user on a system thats already been properly setup. For new users starting from scratch please referece to the
 <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> guide.</p>
-<div class="section" id="anaconda">
-<h2>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="processflow-install">
+<h2>Processflow install<a class="headerlink" href="#processflow-install" title="Permalink to this headline">¶</a></h2>
 <p>You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the
 default and edit it to suit your case. You can find a <a class="reference internal" href="sample.html#sample"><span class="std std-ref">Sample</span></a> configuration here.</p>
-</div>
-<div class="section" id="run-configuration">
-<h2>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The acme_processflow config file contains all settings required to setup a run. Although the config file has many options, most of them
-are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:</p>
-<p><strong>project_path</strong>
-The root path to be created on the local machine for all local storage. All model data used as input will be saved in project_path/input, and all job output will be stored in project_path/output</p>
-<p><strong>source_path</strong>
-This is the path to look for data on the remote machine. This should be the root directory for the simulation, below which will be /run and /archive directories.</p>
-<p><strong>simulation_start_year</strong>
-The start year of the simulation. For example if the first year of the simulation output is 0100, put 100. If the first year is 0001, out 1. Note that since E3SM numbers its years as a 1 indexed array, the first year should be 1, not 0.</p>
-<p><strong>simulation_end_year</strong>
-The expected end year. This can be set to any year while the simulation is still starting, and the acme_processflow will continuously poll for new data and start jobs as the data is made available.</p>
-<p><strong>exeriment</strong>
-The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison</p>
-<p><strong>set_frequency</strong>
-The acme_processflow breaks the simulation into groups based on how much data you want the jobs to run on.
-For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50,
-and for every group of 10 years and 50 years you would get the jobs for that length run.
-In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, and 1-50.</p>
-<p><strong>set_jobs</strong>
-Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths.
-If you dont want a job to run at all simply remove it from the list.</p>
-<p>An example:</p>
-<dl class="docutils">
-<dt>[[set_jobs]]</dt>
-<dd># this will run ncclimo for both 5 and 10
-ncclimo = 5, 10
-# this will run time series only at 10
-timeseries = 10
-# this will run amwg only at 5
-amwg = 5
-# this will turn off the aprime diags by commenting it out
-# aprime_diags = 5
-e3sm_diags = 10</dd>
-</dl>
+<p>This install command will create a new anaconda environment with the latest stable release.</p>
+<p>Use the following command to get the latest nightly build.</p>
+<p>Once you have the processflow installed, the next step is creating your run configuration file. See <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Run Configuration</span></a> on how to setup your run config. You can find a <a class="reference internal" href="sample.html#sample"><span class="std std-ref">Sample</span></a> configuration here.</p>
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
-<p>The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span>
-                  <span class="o">[</span>-r RESOURCE_PATH<span class="o">]</span> <span class="o">[</span>-a<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>--dryrun<span class="o">]</span> <span class="o">[</span>-m MAX_JOBS<span class="o">]</span>
-
-optional arguments:
--h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
--c CONFIG, --config CONFIG
-                        Path to configuration file.
--v, --version         Print version informat and exit.
--l LOG, --log LOG     Path to logging output file.
--s, --scripts         Copy the case_scripts directory from the remote
-                        machine.
--f, --file-list       Turn on debug output of the internal file_list so you
-                        can see what the current state of the model files are
--r RESOURCE_PATH, --resource-path RESOURCE_PATH
-                        Path to custom resource directory
--a, --always-copy     Always copy diagnostic output, even <span class="k">if</span> the output
-                        already exists in the host directory. This is much
-                        slower but ensures old output will be overwritten
--d, --debug           Set log level to debug
---dryrun              Do everything up to starting the jobs, but dont start
-                        any <span class="nb">jobs</span>
--m MAX_JOBS, --max-jobs MAX_JOBS
-                        maximum number of running <span class="nb">jobs</span>
+<p>Running the processflow is extremely simple. Once your config is setup, simply execute the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">processflow</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
-<p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>processflow.py -c run.cfg
-</pre></div>
-</div>
-<p>When run in interactive mode, the processflow will exit if the terminal window is closed. For long running jobs,
-the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup processflow.py -c /PATH/TO/YOUR/CONFIG <span class="p">&amp;</span>
-</pre></div>
-</div>
-<p>Once the run starts, you may be prompted to authenticate with globus (if the nodes arent already activated). Simply copy the address provided and paste into your browser.
-You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.</p>
-<p>Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt</p>
-<p>Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run.
-If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.</p>
-<p>Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate. When all the jobs finish, you will be emailed with links to the diagnostic output.</p>
-<p>Credentials to view the output can be found here: <a class="reference external" href="https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png">https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png</a></p>
+<p>Once the run starts, you may be prompted to authenticate with globus (if using globus to transfer files), or your ssh credentials (is using sftp to transfer files).</p>
+<p>Once you have logged into globus, each data node will need to be activated with your account.
+This activation can last from days to weeks depending on the nodes configuration, but periodically needs to be re-run.
+If a node needs to be activated the processflow will notify you and wait.</p>
+<p>Once diagnostic output has been created, it will be moved to the host location (if img hosting is turned on). The web directories on NERSC and LLNL machines are password protected, credentials to view the output can be found here: <a class="reference external" href="https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png">https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png</a></p>
 </div>
 </div>
 

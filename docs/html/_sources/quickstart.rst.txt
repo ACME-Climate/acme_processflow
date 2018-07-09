@@ -8,118 +8,46 @@ This is a guide for a new user on a system thats already been properly setup. Fo
 :ref:`Installation` guide. 
 
 
-Anaconda
---------
+Processflow install
+-------------------
 
 You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the 
 default and edit it to suit your case. You can find a :ref:`Sample` configuration here.
 
+This install command will create a new anaconda environment with the latest stable release.
+
 .. code-block: bash
 
-    conda create -n <some_environment_name> -c e3sm -c conda-forge -c cdat  processflow
-    conda activate <some_environment_name>
+    conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+    conda activate processflow
+
+Use the following command to get the latest nightly build.
+
+.. code-block: bash
+
+    conda create --name processflow_nightly -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+    conda activate processflow_nightly
 
 
-Run Configuration
------------------
-
-The acme_processflow config file contains all settings required to setup a run. Although the config file has many options, most of them
-are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:
-
-
-**project_path**
-The root path to be created on the local machine for all local storage. All model data used as input will be saved in project_path/input, and all job output will be stored in project_path/output
-
-**source_path**
-This is the path to look for data on the remote machine. This should be the root directory for the simulation, below which will be /run and /archive directories.
-
-**simulation_start_year**
-The start year of the simulation. For example if the first year of the simulation output is 0100, put 100. If the first year is 0001, out 1. Note that since E3SM numbers its years as a 1 indexed array, the first year should be 1, not 0.
-
-**simulation_end_year**
-The expected end year. This can be set to any year while the simulation is still starting, and the acme_processflow will continuously poll for new data and start jobs as the data is made available.
-
-**exeriment**
-The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison
-
-**set_frequency**
-The acme_processflow breaks the simulation into groups based on how much data you want the jobs to run on. 
-For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, 
-and for every group of 10 years and 50 years you would get the jobs for that length run. 
-In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, and 1-50.
-
-**set_jobs**
-Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. 
-If you dont want a job to run at all simply remove it from the list.
-
-An example:
-
-[[set_jobs]]
-    # this will run ncclimo for both 5 and 10
-    ncclimo = 5, 10
-    # this will run time series only at 10
-    timeseries = 10
-    # this will run amwg only at 5
-    amwg = 5
-    # this will turn off the aprime diags by commenting it out
-    # aprime_diags = 5
-    e3sm_diags = 10
-
+Once you have the processflow installed, the next step is creating your run configuration file. See :ref:`configuration` on how to setup your run config. You can find a :ref:`Sample` configuration here.
 
 
 Execution
 ---------
 
-The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
+Running the processflow is extremely simple. Once your config is setup, simply execute the following command:
+
+::
+
+    processflow.py -c /path/to/your/run.cfg
 
 
-.. code-block:: bash
+Once the run starts, you may be prompted to authenticate with globus (if using globus to transfer files), or your ssh credentials (is using sftp to transfer files).
 
-    usage: processflow.py [-h] [-c CONFIG] [-v] [-l LOG] [-s] [-f]
-                      [-r RESOURCE_PATH] [-a] [-d] [--dryrun] [-m MAX_JOBS]
 
-    optional arguments:
-    -h, --help            show this help message and exit
-    -c CONFIG, --config CONFIG
-                            Path to configuration file.
-    -v, --version         Print version informat and exit.
-    -l LOG, --log LOG     Path to logging output file.
-    -s, --scripts         Copy the case_scripts directory from the remote
-                            machine.
-    -f, --file-list       Turn on debug output of the internal file_list so you
-                            can see what the current state of the model files are
-    -r RESOURCE_PATH, --resource-path RESOURCE_PATH
-                            Path to custom resource directory
-    -a, --always-copy     Always copy diagnostic output, even if the output
-                            already exists in the host directory. This is much
-                            slower but ensures old output will be overwritten
-    -d, --debug           Set log level to debug
-    --dryrun              Do everything up to starting the jobs, but dont start
-                            any jobs
-    -m MAX_JOBS, --max-jobs MAX_JOBS
-                            maximum number of running jobs
+Once you have logged into globus, each data node will need to be activated with your account. 
+This activation can last from days to weeks depending on the nodes configuration, but periodically needs to be re-run. 
+If a node needs to be activated the processflow will notify you and wait. 
 
-Once you've configured your run, execute this command to start in interactive mode.
 
-.. code-block:: bash
-
-    processflow.py -c run.cfg
-
-When run in interactive mode, the processflow will exit if the terminal window is closed. For long running jobs, 
-the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run:
-
-.. code-block:: bash
-
-    nohup processflow.py -c /PATH/TO/YOUR/CONFIG &
-
-Once the run starts, you may be prompted to authenticate with globus (if the nodes arent already activated). Simply copy the address provided and paste into your browser. 
-You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
-
-Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt
-
-Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run. 
-If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.
-
-Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate. When all the jobs finish, you will be emailed with links to the diagnostic output.
-
-Credentials to view the output can be found here: https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png
+Once diagnostic output has been created, it will be moved to the host location (if img hosting is turned on). The web directories on NERSC and LLNL machines are password protected, credentials to view the output can be found here: https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png

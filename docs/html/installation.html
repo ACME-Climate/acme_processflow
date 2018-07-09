@@ -98,11 +98,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">APrime Diagnostics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e3sm_diags.html">ACME Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
 </ul>
 
@@ -182,16 +177,12 @@ any of these services as they should all be running. If you’re running and alr
 <div class="section" id="note">
 <h2>Note:<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
 <p>All these commands assume you’re using a bash environment. Other shells may not work correctly with conda</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create --name &lt;SOME_ENVIRONMENT_NAME&gt; -c e3sm -c conda-forge -c cdat processflow
-conda activate &lt;SOME_ENVIRONMENT_NAME&gt;
-</pre></div>
-</div>
 <p>If you already have an installation and want to upgrade, first source your environment and then run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm -c conda-forge -c cdat processflow
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
 </pre></div>
 </div>
 <p>Or upgrade from the nightly:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm/label/nightly -c e3sm -c conda-forge -c cdat processflow
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow processflow
 </pre></div>
 </div>
 <p>Instructions on configuration and execution can be found here <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quick Start</span></a></p>

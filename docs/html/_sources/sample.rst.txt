@@ -4,7 +4,7 @@
 Sample
 ******
 
-This is a sample configuration file.
+A sample config file with three cases. Each case uses a different file transfer method. Note the data_types configuration for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case. 
 
 
 ::
