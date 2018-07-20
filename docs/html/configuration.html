@@ -404,8 +404,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 <p>The AMWG diagnostic suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
 <blockquote>
 <div><ul class="simple">
-<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
 <li>diag_home (string): the path to where on the local file system the amwg code is located. All amwg jobs will be executed from this directory.</li>
+<li>sets (list): the list of AMWG sets to run, or set to ‘all’ to run all sets</li>
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
@@ -413,6 +414,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
     <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+        <span class="n">sets</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="n">a</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">15</span>
 </pre></div>
 </div>
 </div>
@@ -421,7 +423,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 <p>The e3sm_diags suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
 <blockquote>
 <div><ul class="simple">
-<li>run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
+<li>run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
 <li>backend (string): which graphing backend to use for generating the plots. Supported options are ‘vcs’ and ‘mpl’.</li>
 <li>reference_data_path (string): path to local copy of reference observational data.</li>
 </ul>
@@ -452,6 +454,8 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </ul>
 </dd>
 </dl>
+<p>To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simple clone the
+<a class="reference external" href="https://github.com/E3SM-Project/a-prime">aprime repo</a>.</p>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
@@ -462,63 +466,45 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div>
 <div class="section" id="data-types">
 <span id="id11"></span><h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
-<p>This section defines each of the data types for your jobs. Each data type is denoted by creating a new config section using double brackets [[new_data_type]].
-Each section then has four keys. The values in these keys can contain a set of keywords that are used to substitute values at run time. For example, the REMOTE_PATH keyword
-pulls in remote_path from the simulation config and substitures it. For example, a new data type could be specified using:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
-    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">44</span>
-    <span class="p">[[</span><span class="n">some</span><span class="o">-</span><span class="n">case</span><span class="o">-</span><span class="nb">id</span><span class="p">]]</span>
-        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">case</span>
-
-<span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
-    <span class="p">[[</span><span class="n">my_new_custom_type</span><span class="p">]]</span>
-        <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/custom_component/hist&#39;</span>
-        <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.custom.value.YEAR-MONTH.nc&#39;</span>
-        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;/my/custom/local/path/&#39;</span>
-        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
-<p>This would create a new data type called “my_new_custom_type.” The processflow would then take the cases “remote_path” and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
-/export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc</p>
-<dl class="docutils">
-<dt>Default keywords you can use for substitution are:</dt>
-<dd><ul class="first last simple">
-<li>REMOTE_PATH: pulled from the simulation.case.remote_path</li>
-<li>PROJECT_PATH: pulled from global.project_path</li>
-<li>CASEID: pulled from simulations.case</li>
-<li>YEAR: created as a range from simulation.start_year to simulation.end_year if the data_type is marked as monthly</li>
-<li>MONTH: created as a range from 1 to 12 if the data_type is marked as monthly</li>
-<li>REST_YR: this is the “restart year,” which is simulations.start_year + 1</li>
+<p>The data_types section is the most complex and configurable part of the run configuration. The basic structure is that each sub-section
+defines a type of data, and then gives information about where to find the data, where to store the data, and what the file names are going to be.
+The values for each option are templates, which use substitutions to fill out the information at run time.
+Each substitution is made with values specific to the case the data is being included as part of. The following strings are used for replacement:</p>
+<blockquote>
+<div><ul class="simple">
+<li>CASEID: the full name for the case.</li>
+<li>YEAR: the year of the data</li>
+<li>MONTH: the month for the data</li>
+<li>LOCAL_PATH: if defined, the local_path specified in the case definition (config.simulation.case)</li>
+<li>REMOTE_PATH: if defined, the remote_path from the case definition</li>
+<li>START_YR: the global start_year</li>
+<li>END_YR: the global end_year</li>
+<li>REST_YR: the first year that restart data is available, start_year + 1</li>
+<li>PROJECT_PATH: the global project_path</li>
 </ul>
-</dd>
-</dl>
-<p>The four mandatory sections for each data type (remote_path, file_format, local_path, monthly) are applied to each case. Case specific options are allowed, and allow you to create user defined substutions.
-Simply add the caseid as a new section to the data_type section, and add your case specific keywords. These values for these keywords are then pulled from the simulation.caseid section. For example:</p>
+</div></blockquote>
+<p>These are simply the defaults available for all cases, you can define your own substituions on a case-by-case basis by including
+the keyword and value in the case definition.</p>
+<p>The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
+inside the data type section with the case name, for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
     <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="p">[[</span><span class="n">my</span><span class="o">-</span><span class="n">fancy</span><span class="o">-</span><span class="n">case</span><span class="p">]]</span>
+    <span class="p">[[</span><span class="n">my</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="mi">1</span><span class="p">]]</span>
         <span class="n">my_custom_keyword</span> <span class="o">=</span> <span class="s1">&#39;isnt-this-nice&#39;</span>
-        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">case</span>
-    <span class="p">[[</span><span class="n">perfectly</span><span class="o">-</span><span class="n">ordinary</span><span class="o">-</span><span class="n">case</span><span class="p">]]</span>
-        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">output</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">second</span><span class="o">-</span><span class="n">case</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model_output</span><span class="o">/</span><span class="n">my_case</span>
+    <span class="p">[[</span><span class="n">my</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="n">remote_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">my_user</span><span class="o">/</span><span class="n">model_output</span><span class="o">/</span><span class="n">my_second</span><span class="o">-</span><span class="n">case</span>
 
 <span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
-    <span class="p">[[</span><span class="n">my_new_custom_type</span><span class="p">]]</span>
+    <span class="p">[[</span><span class="n">some_data_type</span><span class="p">]]</span>
         <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/custom_component/hist&#39;</span>
         <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.custom.value.YEAR-MONTH.nc&#39;</span>
-        <span class="n">local_path</span> <span class="o">=</span> <span class="s1">&#39;/my/custom/local/path/&#39;</span>
+        <span class="n">local_path</span>  <span class="o">=</span> <span class="s1">&#39;/my/local/path/&#39;</span>
         <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="p">[[[</span><span class="n">my</span><span class="o">-</span><span class="n">fancy</span><span class="o">-</span><span class="n">case</span><span class="p">]]]</span>
+        <span class="p">[[[</span><span class="n">my</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="mi">1</span><span class="p">]]]</span>
             <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/MY_CUSTOM_KEYWORD/CASEID&#39;</span>
 </pre></div>
-</div>
-<p>In this example the data type my_new_custom_type would specify that files coming from the case my-fancy-case would have the remote path:</p>
-<div class="line-block">
-<div class="line">{remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}</div>
-<div class="line">/export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case</div>
-<div class="line"><br /></div>
 </div>
 <p>In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving.
 For these two data types, the case is expected to use the standard everything-in-the-run-directory method. Note the local_path = ‘LOCAL_PATH/atm’</p>
@@ -669,13 +655,12 @@ For these two data types, the case is expected to use the standard everything-in
     <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+        <span class="n">sets</span> <span class="o">=</span> <span class="nb">all</span>
 
     <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">host_directory</span> <span class="o">=</span> <span class="n">aprime</span><span class="o">-</span><span class="n">diags</span>
         <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
-        <span class="n">test_atm_res</span> <span class="o">=</span> <span class="n">ne30</span>
-        <span class="n">test_mpas_mesh_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
 
 <span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>

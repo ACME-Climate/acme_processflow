@@ -244,8 +244,9 @@ AMWG
 
 The AMWG diagnostic suite needs the 'atm' data type, and the 'climo' job type.
 
-    * run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
+    * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * diag_home (string): the path to where on the local file system the amwg code is located. All amwg jobs will be executed from this directory.
+    * sets (list): the list of AMWG sets to run, or set to 'all' to run all sets
 
 **example**
 
@@ -255,6 +256,7 @@ The AMWG diagnostic suite needs the 'atm' data type, and the 'climo' job type.
         [[amwg]]
             run_frequency = 2
             diag_home = /p/cscratch/acme/amwg/amwg_diag
+            sets = 2, 3, 4, 4a, 5, 6, 15
 
 .. _e3sm_diags:
 
@@ -263,7 +265,7 @@ e3sm_diags
 
 The e3sm_diags suite needs the 'atm' data type, and the 'climo' job type.
 
-    * run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
+    * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * backend (string): which graphing backend to use for generating the plots. Supported options are 'vcs' and 'mpl'.
     * reference_data_path (string): path to local copy of reference observational data.
 
@@ -293,6 +295,10 @@ The aprime diagnostic suite requires the following data types, and no job types:
     * ocn_in
     * meridionalHeatTransport
 
+To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simple clone the 
+`aprime repo <https://github.com/E3SM-Project/a-prime>`_.
+
+
 **example**
 
 ::
@@ -307,65 +313,47 @@ The aprime diagnostic suite requires the following data types, and no job types:
 Data types
 ----------
 
-This section defines each of the data types for your jobs. Each data type is denoted by creating a new config section using double brackets [[new_data_type]].
-Each section then has four keys. The values in these keys can contain a set of keywords that are used to substitute values at run time. For example, the REMOTE_PATH keyword
-pulls in remote_path from the simulation config and substitures it. For example, a new data type could be specified using:
+The data_types section is the most complex and configurable part of the run configuration. The basic structure is that each sub-section
+defines a type of data, and then gives information about where to find the data, where to store the data, and what the file names are going to be.
+The values for each option are templates, which use substitutions to fill out the information at run time. 
+Each substitution is made with values specific to the case the data is being included as part of. The following strings are used for replacement:
 
-::
+    * CASEID: the full name for the case.
+    * YEAR: the year of the data
+    * MONTH: the month for the data
+    * LOCAL_PATH: if defined, the local_path specified in the case definition (config.simulation.case)
+    * REMOTE_PATH: if defined, the remote_path from the case definition
+    * START_YR: the global start_year
+    * END_YR: the global end_year
+    * REST_YR: the first year that restart data is available, start_year + 1
+    * PROJECT_PATH: the global project_path
 
-        [simulations]
-            start_year = 22
-            end_year = 44
-            [[some-case-id]]
-                remote_path = /export/my_user/model-output/my-case
+These are simply the defaults available for all cases, you can define your own substituions on a case-by-case basis by including
+the keyword and value in the case definition.
 
-        [data_types]
-            [[my_new_custom_type]]
-                remote_path = 'REMOTE_PATH/archive/custom_component/hist'
-                file_format = 'CASEID.custom.value.YEAR-MONTH.nc'
-                local_path = '/my/custom/local/path/'
-                monthly = True
 
-This would create a new data type called "my_new_custom_type." The processflow would then take the cases "remote_path" and replace the REMOTE_PATH section defined in the data_type, making it look for this new data type in
-/export/my_user/model-output/my-case/archive/custom_component/hist, with the file names some-case-id.custom.value.0022-01.nc through some-case-id.custom.value.0044-12.nc
-
-Default keywords you can use for substitution are:
-    * REMOTE_PATH: pulled from the simulation.case.remote_path
-    * PROJECT_PATH: pulled from global.project_path
-    * CASEID: pulled from simulations.case
-    * YEAR: created as a range from simulation.start_year to simulation.end_year if the data_type is marked as monthly
-    * MONTH: created as a range from 1 to 12 if the data_type is marked as monthly
-    * REST_YR: this is the "restart year," which is simulations.start_year + 1
-
-The four mandatory sections for each data type (remote_path, file_format, local_path, monthly) are applied to each case. Case specific options are allowed, and allow you to create user defined substutions.
-Simply add the caseid as a new section to the data_type section, and add your case specific keywords. These values for these keywords are then pulled from the simulation.caseid section. For example:
+The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
+inside the data type section with the case name, for example:
 
 ::
 
     [simulations]
         start_year = 1
         end_year = 2
-        [[my-fancy-case]]
+        [[my.case.1]]
             my_custom_keyword = 'isnt-this-nice'
-            remote_path = /export/my_user/model-output/my-case
-        [[perfectly-ordinary-case]]
-            remote_path = /export/my_user/model-output/my-second-case
+            remote_path = /export/my_user/model_output/my_case
+        [[my.case.2]]
+            remote_path = /export/my_user/model_output/my_second-case
 
     [data_types]
-        [[my_new_custom_type]]
+        [[some_data_type]]
             remote_path = 'REMOTE_PATH/archive/custom_component/hist'
             file_format = 'CASEID.custom.value.YEAR-MONTH.nc'
-            local_path = '/my/custom/local/path/'
+            local_path  = '/my/local/path/'
             monthly = True
-            [[[my-fancy-case]]]
+            [[[my.case.1]]]
                 remote_path = 'REMOTE_PATH/MY_CUSTOM_KEYWORD/CASEID'
-
-In this example the data type my_new_custom_type would specify that files coming from the case my-fancy-case would have the remote path:
-
-| {remote_path from simulation.caseid}/{my_custom_keyword}/{ case id}
-| /export/my_user/model-output/my-case/isnt-this-nice/my-fancy-case
-|
-
 
 
 In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving. 
@@ -526,13 +514,12 @@ This is an example configuration used on acme1 with three cases. Each case uses 
         [[amwg]]
             run_frequency = 2
             diag_home = /p/cscratch/acme/amwg/amwg_diag
-            
+            sets = all
+
         [[aprime]]
             run_frequency = 2
             host_directory = aprime-diags
             aprime_code_path = /p/cscratch/acme/data/a-prime
-            test_atm_res = ne30
-            test_mpas_mesh_name = oEC60to30v3
 
     [data_types]
         [[atm]]

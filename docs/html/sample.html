@@ -160,12 +160,13 @@
             
   <div class="section" id="sample">
 <span id="id1"></span><h1>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h1>
-<p>A sample config file with three cases. Each case uses a different file transfer method. Note the data_types configuration for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case.</p>
+<p>A sample config file with three cases. Each case uses a different file transfer method. Note the data_types configuration for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case,
+which points it to look in the cases local_path directory.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
-<span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">model_v_model</span>
-<span class="n">email</span> <span class="o">=</span> <span class="n">baldwin32</span><span class="nd">@llnl</span><span class="o">.</span><span class="n">gov</span>
-<span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">local_globus_uuid</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">model_v_model</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">baldwin32</span><span class="nd">@llnl</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">local_globus_uuid</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
 
 <span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
     <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
