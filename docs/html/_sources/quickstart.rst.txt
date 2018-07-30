@@ -31,6 +31,16 @@ Use the following command to get the latest nightly build.
 
 Once you have the processflow installed, the next step is creating your run configuration file. See :ref:`configuration` on how to setup your run config. You can find a :ref:`Sample` configuration here.
 
+Configuration
+-------------
+
+Get a copy of the example config, and edit its keys to fit your case. You can get a copy of the example here:
+
+::
+
+    wget https://raw.githubusercontent.com/E3SM-Project/processflow/master/run.cfg
+
+For a complete explanation of each config key, see the :ref:`Configuration` guide.
 
 Execution
 ---------
