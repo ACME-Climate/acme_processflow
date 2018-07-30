@@ -16,14 +16,14 @@ default and edit it to suit your case. You can find a :ref:`Sample` configuratio
 
 This install command will create a new anaconda environment with the latest stable release.
 
-.. code-block: bash
+::
 
     conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
     conda activate processflow
 
 Use the following command to get the latest nightly build.
 
-.. code-block: bash
+:: 
 
     conda create --name processflow_nightly -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
     conda activate processflow_nightly
