@@ -4,14 +4,15 @@
 Sample
 ******
 
-A sample config file with three cases. Each case uses a different file transfer method. Note the data_types configuration for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case,
+A sample config file with three cases. Unlike the example config in the repo, this is a real config file provided as an example.
+Each case uses a different file transfer method. Note the data_types configuration for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case,
 which points it to look in the cases local_path directory.
 
 
 ::
 
     [global]
-        project_path = /p/user_pub/e3sm/baldwin32/model_v_model
+        project_path = /p/user_pub/e3sm/baldwin32/model_vs_model
         email = baldwin32@llnl.gov
         native_grid_cleanup = False
         local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b

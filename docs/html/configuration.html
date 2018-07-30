@@ -215,7 +215,7 @@
 <div><ul class="simple">
 <li>img_host_server (string): The base url of the webserver, used for constructing the notification email links.</li>
 <li>host_directory (string): The base directory for where to put output for web hosting, the user must have permission to write here. Directories will be created for each simulation case, with jobs for the case stored below it.</li>
-<li>url_prefix (string): Notification urls are constructed as <a class="reference external" href="https:/">https:/</a>/{img_host_server}/{url_prefix}/{case}/{diagnostic}</li>
+<li>url_prefix (string): Notification urls are constructed as: <code class="docutils literal"><span class="pre">https://{img_host_server}/{url_prefix}/{case}/{diagnostic}</span></code> the url_prefix is used if the hosting service uses a specific string for your host directory.</li>
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
@@ -228,9 +228,9 @@
 </div>
 <div class="section" id="simulations">
 <span id="id2"></span><h2>simulations<a class="headerlink" href="#simulations" title="Permalink to this headline">¶</a></h2>
-<p>This section is used for configuring each case. As many cases can be placed here as the user would like.
+<p>This section is used for configuring each case. As many cases can be placed here as the user would like (one or more).
 The cases can be very different from each other, use different naming conventions (see data_types), and have their data stored in different file structures.
-The one thing they must all share in common is the start_year and end_year.</p>
+The one thing they must all share in common is the start_year and end_year attributes.</p>
 <blockquote>
 <div><ul class="simple">
 <li>start_year (int): the first year of data to be used.</li>
@@ -261,7 +261,6 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <p>This is the list of comparisons between for each case.
 Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
 This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
-<p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
     <span class="n">case_1</span> <span class="o">=</span> <span class="n">obs</span><span class="p">,</span> <span class="n">case_2</span>
     <span class="n">case_2</span> <span class="o">=</span> <span class="n">case_3</span>
@@ -401,7 +400,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div>
 <div class="section" id="amwg">
 <span id="id8"></span><h2>AMWG<a class="headerlink" href="#amwg" title="Permalink to this headline">¶</a></h2>
-<p>The AMWG diagnostic suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
+<p>The AMWG diagnostic suite needs the ‘atm’ data type, and is dependent on the ‘climo’ job type.</p>
 <blockquote>
 <div><ul class="simple">
 <li>run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
@@ -420,7 +419,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div>
 <div class="section" id="e3sm-diags">
 <span id="id9"></span><h2>e3sm_diags<a class="headerlink" href="#e3sm-diags" title="Permalink to this headline">¶</a></h2>
-<p>The e3sm_diags suite needs the ‘atm’ data type, and the ‘climo’ job type.</p>
+<p>The e3sm_diags suite needs the ‘atm’ data type, and is dependent on the ‘climo’ job type.</p>
 <blockquote>
 <div><ul class="simple">
 <li>run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.</li>
@@ -430,17 +429,18 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div></blockquote>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
-    <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
-    <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="aprime">
 <span id="id10"></span><h2>Aprime<a class="headerlink" href="#aprime" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>The aprime diagnostic suite requires the following data types, and no job types:</dt>
-<dd><ul class="first last simple">
+<p>The aprime diagnostic suite requires the following data types, and is not dependent on any other job types:</p>
+<blockquote>
+<div><ul class="simple">
 <li>atm</li>
 <li>cice</li>
 <li>cice_restart</li>
@@ -452,9 +452,8 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 <li>ocn_in</li>
 <li>meridionalHeatTransport</li>
 </ul>
-</dd>
-</dl>
-<p>To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simple clone the
+</div></blockquote>
+<p>To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simply clone the
 <a class="reference external" href="https://github.com/E3SM-Project/a-prime">aprime repo</a>.</p>
 <p><strong>example</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
@@ -466,7 +465,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div>
 <div class="section" id="data-types">
 <span id="id11"></span><h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
-<p>The data_types section is the most complex and configurable part of the run configuration. The basic structure is that each sub-section
+<p>The data_types section is the most complex and configurable part of the configuration process. The basic structure is that each sub-section
 defines a type of data, and then gives information about where to find the data, where to store the data, and what the file names are going to be.
 The values for each option are templates, which use substitutions to fill out the information at run time.
 Each substitution is made with values specific to the case the data is being included as part of. The following strings are used for replacement:</p>
@@ -475,8 +474,8 @@ Each substitution is made with values specific to the case the data is being inc
 <li>CASEID: the full name for the case.</li>
 <li>YEAR: the year of the data</li>
 <li>MONTH: the month for the data</li>
-<li>LOCAL_PATH: if defined, the local_path specified in the case definition (config.simulation.case)</li>
-<li>REMOTE_PATH: if defined, the remote_path from the case definition</li>
+<li>LOCAL_PATH: if defined for the case, the local_path specified in the case definition (config.simulation.case)</li>
+<li>REMOTE_PATH: if defined for the case, the remote_path from the case definition</li>
 <li>START_YR: the global start_year</li>
 <li>END_YR: the global end_year</li>
 <li>REST_YR: the first year that restart data is available, start_year + 1</li>
@@ -486,7 +485,8 @@ Each substitution is made with values specific to the case the data is being inc
 <p>These are simply the defaults available for all cases, you can define your own substituions on a case-by-case basis by including
 the keyword and value in the case definition.</p>
 <p>The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
-inside the data type section with the case name, for example:</p>
+inside the data type section with the case name. In this example, the my.case.1 remote_path option over rides the default value, and includes a custom substitution keyword.
+Note that the keyword when defined must be lower case, but when used in the data_type value must be upper case.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
     <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>

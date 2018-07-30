@@ -45,7 +45,7 @@ This is an optional section, only needed if the user would like to turn on web h
 
     * img_host_server (string): The base url of the webserver, used for constructing the notification email links.
     * host_directory (string): The base directory for where to put output for web hosting, the user must have permission to write here. Directories will be created for each simulation case, with jobs for the case stored below it.
-    * url_prefix (string): Notification urls are constructed as https://{img_host_server}/{url_prefix}/{case}/{diagnostic}
+    * url_prefix (string): Notification urls are constructed as: ``https://{img_host_server}/{url_prefix}/{case}/{diagnostic}`` the url_prefix is used if the hosting service uses a specific string for your host directory.
 
 **example**
 ::
@@ -60,9 +60,9 @@ This is an optional section, only needed if the user would like to turn on web h
 simulations
 -----------
 
-This section is used for configuring each case. As many cases can be placed here as the user would like. 
+This section is used for configuring each case. As many cases can be placed here as the user would like (one or more). 
 The cases can be very different from each other, use different naming conventions (see data_types), and have their data stored in different file structures. 
-The one thing they must all share in common is the start_year and end_year.
+The one thing they must all share in common is the start_year and end_year attributes.
 
     * start_year (int): the first year of data to be used.
     * end_year (int): the last year of data.
@@ -89,7 +89,7 @@ This is the list of comparisons between for each case.
 Each case running diagnostics should have an entry here, followed by which other cases it should be compared to. 
 This can include the keywords 'all' for all possible comparisons, or 'obs' for model-vs-obs comparisons. The 'all' keyword will add comparisons with each other case as well as model-vs-obs.
     
-**example**
+
 ::
 
     [[comparisons]]
@@ -242,7 +242,7 @@ This section contains all config options for diagnostic jobs. Currently supporte
 AMWG
 ----
 
-The AMWG diagnostic suite needs the 'atm' data type, and the 'climo' job type.
+The AMWG diagnostic suite needs the 'atm' data type, and is dependent on the 'climo' job type.
 
     * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * diag_home (string): the path to where on the local file system the amwg code is located. All amwg jobs will be executed from this directory.
@@ -263,7 +263,7 @@ The AMWG diagnostic suite needs the 'atm' data type, and the 'climo' job type.
 e3sm_diags
 ----------
 
-The e3sm_diags suite needs the 'atm' data type, and the 'climo' job type.
+The e3sm_diags suite needs the 'atm' data type, and is dependent on the 'climo' job type.
 
     * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * backend (string): which graphing backend to use for generating the plots. Supported options are 'vcs' and 'mpl'.
@@ -274,16 +274,18 @@ The e3sm_diags suite needs the 'atm' data type, and the 'climo' job type.
 ::
 
         [diags]
-            run_frequency = 2
-            backend = vcs
-            reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
+            [[e3sm_diags]]
+                run_frequency = 2
+                backend = vcs
+                reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
 
 .. _aprime:
 
 Aprime
 ------
 
-The aprime diagnostic suite requires the following data types, and no job types:
+The aprime diagnostic suite requires the following data types, and is not dependent on any other job types:
+
     * atm
     * cice
     * cice_restart
@@ -295,7 +297,7 @@ The aprime diagnostic suite requires the following data types, and no job types:
     * ocn_in
     * meridionalHeatTransport
 
-To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simple clone the 
+To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simply clone the 
 `aprime repo <https://github.com/E3SM-Project/a-prime>`_.
 
 
@@ -313,7 +315,7 @@ To run aprime, your system must have the latest version of the aprime code avail
 Data types
 ----------
 
-The data_types section is the most complex and configurable part of the run configuration. The basic structure is that each sub-section
+The data_types section is the most complex and configurable part of the configuration process. The basic structure is that each sub-section
 defines a type of data, and then gives information about where to find the data, where to store the data, and what the file names are going to be.
 The values for each option are templates, which use substitutions to fill out the information at run time. 
 Each substitution is made with values specific to the case the data is being included as part of. The following strings are used for replacement:
@@ -321,8 +323,8 @@ Each substitution is made with values specific to the case the data is being inc
     * CASEID: the full name for the case.
     * YEAR: the year of the data
     * MONTH: the month for the data
-    * LOCAL_PATH: if defined, the local_path specified in the case definition (config.simulation.case)
-    * REMOTE_PATH: if defined, the remote_path from the case definition
+    * LOCAL_PATH: if defined for the case, the local_path specified in the case definition (config.simulation.case)
+    * REMOTE_PATH: if defined for the case, the remote_path from the case definition
     * START_YR: the global start_year
     * END_YR: the global end_year
     * REST_YR: the first year that restart data is available, start_year + 1
@@ -333,7 +335,8 @@ the keyword and value in the case definition.
 
 
 The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
-inside the data type section with the case name, for example:
+inside the data type section with the case name. In this example, the my.case.1 remote_path option over rides the default value, and includes a custom substitution keyword. 
+Note that the keyword when defined must be lower case, but when used in the data_type value must be upper case.
 
 ::
 
