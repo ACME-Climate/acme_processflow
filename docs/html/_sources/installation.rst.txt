@@ -26,7 +26,7 @@ All these commands assume you're using a bash environment. Other shells may not 
 
 ::
 
-    conda create --name processflow -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+    conda create --name processflow -c e3sm -c conda-forge -c cdat processflow
     conda activate processflow
 
 
@@ -34,7 +34,7 @@ If you already have an installation and want to upgrade, first source your envir
 
 ::
 
-    conda update -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+    conda update -c e3sm -c conda-forge -c cdat processflow
 
 Or upgrade from the nightly:
 
