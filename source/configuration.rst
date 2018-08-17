@@ -174,6 +174,9 @@ Produces regridded climatologies using ncclimo. Requires the 'atm' data type. Us
             run_frequency = 2
             destination_grid_name = fv129x256
             regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
+            [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                --partition = regular
+                --account = acme
 
 .. _timeseries:
 
@@ -201,6 +204,9 @@ Produces single-variable-per-file timeseries files from monthly model output fil
             lnd = SOILICE, SOILLIQ, SOILWATER_10CM, QINTR, QOVER, QRUNOFF, QSOIL, QVEGT, TSOI
             atm = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
             ocn = ssh
+            [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                --partition = regular
+                --account = acme
 
 .. _regrid:
 
@@ -225,6 +231,9 @@ Translates model output files from one grid into another. Regridding is supporte
             [[[ocn]]]
                 regrid_map_path = ~/grids/map_oEC60to30v3_to_0.5x0.5degree_bilinear.nc
                 destination_grid_name = 0.5x0.5degree_bilinear
+            [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                --partition = regular
+                --account = acme
 
 .. _diags:
 
@@ -257,6 +266,9 @@ The AMWG diagnostic suite needs the 'atm' data type, and is dependent on the 'cl
             run_frequency = 2
             diag_home = /p/cscratch/acme/amwg/amwg_diag
             sets = 2, 3, 4, 4a, 5, 6, 15
+            [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                --partition = regular
+                --account = acme
 
 .. _e3sm_diags:
 
@@ -278,6 +290,9 @@ The e3sm_diags suite needs the 'atm' data type, and is dependent on the 'climo' 
                 run_frequency = 2
                 backend = vcs
                 reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
+                [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                    --partition = regular
+                    --account = acme
 
 .. _aprime:
 
@@ -309,6 +324,9 @@ To run aprime, your system must have the latest version of the aprime code avail
             [[aprime]]
                 run_frequency = 2
                 aprime_code_path = /p/cscratch/acme/data/a-prime
+                [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
+                    --partition = regular
+                    --account = acme
 
 .. _data_types:
 

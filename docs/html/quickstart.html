@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Start &mdash; processflow 2.0.2-0 documentation</title>
+  <title>Quick Start &mdash; processflow 2.0.4-0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.2-0 documentation" href="index.html"/>
+    <link rel="top" title="processflow 2.0.4-0 documentation" href="index.html"/>
         <link rel="next" title="Run Configuration" href="configuration.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.0.4
               </div>
             
           
@@ -97,6 +97,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#processflow-install">Processflow install</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#machine-specific-configuration">Machine Specific Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lcrc-blues-anvil">LCRC (Blues/Anvil)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#llnl-acme1-aims4">LLNL (acme1/aims4)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nersc-edison">NERSC (edison)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
@@ -204,6 +208,101 @@ This activation can last from days to weeks depending on the nodes configuration
 If a node needs to be activated the processflow will notify you and wait.</p>
 <p>Once diagnostic output has been created, it will be moved to the host location (if img hosting is turned on). The web directories on NERSC and LLNL machines are password protected, credentials to view the output can be found here: <a class="reference external" href="https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png">https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png</a></p>
 </div>
+<div class="section" id="machine-specific-configuration">
+<h2>Machine Specific Configuration<a class="headerlink" href="#machine-specific-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Each of the E3SM supported machines has a slightly different setup for where they store input files and host output.</p>
+</div>
+<div class="section" id="lcrc-blues-anvil">
+<h2>LCRC (Blues/Anvil)<a class="headerlink" href="#lcrc-blues-anvil" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">lcrc</span><span class="o">.</span><span class="n">anl</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">public_html</span><span class="o">/</span><span class="n">diagnostic_output</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">/</span><span class="n">public</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">diagnostic_output</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~</span><span class="n">zender</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">maps</span><span class="o">/&lt;</span><span class="n">YOUR_REGRID_MAP</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span><span class="o">/</span><span class="n">code</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="llnl-acme1-aims4">
+<h2>LLNL (acme1/aims4)<a class="headerlink" href="#llnl-acme1-aims4" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">Either</span> <span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span> <span class="ow">or</span> <span class="n">aims4</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">maps</span><span class="o">/&lt;</span><span class="n">YOUR_REGRID_MAP</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nersc-edison">
+<h2>NERSC (edison)<a class="headerlink" href="#nersc-edison" title="Permalink to this headline">¶</a></h2>
+<p>NOTE: All jobs here need to be submitted to the “regular” partition, using the “acme” account.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">portal</span><span class="o">.</span><span class="n">nersc</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">www</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="n">project</span><span class="o">/</span><span class="n">acme</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~</span><span class="n">zender</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">maps</span><span class="o">/&lt;</span><span class="n">YOUR_REGRID_MAP</span><span class="o">&gt;</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
+
+<span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
+
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">amwg</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
+
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -250,7 +349,7 @@ If a node needs to be activated the processflow will notify you and wait.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.0.2-0',
+            VERSION:'2.0.4-0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

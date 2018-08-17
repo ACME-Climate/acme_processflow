@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Run Configuration &mdash; processflow 2.0.2-0 documentation</title>
+  <title>Run Configuration &mdash; processflow 2.0.4-0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.2-0 documentation" href="index.html"/>
+    <link rel="top" title="processflow 2.0.4-0 documentation" href="index.html"/>
         <link rel="next" title="Sample" href="sample.html"/>
         <link rel="prev" title="Quick Start" href="quickstart.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.0.4
               </div>
             
           
@@ -340,6 +340,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
         <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -365,6 +368,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
         <span class="n">lnd</span> <span class="o">=</span> <span class="n">SOILICE</span><span class="p">,</span> <span class="n">SOILLIQ</span><span class="p">,</span> <span class="n">SOILWATER_10CM</span><span class="p">,</span> <span class="n">QINTR</span><span class="p">,</span> <span class="n">QOVER</span><span class="p">,</span> <span class="n">QRUNOFF</span><span class="p">,</span> <span class="n">QSOIL</span><span class="p">,</span> <span class="n">QVEGT</span><span class="p">,</span> <span class="n">TSOI</span>
         <span class="n">atm</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
         <span class="n">ocn</span> <span class="o">=</span> <span class="n">ssh</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -384,6 +390,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
         <span class="p">[[[</span><span class="n">ocn</span><span class="p">]]]</span>
             <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~/</span><span class="n">grids</span><span class="o">/</span><span class="n">map_oEC60to30v3_to_0</span><span class="o">.</span><span class="mi">5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span><span class="o">.</span><span class="n">nc</span>
             <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -414,6 +423,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
         <span class="n">sets</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="n">a</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">15</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -433,6 +445,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
         <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -460,6 +475,9 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
     <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+        <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span> <span class="c1"># OPTIONAL SLURM ARGUMENTS</span>
+            <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
+            <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
 </div>
@@ -771,7 +789,7 @@ For these two data types, the case is expected to use the standard everything-in
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.0.2-0',
+            VERSION:'2.0.4-0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
