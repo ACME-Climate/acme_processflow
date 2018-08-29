@@ -220,7 +220,7 @@ class Timeseries(Job):
                 'local_status': FileStatus.PRESENT.value
             })
         filemanager.add_files(
-            data_type='ts_native',
+            data_type='{}_ts_native'.format(self.data_type),
             file_list=new_files)
         if not config['data_types'].get('ts_native'):
             config['data_types']['ts_native'] = {'monthly': False}
@@ -248,7 +248,7 @@ class Timeseries(Job):
                     'local_status': FileStatus.PRESENT.value
                 })
             filemanager.add_files(
-                data_type='ts_regrid',
+                data_type='{}_ts_regrid'.format(self.data_type),
                 file_list=new_files)
             if not config['data_types'].get('ts_regrid'):
                 config['data_types']['ts_regrid'] = {'monthly': False}
