@@ -6,6 +6,8 @@ from subprocess import call
 from models import DataFile
 from shutil import move, copy
 
+from lib.util import print_message
+
 
 def structure_gen(basepath, casename, grids, atmos_res, ocean_res):
     """
@@ -20,7 +22,6 @@ def structure_gen(basepath, casename, grids, atmos_res, ocean_res):
 
     """
     data_types = ['atmos', 'land', 'ocean', 'sea-ice']
-    makedir(casename)
     res_dir = os.path.join(
         basepath,
         casename,
@@ -30,26 +31,50 @@ def structure_gen(basepath, casename, grids, atmos_res, ocean_res):
     makedir(res_dir)
     for dtype in data_types:
         dtype_dir = os.path.join(res_dir, dtype)
-        makedir(dtype_dir)
         grid_dir = os.path.join(dtype_dir, 'native')
         makedir(grid_dir)
-        makedir(os.path.join(
-            grid_dir, 'model-output', 'mon', 'ens1', 'v1'))
+        makedir(
+            os.path.join(
+                grid_dir,
+                'model-output',
+                'mon',
+                'ens1',
+                'v1'))
         if dtype in ['atmos', 'land']:
             for grid in grids:
                 grid_dir = os.path.join(dtype_dir, grid)
                 makedir(grid_dir)
                 makedir(os.path.join(
-                    grid_dir, 'model-output', 'mon', 'ens1', 'v1'))
+                    grid_dir,
+                    'model-output',
+                    'mon',
+                    'ens1',
+                    'v1'))
                 if dtype == 'atmos' and grid != 'native':
-                    makedir(os.path.join(grid_dir, 'climo',
-                                         'monClim', 'ens1', 'v1'))
-                    makedir(os.path.join(grid_dir, 'climo',
-                                         'seasonClim', 'ens1', 'v1'))
-                    makedir(os.path.join(
-                        grid_dir, 'time-series', 'mon', 'ens1', 'v1'))
-        cmd = 'chmod -R a+rx {}'.format(casename)
+                    makedir(
+                        os.path.join(
+                            grid_dir,
+                            'climo',
+                            'monClim',
+                            'ens1',
+                            'v1'))
+                    makedir(
+                        os.path.join(
+                            grid_dir,
+                            'climo',
+                            'seasonClim',
+                            'ens1',
+                            'v1'))
+                    makedir(
+                        os.path.join(
+                            grid_dir,
+                            'time-series',
+                            'mon',
+                            'ens1',
+                            'v1'))
+        cmd = ['chmod', '-R',  'a+rx', os.path.join(basepath, casename)]
         call(cmd)
+
 
 def move_or_copy(basepath, config, mode, case):
     """
@@ -60,7 +85,7 @@ def move_or_copy(basepath, config, mode, case):
         basepath (str): the base of the ESGF publication structure
         config (dict): the global config object
         mode (str): either 'move' or 'copy'
-        database (str): the path to the file database
+        case (str): the full name of the case
     Returns
     -------
         True if all data is moved/copied successfuly
@@ -75,19 +100,35 @@ def move_or_copy(basepath, config, mode, case):
 
     res_dir = os.listdir(os.path.join(
         basepath,
-        config['simulations'][case]['short_name']))
+        config['simulations'][case]['short_name']))[0]
 
     allowed_datatypes = [
         'atm', 'atm_regrid', 'atm_ts_regrid', 'climo_regrid',
         'lnd', 'lnd_regrid', 'ocn', 'ice']
 
-    q = DataFile.select().where(DataFile.case == case)
-    for datafile in q.execute():
-        if datafile.datatype not in ['atm', 'lnd', 'ocn', 'ice']:
-            if 'ts' in datafile.datatype:
+    count = DataFile.select().where(DataFile.case == case).count()
+    progress = 0.0
+    query = DataFile.select().where(DataFile.case == case)
+    for datafile in query.execute():
+        progress += 1
+        pct_complete = (progress / count) * 100
+        datatype = datafile.datatype
+        if pct_complete % 5 == 0:
+            msg = '\t{pct:02f} file transfers complete'.format(
+                pct=pct_complete)
+            print_message(msg, 'ok')
+        if datatype not in ['atm', 'lnd', 'ocn', 'ice']:
+            if datatype in ['atm_ts_regrid', 'lnd_ts_regrid', 'ocn_ts_regrid']:
                 grid = config['post-processing']['timeseries']['destination_grid_name']
-            else:
-                grid = config['post-processing']['regrid']['destination_grid_name']
+            elif datatype in ['atm_regrid', 'lnd_regrid', 'ocn_regrid']:
+                if datatype == 'atm_regrid':
+                    grid = config['post-processing']['regrid']['atm']['destination_grid_name']
+                elif datatype == 'lnd_regrid':
+                    grid = config['post-processing']['regrid']['lnd']['destination_grid_name']
+                elif datatype == 'ocn_regrid':
+                    grid = config['post-processing']['regrid']['ocn']['destination_grid_name']
+            elif datatype == 'climo_regrid':
+                grid = config['post-processing']['climo']['destination_grid_name']
         else:
             grid = 'native'
         if datafile.datatype not in allowed_datatypes:
@@ -98,13 +139,19 @@ def move_or_copy(basepath, config, mode, case):
             basepath=basepath,
             res_dir=res_dir,
             grid=grid,
-            datatype=datafile.datatype)
-        transfer(
-            src=src,
-            dst=dst)
+            datatype=datafile.datatype,
+            filename=datafile.name)
+        if not os.path.exists(dst):
+            transfer(src, dst)
 
-def _setup_dst(short_name, basepath, res_dir, grid, datatype):
+
+def mapfile_gen(datapath, inipath):
+    pass
+
+
+def _setup_dst(short_name, basepath, res_dir, grid, datatype, filename):
     """"""
+    freq = 'mon'
     if datatype in ['atm', 'atm_regrid', 'atm_ts_regrid', 'climo_regrid']:
         type_dir = 'atmos'
         if datatype == 'atm':
@@ -113,6 +160,10 @@ def _setup_dst(short_name, basepath, res_dir, grid, datatype):
             output_type = 'time-series'
         elif datatype == 'climo_regrid':
             output_type = 'climo'
+            if 'ANN' in filename or 'DJF' in filename or 'MAM' in filename or 'JJA' in filename or 'SON' in filename:
+                freq = 'seasonClim'
+            else:
+                freq = 'monClim'
     elif datatype in ['lnd', 'lnd_regrid']:
         type_dir = 'land'
         output_type = 'model-output'
@@ -132,9 +183,11 @@ def _setup_dst(short_name, basepath, res_dir, grid, datatype):
         type_dir,
         grid,
         output_type,
-        'mon',
+        freq,
         'ens1',
-        'v1')
+        'v1',
+        filename)
+
 
 def makedir(directory):
     """
