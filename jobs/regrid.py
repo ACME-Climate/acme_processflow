@@ -158,10 +158,10 @@ class Regrid(Job):
                 'local_status': FileStatus.PRESENT.value
             })
         filemanager.add_files(
-            data_type='{}_regrid'.format(self.data_type),
+            data_type='{}_regrid'.format(self._run_type),
             file_list=new_files)
         if not config['data_types'].get('regrid'):
-            config['data_types']['{}_regrid'.format(self.data_type)] = {'monthly': True}
+            config['data_types']['{}_regrid'.format(self._run_type)] = {'monthly': True}
     # -----------------------------------------------
 
     @property
