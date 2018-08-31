@@ -156,7 +156,8 @@ def main(test=False, **kwargs):
                     config=config,
                     event_list=event_list,
                     status=status,
-                    runmanager=runmanager)
+                    runmanager=runmanager,
+                    event=thread_kill_event)
                 # SUCCESS EXIT
                 return 0
             if debug: print_line(' -- sleeping', event_list)
@@ -165,12 +166,14 @@ def main(test=False, **kwargs):
         print_message('\n----- KEYBOARD INTERRUPT -----')
         runmanager.write_job_sets(state_path)
         filemanager.terminate_transfers()
+        thread_kill_event.set()
         print_message('-----  cleanup complete  -----', 'ok')
     except Exception as e:
         print_message('----- AN UNEXPECTED EXCEPTION OCCURED -----')
         print_debug(e)
         runmanager.write_job_sets(state_path)
         filemanager.terminate_transfers()
+        thread_kill_event.set()
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

@@ -2,9 +2,10 @@
 Utilities for ESGF data handling
 """
 import os
-from subprocess import call
+from subprocess import call, Popen, PIPE
 from models import DataFile
 from shutil import move, copy
+from time import sleep
 
 from lib.util import print_message
 
@@ -72,7 +73,7 @@ def structure_gen(basepath, casename, grids, atmos_res, ocean_res):
                             'mon',
                             'ens1',
                             'v1'))
-        cmd = ['chmod', '-R',  'a+rx', os.path.join(basepath, casename)]
+        cmd = ['chmod', '-R', 'a+rx', os.path.join(basepath, casename)]
         call(cmd)
 
 
@@ -145,8 +146,32 @@ def move_or_copy(basepath, config, mode, case):
             transfer(src, dst)
 
 
-def mapfile_gen(datapath, inipath):
-    pass
+def mapfile_gen(basepath, inipath, casename, maxprocesses, event=None):
+    """
+    Generate mapfiles for ESGF
+
+    Parameters
+    ----------
+        basepath (str): the base of the data, the case directory should be below this
+        inipath (str): path to directory with ini files
+        casename (str): the name of the case to generate mapfiles for
+        maxprocesses (str): the number of processes to use for hashing
+        event (threading.Event): an event to terminate the process early
+    """
+    outpath = os.path.join(basepath, '{}_mapfiles'.format(casename))
+    datapath = os.path.join(basepath, casename)
+    cmd = ['esgmapfile', 'make',
+           '--outdir', outpath,
+           '-i', inipath,
+           '--project', 'e3sm',
+           '--max-processes', maxprocesses,
+           'datapath']
+    proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
+    while proc.poll() is None:
+        if event is not None and event.is_set():
+            print_message('terminating mapfile generation')
+            proc.terminate()
+        sleep(1)
 
 
 def _setup_dst(short_name, basepath, res_dir, grid, datatype, filename):

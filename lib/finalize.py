@@ -3,12 +3,14 @@ import logging
 import time
 
 from shutil import rmtree
+from threading import Event
+
 from lib.jobstatus import JobStatus
 from lib.mailer import Mailer
 from lib.util import print_message, print_line, print_debug
 from lib.esgfutils import structure_gen, move_or_copy, mapfile_gen
 
-def finalize(config, event_list, status, runmanager):
+def finalize(config, event_list, status, runmanager, event=None):
     if status == 1 and config['global'].get('native_grid_cleanup') in [1, '1', 'true', 'True']:
         message = 'Performing post run cleanup'
         native_cleanup(config)
@@ -51,6 +53,14 @@ def finalize(config, event_list, status, runmanager):
                 mode=esgf['move_or_copy'],
                 case=case['case'])
 
+        if esgf.get('generate_mapfiles') == True or esgf.get('generate_mapfiles') == 'True':
+            for case in runmanager.cases:
+                case_name = config['simulations'][case['case']]['short_name']
+                mapfile_gen(
+                    basepath=esgf['esgf_publication_path'],
+                    casename=case_name,
+                    inipath=esgf['ini_directory_path'],
+                    maxprocesses=esgf['num_cores'])
 
     if status == 1:
         msg = 'All processing complete'
