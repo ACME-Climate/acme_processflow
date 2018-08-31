@@ -171,9 +171,13 @@ class Climo(Job):
             print_line(msg, event_list)
             logging.info(msg)
         regrid_path = os.path.join(
-            config['global']['project_path'], 'output', 'pp',
+            config['global']['project_path'],
+            'output',
+            'pp',
             config['post-processing']['climo']['destination_grid_name'],
-            self._short_name, 'climo', '{length}yr'.format(length=self.end_year - self.start_year + 1))
+            self._short_name,
+            'climo',
+            '{length}yr'.format(length=self.end_year - self.start_year + 1))
 
         new_files = list()
         for regrid_file in get_climo_output_files(regrid_path, self.start_year, self.end_year):
@@ -192,9 +196,13 @@ class Climo(Job):
             config['data_types']['climo_regrid'] = {'monthly': True}
 
         climo_path = os.path.join(
-            config['global']['project_path'], 'output', 'pp',
+            config['global']['project_path'],
+            'output',
+            'pp',
             config['simulations'][self.case]['native_grid_name'],
-            self._short_name, 'climo', '{length}yr'.format(length=self.end_year - self.start_year + 1))
+            self._short_name,
+            'climo',
+            '{length}yr'.format(length=self.end_year - self.start_year + 1))
 
         for climo_file in get_climo_output_files(climo_path, self.start_year, self.end_year):
             new_files.append({
