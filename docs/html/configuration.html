@@ -24,27 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.4-0 documentation" href="index.html"/>
-        <link rel="next" title="Sample" href="sample.html"/>
-        <link rel="prev" title="Quick Start" href="quickstart.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sample" href="sample.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -122,7 +114,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">processflow</a>
@@ -130,9 +122,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -176,6 +169,7 @@
             
   <div class="section" id="run-configuration">
 <span id="configuration"></span><h1>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference external" href="https://github.com/E3SM-Project/processflow/tree/master/samples">here for real life configuration examples</a></p>
 <p>Run configuration is broken into 6 major sections:</p>
 <blockquote>
 <div><ul class="simple">
@@ -200,7 +194,7 @@
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">project</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">YOUREMAIL</span><span class="nd">@INSTITUTION</span><span class="o">.</span><span class="n">DOMAIN</span>
     <span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
@@ -215,11 +209,11 @@
 <div><ul class="simple">
 <li>img_host_server (string): The base url of the webserver, used for constructing the notification email links.</li>
 <li>host_directory (string): The base directory for where to put output for web hosting, the user must have permission to write here. Directories will be created for each simulation case, with jobs for the case stored below it.</li>
-<li>url_prefix (string): Notification urls are constructed as: <code class="docutils literal"><span class="pre">https://{img_host_server}/{url_prefix}/{case}/{diagnostic}</span></code> the url_prefix is used if the hosting service uses a specific string for your host directory.</li>
+<li>url_prefix (string): Notification urls are constructed as: <code class="docutils literal notranslate"><span class="pre">https://{img_host_server}/{url_prefix}/{case}/{diagnostic}</span></code> the url_prefix is used if the hosting service uses a specific string for your host directory.</li>
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
     <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">your</span><span class="o">-</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">institution</span><span class="o">.</span><span class="n">domain</span>
     <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">where</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">host</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/</span>
     <span class="n">url_prefix</span> <span class="o">=</span> <span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">statis</span><span class="o">/</span><span class="n">url</span><span class="o">/</span><span class="n">prefix</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">need</span><span class="o">/</span>
@@ -261,7 +255,7 @@ Each simulated case needs to have a transfer type. Transfer_type can be one of t
 <p>This is the list of comparisons between for each case.
 Each case running diagnostics should have an entry here, followed by which other cases it should be compared to.
 This can include the keywords ‘all’ for all possible comparisons, or ‘obs’ for model-vs-obs comparisons. The ‘all’ keyword will add comparisons with each other case as well as model-vs-obs.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">comparisons</span><span class="p">]]</span>
     <span class="n">case_1</span> <span class="o">=</span> <span class="n">obs</span><span class="p">,</span> <span class="n">case_2</span>
     <span class="n">case_2</span> <span class="o">=</span> <span class="n">case_3</span>
     <span class="n">case_3</span> <span class="o">=</span> <span class="nb">all</span>
@@ -277,7 +271,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </div></blockquote>
 <p>Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.</p>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
     <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="p">[[</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
@@ -335,7 +329,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
@@ -360,7 +354,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">timeseries</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
@@ -378,7 +372,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 <span id="id6"></span><h2>Regrid<a class="headerlink" href="#regrid" title="Permalink to this headline">¶</a></h2>
 <p>Translates model output files from one grid into another. Regridding is supported for atm, lnd, and ocn data types. Each regrid type requires its own config section, see example below. To turn off a data type, remove it from the config.</p>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">regrid</span><span class="p">]]</span>
         <span class="p">[[[</span><span class="n">lnd</span><span class="p">]]]</span>
             <span class="n">source_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="n">ne30np4_pentagons</span><span class="o">.</span><span class="mf">091226.</span><span class="n">nc</span>
@@ -418,7 +412,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
@@ -440,7 +434,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 </ul>
 </div></blockquote>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
@@ -471,7 +465,7 @@ This can include the keywords ‘all’ for all possible comparisons, or ‘obs�
 <p>To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simply clone the
 <a class="reference external" href="https://github.com/E3SM-Project/a-prime">aprime repo</a>.</p>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
         <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
@@ -505,7 +499,7 @@ the keyword and value in the case definition.</p>
 <p>The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
 inside the data type section with the case name. In this example, the my.case.1 remote_path option over rides the default value, and includes a custom substitution keyword.
 Note that the keyword when defined must be lower case, but when used in the data_type value must be upper case.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
     <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="p">[[</span><span class="n">my</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="mi">1</span><span class="p">]]</span>
@@ -527,7 +521,7 @@ Note that the keyword when defined must be lower case, but when used in the data
 <p>In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving.
 For these two data types, the case is expected to use the standard everything-in-the-run-directory method. Note the local_path = ‘LOCAL_PATH/atm’</p>
 <p><strong>example</strong></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>
         <span class="n">remote_path</span> <span class="o">=</span> <span class="s1">&#39;REMOTE_PATH/archive/atm/hist&#39;</span>
         <span class="n">file_format</span> <span class="o">=</span> <span class="s1">&#39;CASEID.cam.h0.YEAR-MONTH.nc&#39;</span>
@@ -593,7 +587,7 @@ For these two data types, the case is expected to use the standard everything-in
 <div class="section" id="example-configuration">
 <span id="example-config"></span><h2>Example Configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h2>
 <p>This is an example configuration used on acme1 with three cases. Each case uses a different transfer method.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">model_v_model</span>
 <span class="n">email</span> <span class="o">=</span> <span class="n">baldwin32</span><span class="nd">@llnl</span><span class="o">.</span><span class="n">gov</span>
 <span class="n">native_grid_cleanup</span> <span class="o">=</span> <span class="kc">False</span>
@@ -747,9 +741,7 @@ For these two data types, the case is expected to use the standard everything-in
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -767,11 +759,11 @@ For these two data types, the case is expected to use the standard everything-in
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Sterling Baldwin.
+        &copy; Copyright 2017, Sterling Baldwin
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -786,35 +778,23 @@ For these two data types, the case is expected to use the standard everything-in
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'2.0.4-0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

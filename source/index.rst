@@ -21,7 +21,7 @@ and emails links with the completed output to the user.
 
 **Jobs:**
 
-* Globus Transfer
+* Globus and SFTP file transfer
 * Regridded climatology generation
 * Time series variable extraction
 * atm, lnd, and ocn regridding
@@ -89,7 +89,6 @@ Below is an example of the project directory structure.
         ├── processflow.log
         ├── state.txt
         ├── scripts
-        ├── temp/  
         ├── diags
         |   ├── case.id.1
         |   |     ├── aprime

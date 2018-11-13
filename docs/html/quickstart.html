@@ -24,27 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.4-0 documentation" href="index.html"/>
-        <link rel="next" title="Run Configuration" href="configuration.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Run Configuration" href="configuration.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -116,7 +108,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">processflow</a>
@@ -124,9 +116,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -177,12 +170,12 @@
 <p>You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the
 default and edit it to suit your case. You can find a <a class="reference internal" href="sample.html#sample"><span class="std std-ref">Sample</span></a> configuration here.</p>
 <p>This install command will create a new anaconda environment with the latest stable release.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">processflow</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">processflow</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">processflow</span>
 </pre></div>
 </div>
 <p>Use the following command to get the latest nightly build.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">processflow_nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">processflow_nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">e3sm</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">nightly</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">c</span> <span class="n">cdat</span> <span class="n">processflow</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">processflow_nightly</span>
 </pre></div>
 </div>
@@ -190,8 +183,9 @@ default and edit it to suit your case. You can find a <a class="reference intern
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="https://github.com/E3SM-Project/processflow/tree/master/samples">here for real life configuration examples</a></p>
 <p>Get a copy of the example config, and edit its keys to fit your case. You can get a copy of the example here:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">E3SM</span><span class="o">-</span><span class="n">Project</span><span class="o">/</span><span class="n">processflow</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">cfg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">E3SM</span><span class="o">-</span><span class="n">Project</span><span class="o">/</span><span class="n">processflow</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
 <p>For a complete explanation of each config key, see the <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Run Configuration</span></a> guide.</p>
@@ -199,7 +193,7 @@ default and edit it to suit your case. You can find a <a class="reference intern
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>Running the processflow is extremely simple. Once your config is setup, simply execute the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">processflow</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">cfg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">processflow</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
 <p>Once the run starts, you may be prompted to authenticate with globus (if using globus to transfer files), or your ssh credentials (is using sftp to transfer files).</p>
@@ -214,7 +208,7 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 </div>
 <div class="section" id="lcrc-blues-anvil">
 <h2>LCRC (Blues/Anvil)<a class="headerlink" href="#lcrc-blues-anvil" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">lcrc</span><span class="o">/</span><span class="n">group</span><span class="o">/</span><span class="n">acme</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
 
 <span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
@@ -240,7 +234,7 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 </div>
 <div class="section" id="llnl-acme1-aims4">
 <h2>LLNL (acme1/aims4)<a class="headerlink" href="#llnl-acme1-aims4" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
 
 <span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
@@ -267,7 +261,7 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 <div class="section" id="nersc-edison">
 <h2>NERSC (edison)<a class="headerlink" href="#nersc-edison" title="Permalink to this headline">¶</a></h2>
 <p>NOTE: All jobs here need to be submitted to the “regular” partition, using the “acme” account.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/&lt;</span><span class="n">YOUR_USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">YOUR_PROJECT</span><span class="o">&gt;</span>
 
 <span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
@@ -307,9 +301,7 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -327,11 +319,11 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Sterling Baldwin.
+        &copy; Copyright 2017, Sterling Baldwin
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -346,35 +338,23 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'2.0.4-0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

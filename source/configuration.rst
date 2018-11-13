@@ -4,6 +4,7 @@
 Run Configuration
 *****************
 
+See `here for real life configuration examples <https://github.com/E3SM-Project/processflow/tree/master/samples>`_
 
 Run configuration is broken into 6 major sections:
 

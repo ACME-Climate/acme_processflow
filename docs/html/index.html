@@ -24,26 +24,18 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="processflow 2.0.4-0 documentation" href="#"/>
-        <link rel="next" title="Installation" href="installation.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -106,7 +98,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">processflow</a>
@@ -114,9 +106,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -170,7 +163,7 @@ to run jobs until after the data transfer has completed. Once the diagnostics co
 and emails links with the completed output to the user.</p>
 <p><strong>Jobs:</strong></p>
 <ul class="simple">
-<li>Globus Transfer</li>
+<li>Globus and SFTP file transfer</li>
 <li>Regridded climatology generation</li>
 <li>Time series variable extraction</li>
 <li>atm, lnd, and ocn regridding</li>
@@ -231,7 +224,7 @@ Most systems that E3SM runs on should already have these installed.</p>
 <p>The processflow will create the required input and output directories based on the project_path option in the config.
 (<a class="reference internal" href="configuration.html#global-config"><span class="std std-ref">global</span></a>). A copy of the config used to generate the processflow run will be copied into the /input directory.</p>
 <p>Below is an example of the project directory structure.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>project_path
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>project_path
 ├── input
 |   ├── case.id.1
 │   │     ├── atm
@@ -251,7 +244,6 @@ Most systems that E3SM runs on should already have these installed.</p>
     ├── processflow.log
     ├── state.txt
     ├── scripts
-    ├── temp/
     ├── diags
     |   ├── case.id.1
     |   |     ├── aprime
@@ -305,9 +297,7 @@ Most systems that E3SM runs on should already have these installed.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -323,11 +313,11 @@ Most systems that E3SM runs on should already have these installed.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Sterling Baldwin.
+        &copy; Copyright 2017, Sterling Baldwin
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -342,35 +332,23 @@ Most systems that E3SM runs on should already have these installed.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'2.0.4-0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

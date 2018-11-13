@@ -34,6 +34,8 @@ Once you have the processflow installed, the next step is creating your run conf
 Configuration
 -------------
 
+See `here for real life configuration examples <https://github.com/E3SM-Project/processflow/tree/master/samples>`_
+
 Get a copy of the example config, and edit its keys to fit your case. You can get a copy of the example here:
 
 ::
