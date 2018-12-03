@@ -16,7 +16,7 @@ workdir = args.workdir
 
 # create a unique dir
 if os.path.isdir(workdir):
-    print("Work directory {} already exists".format(workdir))
+    print(("Work directory {} already exists".format(workdir)))
     conda_bin = os.path.join(workdir, 'miniconda', 'bin')
 
     if os.path.isdir(conda_bin):
@@ -52,6 +52,6 @@ cmd = "ls -l {conda_cmd}".format(conda_cmd=conda_cmd)
 ret_code = run_cmd(cmd, True, False, True)
 
 if ret_code == SUCCESS:
-    print("\nMiniconda is successfully installed under~: {}".format(workdir))
+    print(("\nMiniconda is successfully installed under~: {}".format(workdir)))
 
 sys.exit(ret_code)

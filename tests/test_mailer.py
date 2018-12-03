@@ -11,7 +11,7 @@ from lib.util import print_message
 class TestMailer(unittest.TestCase):
 
     def test_send_mail_valid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         m = Mailer(
             src='baldwin32@llnl.gov',
             dst='baldwin32@llnl.gov')
@@ -21,7 +21,7 @@ class TestMailer(unittest.TestCase):
         self.assertTrue(ret)
 
     def test_send_mail_invalid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         m = Mailer(
             src='xxyyzz',
             dst='xxyyzz')

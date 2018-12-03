@@ -11,15 +11,15 @@ from shutil import rmtree, copy
 from configobj import ConfigObj
 from shutil import copyfile
 
-from filemanager import FileManager
-from runmanager import RunManager
-from mailer import Mailer
-from jobstatus import JobStatus
-from globus_interface import setup_globus
-from util import print_message
-from util import print_debug
-from util import print_line
-from verify_config import verify_config, check_config_white_space
+from .filemanager import FileManager
+from .runmanager import RunManager
+from .mailer import Mailer
+from .jobstatus import JobStatus
+from .globus_interface import setup_globus
+from .util import print_message
+from .util import print_debug
+from .util import print_line
+from .verify_config import verify_config, check_config_white_space
 
 def parse_args(argv=None, print_help=None):
     parser = argparse.ArgumentParser()
@@ -78,7 +78,7 @@ def initialize(argv, **kwargs):
     pargs = parse_args(argv=argv)
     if pargs.version:
         msg = 'Processflow version {}'.format(kwargs['version'])
-        print msg
+        print(msg)
         sys.exit(0)
     if not pargs.config:
         parse_args(print_help=True)
@@ -102,15 +102,15 @@ def initialize(argv, **kwargs):
             os.remove(globus_config)
 
     if not os.path.exists(pargs.config):
-        print "Invalid config, {} does not exist".format(pargs.config)
+        print("Invalid config, {} does not exist".format(pargs.config))
         return False, False, False
 
     # Check that there are no white space errors in the config file
     line_index = check_config_white_space(pargs.config)
     if line_index != 0:
-        print '''
+        print('''
 ERROR: line {num} does not have a space after the \'=\', white space is required.
-Please add a space and run again.'''.format(num=line_index)
+Please add a space and run again.'''.format(num=line_index))
         return False, False, False
 
     # read the config file and setup the config dict
@@ -118,7 +118,7 @@ Please add a space and run again.'''.format(num=line_index)
         config = ConfigObj(pargs.config)
     except Exception as e:
         print_debug(e)
-        print "Error parsing config file {}".format(pargs.config)
+        print("Error parsing config file {}".format(pargs.config))
         parse_args(print_help=True)
         return False, False, False
     
@@ -270,7 +270,7 @@ Please add a space and run again.'''.format(num=line_index)
                 event_list=event_list)
 
             if not setup_success:
-                print "Globus setup error"
+                print("Globus setup error")
                 return False, False, False
             else:
                 print_line(

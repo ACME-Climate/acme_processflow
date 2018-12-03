@@ -31,7 +31,7 @@ class TestFileManager(unittest.TestCase):
         run filemansger setup with no sta
         """
 
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         sta = False
         db = '{}.db'.format(inspect.stack()[0][3])
         config_path = 'tests/test_configs/valid_config_from_scratch.cfg'
@@ -52,7 +52,7 @@ class TestFileManager(unittest.TestCase):
         """
         run the filemanager setup with sta turned on
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/e3sm_diags_complete.cfg'
         config = ConfigObj(config_path)
         db = '{}.db'.format(inspect.stack()[0][3])
@@ -73,7 +73,7 @@ class TestFileManager(unittest.TestCase):
         """
         run the filemanager setup with sta turned on
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/filemanager_partial_data.cfg'
         config = ConfigObj(config_path)
         db = '{}.db'.format(inspect.stack()[0][3])

@@ -90,7 +90,7 @@ class TestCmor(unittest.TestCase):
         self.assertTrue(cmor.execute(
             config=config,
             event_list=EventList()))
-        self.assertEquals(cmor.status, JobStatus.COMPLETED)
+        self.assertEqual(cmor.status, JobStatus.COMPLETED)
         self.assertTrue(cmor.handle_completion(
             filemanager=filemanager,
             event_list=EventList(),

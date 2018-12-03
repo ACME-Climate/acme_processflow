@@ -218,7 +218,7 @@ class RunManager(object):
         
         pp = self.config.get('post-processing')
         if pp:
-            for key, val in pp.items():
+            for key, val in list(pp.items()):
                 cases_to_add = list()
                 for case in self.cases:
                     if not self.config['simulations'][case['case']].get('job_types'): 
@@ -248,7 +248,7 @@ class RunManager(object):
                             case=case)
         diags = self.config.get('diags')
         if diags:
-            for key, val in diags.items():
+            for key, val in list(diags.items()):
                 # cases_to_add = list()
                 for case in self.cases:
                     if not self.config['simulations'][case['case']].get('job_types'): 
@@ -273,7 +273,7 @@ class RunManager(object):
         for case in self.cases:
             for job in case['jobs']:
                 if job.comparison != 'obs':
-                    other_case, = filter(lambda case: case['case'] == job.comparison, self.cases)
+                    other_case, = [case for case in self.cases if case['case'] == job.comparison]
                     job.setup_dependencies(
                         jobs=case['jobs'],
                         comparison_jobs=other_case['jobs'])

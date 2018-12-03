@@ -15,7 +15,7 @@ args = parser.parse_args()
 workdir = args.workdir
 
 if not os.path.isdir(workdir):
-    print("FAIL: {d} directory where conda should have been installed".format(d=workdir))
+    print(("FAIL: {d} directory where conda should have been installed".format(d=workdir)))
     sys.exit(FAILURE)
 
 def check_version(version):
@@ -43,11 +43,11 @@ def check_version(version):
         return(ret_code)    
 
     if version_str == output[0].rstrip():
-        print("Version matched: {v}".format(v=version))
+        print(("Version matched: {v}".format(v=version)))
         ret_code = SUCCESS
     else:
-        print("version: {v}, output: {o}, they do not match!!!".format(v=version_str,
-                                                                       o=output[0]))
+        print(("version: {v}, output: {o}, they do not match!!!".format(v=version_str,
+                                                                       o=output[0])))
         ret_code = FAILURE
     return(ret_code)
  
@@ -57,7 +57,7 @@ def check_version(version):
 def main():
     env_dir = os.path.join(workdir, 'miniconda2', 'envs', 'processflow')
     if os.path.isdir(env_dir) == True:
-        print("INFO: {e} already exists".format(e=env_dir))
+        print(("INFO: {e} already exists".format(e=env_dir)))
         print('INFO: please cleanup if you want to recreate the env')
         sys.exit(FAILURE)
 

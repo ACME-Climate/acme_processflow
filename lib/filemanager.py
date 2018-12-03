@@ -10,7 +10,7 @@ from peewee import *
 from enum import IntEnum
 from threading import Thread
 
-from models import DataFile
+from .models import DataFile
 from lib.jobstatus import JobStatus
 from lib.util import print_debug
 from lib.util import print_line
@@ -186,7 +186,7 @@ class FileManager(object):
                 return instring
         
         instring = self._config['data_types'][data_type][data_type_option]
-        for string, val in replace.items():
+        for string, val in list(replace.items()):
             if string in instring:
                 instring = instring.replace(string, val)
         return instring
@@ -357,14 +357,14 @@ class FileManager(object):
 
     def print_db(self):
         for df in DataFile.select():
-            print {
+            print({
                 'case': df.case,
                 'type': df.datatype,
                 'name': df.name,
                 'local_path': df.local_path,
                 'remote_path': df.remote_path,
                 'transfer_type': df.transfer_type,
-            }
+            })
     
     def add_files(self, data_type, file_list):
         """

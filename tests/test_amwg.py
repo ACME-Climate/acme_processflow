@@ -39,7 +39,7 @@ class TestAMWGDiagnostic(unittest.TestCase):
         """
         Test the amwg initialization and data setup works correctly
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         _args = ['-c', self.config_path]
         config, filemanager, runmanager = initialize(
             argv=_args,
@@ -63,7 +63,7 @@ class TestAMWGDiagnostic(unittest.TestCase):
         """
         test that the amwg execution (in dry run mode) words correctly
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         _args = ['-c', self.config_path]
         config, filemanager, runmanager = initialize(
             argv=_args,
@@ -82,7 +82,7 @@ class TestAMWGDiagnostic(unittest.TestCase):
         test that when run on a completed set of jobs, amwg recognizes that the run has already
         taken place and doesnt start again
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         _args = ['-c', self.config_path, '-r', 'resources/']
         config, filemanager, runmanager = initialize(
             argv=_args,
@@ -107,7 +107,7 @@ class TestAMWGDiagnostic(unittest.TestCase):
                     job.execute(
                         config=config,
                         dryrun=True)
-                    self.assertEquals(
+                    self.assertEqual(
                         job.status,
                         JobStatus.COMPLETED)
 

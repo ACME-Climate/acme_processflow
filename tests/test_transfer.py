@@ -28,7 +28,7 @@ class TestTransfer(unittest.TestCase):
         """
         test moving a single file
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         source_file = {
             'remote_path': '/global/homes/s/sbaldwin/test_directory/test_file.txt',
             'local_path': os.path.join(project_path, 'test_file.txt')

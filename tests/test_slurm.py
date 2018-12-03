@@ -12,7 +12,7 @@ from lib.util import print_message
 class TestSlurm(unittest.TestCase):
 
     def test_batch(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         slurm = Slurm()
         command = os.path.join('tests', 'test_slurm_batch.sh')
         job_id = slurm.batch(command, '-n 1 -N 1')
@@ -34,7 +34,7 @@ class TestSlurm(unittest.TestCase):
         slurm.cancel(job_id)
 
     def test_shownode(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         slurm = Slurm()
         node = os.environ['HOSTNAME'].lower().split('.')[0]
         node_info = slurm.shownode(node)

@@ -52,14 +52,13 @@ class E3SMDiags(Diag):
         if self.comparison != 'obs':
             other_jobs = kwargs['comparison_jobs']
             try:
-                self_climo, = filter(lambda job: self._dep_filter(job), jobs)
+                self_climo, = [job for job in jobs if self._dep_filter(job)]
             except ValueError:
                 msg = 'Unable to find climo for {}, is this case set to generate climos?'.format(
                     self.msg_prefix())
                 raise Exception(msg)
             try:
-                comparison_climo, = filter(
-                    lambda job: self._dep_filter(job), other_jobs)
+                comparison_climo, = [job for job in other_jobs if self._dep_filter(job)]
             except ValueError:
                 msg = 'Unable to find climo for {}, is that case set to generates climos?'.format(
                     self.comparison)
@@ -67,7 +66,7 @@ class E3SMDiags(Diag):
             self.depends_on.extend((self_climo.id, comparison_climo.id))
         else:
             try:
-                self_climo, = filter(lambda job: self._dep_filter(job), jobs)
+                self_climo, = [job for job in jobs if self._dep_filter(job)]
             except ValueError:
                 msg = 'Unable to find climo for {}, is this case set to generate climos?'.format(
                     self.msg_prefix())

@@ -77,9 +77,9 @@ class Job(object):
         ----------
             custom_args (dict): a mapping of args to the arg values
         """
-        for arg, val in custom_args.items():
+        for arg, val in list(custom_args.items()):
             new_arg = '{} {}'.format(arg, val)
-            for manager, manager_args in self._manager_args.items():
+            for manager, manager_args in list(self._manager_args.items()):
                 found = False
                 for marg in manager_args:
                     if arg in marg:
@@ -108,7 +108,7 @@ class Job(object):
 
             # this should never be hit if the config validator did its job
             if not datainfo:
-                print "ERROR: Unable to find config information for {}".format(datatype)
+                print("ERROR: Unable to find config information for {}".format(datatype))
                 sys.exit(1)
             
             # are these history files?

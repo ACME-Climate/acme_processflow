@@ -30,7 +30,7 @@ class TestE3SM(unittest.TestCase):
         Checks that the e3sm_diags job successfully marks a job thats already
         been run as complete and wont get executed
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
 
         e3sm_diags = E3SMDiags(
             short_name='piControl_testing',
@@ -50,7 +50,7 @@ class TestE3SM(unittest.TestCase):
         """
         test that the e3sm_diags prevalidate and prerun setup works correctly
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
 
         _args = ['-c', self.config_path, '-r', 'resources/']
         config, filemanager, runmanager = initialize(
@@ -80,7 +80,7 @@ class TestE3SM(unittest.TestCase):
                     job.execute(
                         config=config,
                         dryrun=True)
-                    self.assertEquals(
+                    self.assertEqual(
                         job.status,
                         JobStatus.COMPLETED)
 

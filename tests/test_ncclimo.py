@@ -25,7 +25,7 @@ class TestNcclimo(unittest.TestCase):
         """
         Run ncclimo setup on valid config
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config = {
             'account': '',
             'year_set': 1,
@@ -49,7 +49,7 @@ class TestNcclimo(unittest.TestCase):
         """
         Test that valid input config will be marked as valid by the job
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config = {
             'account': '',
             'year_set': 1,
@@ -74,7 +74,7 @@ class TestNcclimo(unittest.TestCase):
         """
         Test that a missing input item will invalidate the job
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config = {
             'account': '',
             'year_set': 1,
@@ -98,7 +98,7 @@ class TestNcclimo(unittest.TestCase):
         """
         Test that ncclimo will do all proper setup in an incomplete run
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         start_year = 51
         end_year = 55
         self.config['global']['project_path'] = '/p/user_pub/e3sm/baldwin32/E3SM_test_data/DECKv1b_1pctCO2_not_complete'
@@ -132,7 +132,7 @@ class TestNcclimo(unittest.TestCase):
         test that if ncclimo is told to run on a project thats already completed ncclimo
         for the given yearset it will varify that the output is present and not run again
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         start_year = 1
         end_year = 10
         # REAL DATA
@@ -165,7 +165,7 @@ class TestNcclimo(unittest.TestCase):
         """
         test that if given the wrong input year ncclimo will exit correctly
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         start_year = 55
         end_year = 60
         self.config['global']['project_path'] = '/p/user_pub/e3sm/baldwin32/E3SM_test_data/DECKv1b_1pctCO2_complete'
@@ -194,7 +194,7 @@ class TestNcclimo(unittest.TestCase):
         self.assertFalse(ncclimo.postvalidate())
 
     def test_ncclimo_execute_bad_regrid_dir(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         start_year = 56
         end_year = 60
         self.config['global']['project_path'] = '/p/cscratch/acme/baldwin32/20171016/'
@@ -226,7 +226,7 @@ class TestNcclimo(unittest.TestCase):
         """
         test that ncclimo will correctly exit if given a non-existant climo dir
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         start_year = 56
         end_year = 60
         self.config['global']['project_path'] = '/p/cscratch/acme/baldwin32/20171016/'
