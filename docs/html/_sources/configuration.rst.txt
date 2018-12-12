@@ -32,10 +32,10 @@ The global section has the following keys:
 ::
 
     [global]
-        project_path = /path/to/local/project
-        email = YOUREMAIL@INSTITUTION.DOMAIN
-        native_grid_cleanup = False
-        local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b
+        project_path = /p/user_pub/e3sm/baldwin32/deck/bcrc_spinup  # base path for the project
+        email = baldwin32@llnl.gov                                  # my email address so I can get notifications
+        native_grid_cleanup = False                                 # dont throw out the native grid data
+        local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b    # the UUID of the local globus transfer node
 
 .. _img_hosting:
 
@@ -52,9 +52,9 @@ This is an optional section, only needed if the user would like to turn on web h
 ::
 
     [img_hosting]
-        img_host_server = your-web-server.institution.domain
-        host_directory = /path/to/where/you/host/your/files/
-        url_prefix = /any/statis/url/prefix/you/need/
+        img_host_server = acme-viewer.llnl.gov                  # this hypothetical run is happen on acme1.llnl.gov, see :ref:`machine_sp`
+        host_directory = /var/www/acme/acme-diags/baldwin32
+        url_prefix = baldwin32
 
 .. _simulations:
 

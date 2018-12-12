@@ -64,6 +64,8 @@ If a node needs to be activated the processflow will notify you and wait.
 
 Once diagnostic output has been created, it will be moved to the host location (if img hosting is turned on). The web directories on NERSC and LLNL machines are password protected, credentials to view the output can be found here: https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png
 
+.. _machine_specific_config:
+
 Machine Specific Configuration
 ------------------------------
 
