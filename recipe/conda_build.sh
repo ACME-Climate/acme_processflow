@@ -2,7 +2,9 @@ export VERSION="2.2.0"
 export BUILD_NAME="alpha3"
 export CONDA_BLD_PATH=~/conda-bld
 USER="e3sm"
-PLATFORM="linux-64"
+#PLATFORM="linux-64"
+#PLATFORM="noarch"
+PLATFORM="osx"
 PKG="processflow"
 
 if [ -d $CONDA_BLD_PATH ]; then
