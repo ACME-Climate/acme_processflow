@@ -26,7 +26,7 @@ requirements:
     - nco
     - ncl
     - e3sm_diags
-    # - e3sm_to_cmip
+    - e3sm_to_cmip
     - sqlite
     - peewee
     - configobj
@@ -34,8 +34,8 @@ requirements:
     - lxml
     - paramiko
     - jinja2
-    # - globus-sdk ==1.1.1
-    # - globus-cli ==1.1.2
+    - globus-sdk ==1.1.1
+    - globus-cli ==1.1.2
     - click
     - jmespath
     - requests
