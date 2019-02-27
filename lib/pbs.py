@@ -1,7 +1,7 @@
 import os
 import logging
 from subprocess import Popen, PIPE
-from jobinfo import JobInfo
+from .jobinfo import JobInfo
 
 
 class PBS(object):

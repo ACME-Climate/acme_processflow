@@ -2,7 +2,7 @@ import os
 import logging
 from time import sleep
 from subprocess import Popen, PIPE
-from jobinfo import JobInfo
+from .jobinfo import JobInfo
 
 
 class Slurm(object):
@@ -52,7 +52,7 @@ class Slurm(object):
                 for job in qinfo:
                     if job.get('COMMAND') == cmd[1]:
                         return 'Submitted batch job {}'.format(job['JOBID']), None
-                print 'Unable to submit job, trying again'
+                print('Unable to submit job, trying again')
             elif 'Batch job submission failed' in out:
                 raise Exception(out)
             else:

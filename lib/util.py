@@ -13,8 +13,8 @@ from datetime import datetime
 from string import Formatter
 
 from lib.jobstatus import ReverseMap, JobStatus
-from mailer import Mailer
-from models import DataFile
+from .mailer import Mailer
+from .models import DataFile
 
 
 def print_line(line, event_list, ignore_text=False):
@@ -36,7 +36,7 @@ def print_line(line, event_list, ignore_text=False):
         msg = '{time}: {line}'.format(
             time=timestr,
             line=line)
-        print msg
+        print(msg)
         sys.stdout.flush()
 
 def get_climo_output_files(input_path, start_year, end_year):
@@ -104,13 +104,13 @@ def print_debug(e):
     """
     Print an exceptions relavent information
     """
-    print '1', e.__doc__
-    print '2', sys.exc_info()
-    print '3', sys.exc_info()[0]
-    print '4', sys.exc_info()[1]
-    print '5', traceback.tb_lineno(sys.exc_info()[2])
+    print('1', e.__doc__)
+    print('2', sys.exc_info())
+    print('3', sys.exc_info()[0])
+    print('4', sys.exc_info()[1])
+    print('5', traceback.tb_lineno(sys.exc_info()[2]))
     _, _, tb = sys.exc_info()
-    print '6', traceback.print_tb(tb)
+    print('6', traceback.print_tb(tb))
 
 def format_debug(e):
     """
@@ -150,9 +150,9 @@ def print_message(message, status='error'):
         message (str): the message to print
         status (str): th"""
     if status == 'error':
-        print colors.FAIL + '[-] ' + colors.ENDC + colors.BOLD + str(message) + colors.ENDC
+        print(colors.FAIL + '[-] ' + colors.ENDC + colors.BOLD + str(message) + colors.ENDC)
     elif status == 'ok':
-        print colors.OKGREEN + '[+] ' + colors.ENDC + str(message)
+        print(colors.OKGREEN + '[+] ' + colors.ENDC + str(message))
 
 def render(variables, input_path, output_path):
     """

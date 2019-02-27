@@ -29,7 +29,7 @@ class TestFinalize(unittest.TestCase):
         self.event_list = EventList()
 
     def test_finilize_complete(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/test_amwg_complete.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,

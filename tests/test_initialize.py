@@ -28,7 +28,7 @@ class TestInitialize(unittest.TestCase):
         super(TestInitialize, self).__init__(*args, **kwargs)
 
     def test_parse_args_valid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         argv = ['-c', 'tests/test_configs/valid_config_simple.cfg', 
                 '-l', 'pflow.log',
                 '-r', 'resources/',
@@ -45,7 +45,7 @@ class TestInitialize(unittest.TestCase):
         self.assertFalse(pargs.always_copy)
     
     def test_parse_args_print_help(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         argv = ['-h']
         with self.assertRaises(SystemExit) as exitexception:
             pargs = parse_args(argv)
@@ -56,14 +56,14 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(pargs, None)
     
     def test_init_print_version(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         argv = ['-v']
         with self.assertRaises(SystemExit) as exitexception:
             a, b, c = initialize(argv=argv, version=__version__)
         self.assertEqual(exitexception.exception.code, 0)
     
     def test_init_no_config(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         argv = []
         a, b, c = initialize(argv=argv)
         self.assertEqual(a, False)
@@ -71,7 +71,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(c, False)
 
     def test_init_valid_config_simple(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/valid_config_simple.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,
@@ -82,7 +82,7 @@ class TestInitialize(unittest.TestCase):
             testing=True)
     
     def test_init_config_doesnt_exist_simple(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/this_file_doesnt_exist.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,
@@ -96,7 +96,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(runmanager, False)
     
     def test_init_config_no_white_space_simple(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/invalid_config_no_white_space.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,
@@ -110,7 +110,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(runmanager, False)
     
     def test_init_cant_parse_config(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/invalid_config_cant_parse.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,
@@ -124,7 +124,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(runmanager, False)
     
     def test_init_missing_lnd(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/invalid_config_missing_lnd.cfg']
         config, filemanager, runmanager = initialize(
             argv=pargv,
@@ -138,7 +138,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(runmanager, False)
     
     def test_init_from_scratch_config(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/valid_config_from_scratch.cfg',
                  '-m', '1']
         project_path = '/p/user_pub/e3sm/baldwin32/testing/empty/'
@@ -161,7 +161,7 @@ class TestInitialize(unittest.TestCase):
             shutil.rmtree(project_path)
     
     def test_init_from_scratch_config_bad_project_dir(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/valid_config_from_scratch_bad_project_path.cfg']
         project_path = '/usr/testing/'
         with self.assertRaises(SystemExit) as exitexception:
@@ -180,7 +180,7 @@ class TestInitialize(unittest.TestCase):
         self.assertEqual(exitexception.exception.code, 1)
     
     def test_init_from_scratch_config_globus(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/valid_config_from_scratch_globus.cfg']
         project_path = '/p/user_pub/e3sm/baldwin32/testing/empty/'
         if os.path.exists(project_path):
@@ -202,7 +202,7 @@ class TestInitialize(unittest.TestCase):
             shutil.rmtree(project_path)
     
     def test_init_from_scratch_config_globus_bad_uuid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         pargv = ['-c', 'tests/test_configs/valid_config_from_scratch_globus_bad_uuid.cfg']
         project_path = '/p/user_pub/e3sm/baldwin32/testing/empty/'
         if os.path.exists(project_path):

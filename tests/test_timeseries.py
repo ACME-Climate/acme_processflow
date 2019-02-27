@@ -25,7 +25,7 @@ class TestTimeseries(unittest.TestCase):
         """
         test a valid timeseries setup
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         timeseries = Timeseries({
             'regrid_output_directory': os.getcwd(),
             'filemanager': None,

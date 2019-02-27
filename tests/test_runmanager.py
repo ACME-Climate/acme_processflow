@@ -53,7 +53,7 @@ class TestRunManager(unittest.TestCase):
         """
         Run the runmanager setup
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
 
         db_path = os.path.join(
             self.project_path,
@@ -108,7 +108,7 @@ class TestRunManager(unittest.TestCase):
 
 
     def test_runmanager_write(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         db_path = os.path.join(
             self.project_path,
             '{}.db'.format(inspect.stack()[0][3]))

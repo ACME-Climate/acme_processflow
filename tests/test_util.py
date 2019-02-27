@@ -19,7 +19,7 @@ class TestFileManager(unittest.TestCase):
 
 
     def test_path_exists_invalid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         project_path = os.path.abspath(os.path.join('..', 'testproject'))
         config = {
             'global': {
@@ -75,15 +75,15 @@ class TestFileManager(unittest.TestCase):
         self.assertFalse(status)
 
     def test_cmd_exists_valid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         self.assertTrue(cmd_exists('ncclimo'))
 
     def test_cmd_exists_invalid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         self.assertFalse(cmd_exists('not_a_cmd'))
 
     def test_render(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         render_target = os.path.join(
             os.getcwd(), 'tests', 'test_render_target.txt')
         render_reference = os.path.join(
@@ -105,13 +105,13 @@ class TestFileManager(unittest.TestCase):
             self.assertTrue(fp.readline() in reference)
 
     def test_render_bad_input_file(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         render_target = os.path.join(os.getcwd(), 'tests', 'DOES_NOT_EXIST')
         render_output = os.path.join(os.getcwd(), 'tests', 'render_output.txt')
         self.assertFalse(render({}, render_target, render_output))
 
     def test_render_bad_outout_file(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         render_target = os.path.join(
             os.getcwd(), 'tests', 'test_render_target.txt')
         render_output = '/usr/local/NO_PERMISSIONS'

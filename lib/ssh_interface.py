@@ -29,7 +29,7 @@ def get_ll(client, remote_path):
     out = stdout.read().split('\n')
     ll = []
     for item in out:
-        file_info = filter(lambda x: x != '', item.split(' '))
+        file_info = [x for x in item.split(' ') if x != '']
         if len(file_info) < 9: continue
         if file_info[0] == 'total': continue
         if file_info[-1] in ['.', '..']: continue
@@ -77,7 +77,7 @@ def get_ssh_client(hostname):
         Paramiko.Transport client if login successful,
         None otherwise
     """
-    username = raw_input('Username for {}: '.format(hostname))
+    username = input('Username for {}: '.format(hostname))
 
     client = paramiko.SSHClient()
     client.load_system_host_keys()
@@ -88,11 +88,11 @@ def get_ssh_client(hostname):
             password = getpass(prompt='Password for {}: '.format(hostname))
             client.connect(hostname, port=22, username=username, password=password)
         except Exception as e:
-            print 'Invalid password'
+            print('Invalid password')
         else:
             connected = True
             break
     if not connected:
-        print 'Unable to open ssh connection for {}'.format(hostname)
+        print('Unable to open ssh connection for {}'.format(hostname))
         sys.exit(1)
     return client

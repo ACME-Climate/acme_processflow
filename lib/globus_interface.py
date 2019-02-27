@@ -8,7 +8,7 @@ from globus_cli.commands.login import do_link_login_flow, check_logged_in
 from globus_cli.services.transfer import get_client
 
 def get_ls(client, path, endpoint):
-    for fail_count in xrange(10):
+    for fail_count in range(10):
         try:
             res = globus_ls(
                 client,
@@ -150,7 +150,7 @@ def setup_globus(endpoints, event_list):
         message = 'Globus login required. Please run {cmd}\n\n'.format(
             cmd='"globus login"')
         print_message(message)
-        print '================================================'
+        print('================================================')
         sys.exit(1)
 
     if isinstance(endpoints, str):
@@ -189,8 +189,8 @@ https://www.globus.org/app/endpoints/{endpoint}/activate
 """.format(endpoint=endpoint, server=server['hostname'])
 
         if not activated:
-            print message
-            raw_input('Press ENTER once endpoints have been activated\n')
+            print(message)
+            input('Press ENTER once endpoints have been activated\n')
 
     return True
 
@@ -223,7 +223,7 @@ def check_globus(src_uuid, dst_uuid, src_path, dst_path):
                 endpoint['id'],
                 False, 0, False)
             hostname = client.endpoint_server_list(endpoint)['DATA']['hostname']
-            print "Access confirmed for {}".format(hostname)
+            print("Access confirmed for {}".format(hostname))
     except Exception as e:
         print_debug(e)
         return False, endpoint

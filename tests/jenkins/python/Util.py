@@ -8,7 +8,7 @@ FAILURE = 1
 
 def run_cmd(cmd, join_stderr=True, shell_cmd=False, verbose=True):
 
-    print("CMD: {c}".format(c=cmd))
+    print(("CMD: {c}".format(c=cmd)))
     if isinstance(cmd, str):
         cmd = shlex.split(cmd)
 
@@ -42,7 +42,7 @@ def git_clone_repo(workdir, repo_name):
     cmd = "git clone {url} {dest}".format(url=url, dest=repo_dir)
     ret_code = run_cmd(cmd)
     if ret_code != SUCCESS:
-        print("FAIL...{c}".format(c=cmd))
+        print(("FAIL...{c}".format(c=cmd)))
         return ret_code
 
     return(ret_code)
@@ -58,14 +58,14 @@ def run_in_conda_env(conda_path, env, cmds_list):
         else:
             cmds = "{existing}; {new_cmd}".format(existing=cmds, new_cmd=a_cmd)
 
-    print("xxx cmds: " + cmds)
+    print(("xxx cmds: " + cmds))
     deactivate_cmd = 'source deactivate'
 
     cmd = "bash -c \"{add_path}; {act}; {cmds}; {deact}\"".format(add_path=add_path_cmd,
                                                                   act=activate_cmd,
                                                                   cmds=cmds,
                                                                   deact=deactivate_cmd)
-    print("CMD: {c}".format(c=cmd))
+    print(("CMD: {c}".format(c=cmd)))
     ret_code = os.system(cmd)
     print(ret_code)
     return(ret_code)

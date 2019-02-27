@@ -21,7 +21,7 @@ testdir = args.testdir
 ndays = args.ndays
 
 if not os.path.isdir(testdir):
-    print 'ERROR, test dir {testdir} does not exist'.format(testdir=testdir)
+    print('ERROR, test dir {testdir} does not exist'.format(testdir=testdir))
     sys.exit(FAILURE)
 
 seconds = ndays * 24 * 3600
@@ -31,8 +31,8 @@ for a_file in os.listdir(testdir):
     the_file = os.path.join(testdir, a_file)
     if os.stat(the_file).st_mtime < (now - seconds):
  
-        print("FOUND...: {f}".format(f=the_file))
-        print("Removing {f}".format(f=the_file))
+        print(("FOUND...: {f}".format(f=the_file)))
+        print(("Removing {f}".format(f=the_file)))
         #shutil.rmtree(the_file)
         # os.unlink(the_file)
 

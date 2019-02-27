@@ -18,7 +18,7 @@ class TestProcessflow(unittest.TestCase):
         """
         End to end test of the processflow with inplace data
         """
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = os.path.join(
             os.getcwd(),
             'tests',

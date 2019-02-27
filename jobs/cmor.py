@@ -78,7 +78,7 @@ class Cmor(Job):
         """
         jobs = kwargs['jobs']
         try:
-            ts_job, = filter(lambda job: self._dep_filter(job), jobs)
+            ts_job, = [job for job in jobs if self._dep_filter(job)]
         except ValueError:
             msg = 'Unable to find timeseries for {}, does this case generate timeseries?'.format(
                 self.msg_prefix())

@@ -1,5 +1,5 @@
 import json
-from jobstatus import JobStatus
+from .jobstatus import JobStatus
 
 class JobInfo(object):
     """

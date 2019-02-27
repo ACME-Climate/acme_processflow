@@ -17,35 +17,35 @@ class TestVerifyConfig(unittest.TestCase):
         super(TestVerifyConfig, self).__init__(*args, **kwargs)
     
     def test_valid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/test_amwg_complete.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
-        self.assertEquals(len(messages), 0)
+        self.assertEqual(len(messages), 0)
     
     def test_invalid_missing_lnd_data(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_missing_lnd.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
         self.assertTrue('20180129.DECKv1b_piControl.ne30_oEC.edison is set to use data_type lnd, but this data type is not in the data_types config option' in messages)
     
     def test_invalid_missing_climo(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_missing_climo.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
         self.assertTrue('amwg is set to run at frequency 2 but no climo job for this frequency is set' in messages)
     
     def test_invalid_missing_comparisons(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_missing_comparisons.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
         self.assertTrue('no comparisons specified' in messages)
     
     def test_invalid_missing_global(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_no_global.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
@@ -53,7 +53,7 @@ class TestVerifyConfig(unittest.TestCase):
         self.assertTrue('No simulations section found in config' in messages)
     
     def test_invalid_missing_project(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_no_project_path.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
@@ -61,7 +61,7 @@ class TestVerifyConfig(unittest.TestCase):
         self.assertTrue('No data_types section found in config'  in messages)
     
     def test_invalid_bad_transfer(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_bad_transfer.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
@@ -75,14 +75,14 @@ class TestVerifyConfig(unittest.TestCase):
         self.assertTrue('case test.case.4 is set to use globus, but no local_globus_uuid was set in the global options' in messages)
 
     def test_invalid_bad_job_type(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_bad_job_type.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
         self.assertTrue('20180129.DECKv1b_piControl.ne30_oEC.edison is set to run job beepboop, but this run type is not in either the post-processing or diags config sections' in messages)
 
     def test_invalid_bad_data_type(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_data_job_type.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
@@ -91,7 +91,7 @@ class TestVerifyConfig(unittest.TestCase):
         self.assertTrue('atm has no local_path' in messages)
     
     def test_invalid_bad_data_type(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_bad_img_hosting.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
@@ -99,7 +99,7 @@ class TestVerifyConfig(unittest.TestCase):
         self.assertTrue('image hosting is turned on, but no host_directory specified' in messages)
 
     def test_invalid_bad_regrid(self):
-        print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
+        print('\n'); print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
         config_path = 'tests/test_configs/invalid_config_bad_regrid.cfg'
         config = ConfigObj(config_path)
         messages = verify_config(config)
