@@ -15,7 +15,7 @@ from .filemanager import FileManager
 from .runmanager import RunManager
 from .mailer import Mailer
 from .jobstatus import JobStatus
-from .globus_interface import setup_globus
+
 from .util import print_message
 from .util import print_debug
 from .util import print_line
@@ -264,6 +264,9 @@ Please add a space and run again.'''.format(num=line_index))
             event_list=event_list)
     else:
         if config['global'].get('local_globus_uuid'):
+            # load globus here so its not loaded if it isnt used
+            from .globus_interface import setup_globus
+
             endpoints = [endpoint for endpoint in filemanager.get_endpoints()]
             local_endpoint = config['global'].get('local_globus_uuid')
             if local_endpoint:

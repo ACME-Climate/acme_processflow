@@ -26,6 +26,7 @@ requirements:
     - nco
     - ncl
     - e3sm_diags
+    - mpas-analysis
     - e3sm_to_cmip
     - sqlite
     - peewee

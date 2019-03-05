@@ -48,9 +48,9 @@ def main(test=False, **kwargs):
 
     # Read in parameters from config
     if test:
-        print '=========================================='
-        print '---- Processflow running in test mode ----'
-        print '=========================================='
+        print('==========================================')
+        print('---- Processflow running in test mode ----')
+        print('==========================================')
         _args = kwargs['testargs']
         config, filemanager, runmanager = initialize(
             argv=_args,
@@ -68,7 +68,7 @@ def main(test=False, **kwargs):
             kill_event=thread_kill_event)
     # setup returned an error code
     if isinstance(config, int):
-        print "Error in setup, exiting"
+        print("Error in setup, exiting")
         return -1
     logging.info('Config setup complete')
     debug = True if config['global'].get('debug') else False
@@ -96,10 +96,10 @@ def main(test=False, **kwargs):
         'output',
         'state.txt')
     try:
-        print "--------------------------"
-        print " Entering Main Loop "
-        print " Status file: {}".format(state_path)
-        print "--------------------------"
+        print("--------------------------")
+        print(" Entering Main Loop ")
+        print(" Status file: {}".format(state_path))
+        print("--------------------------")
         while True:
             if not all_data_local:
                 if debug: print_line(' -- Updating local status --', event_list)    

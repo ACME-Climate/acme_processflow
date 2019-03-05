@@ -38,7 +38,6 @@ job_map = {
     'cmor': Cmor
 }
 
-
 class RunManager(object):
 
     def __init__(self, event_list, event, config, filemanager):

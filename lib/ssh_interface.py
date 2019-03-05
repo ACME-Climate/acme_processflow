@@ -77,7 +77,7 @@ def get_ssh_client(hostname):
         Paramiko.Transport client if login successful,
         None otherwise
     """
-    username = input('Username for {}: '.format(hostname))
+    username = input("Username for {}: ".format(hostname))
 
     client = paramiko.SSHClient()
     client.load_system_host_keys()
