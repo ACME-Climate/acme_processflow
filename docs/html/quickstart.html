@@ -93,6 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#lcrc-blues-anvil">LCRC (Blues/Anvil)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#llnl-acme1-aims4">LLNL (acme1/aims4)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nersc-edison">NERSC (edison)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nersc-cori">NERSC (cori)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
@@ -278,24 +279,28 @@ If a node needs to be activated the processflow will notify you and wait.</p>
 
 <span class="p">[</span><span class="n">diags</span><span class="p">]</span>
     <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
-        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme_diags</span><span class="o">/</span><span class="n">obs_for_e3sm_diags</span>
         <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
             <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
             <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 
     <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
-        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">amwg</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="k">global</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">projectdirs</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
         <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
             <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
             <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 
     <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
-        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">you</span> <span class="n">have</span> <span class="n">to</span> <span class="n">clone</span> <span class="n">the</span> <span class="n">a</span><span class="o">-</span><span class="n">prime</span> <span class="n">repo</span> <span class="ow">and</span> <span class="nb">set</span> <span class="n">it</span> <span class="n">up</span> <span class="n">yourself</span><span class="o">&gt;</span>
         <span class="p">[[[</span><span class="n">custom_args</span><span class="p">]]]</span>
             <span class="o">--</span><span class="n">partition</span> <span class="o">=</span> <span class="n">regular</span>
             <span class="o">--</span><span class="n">account</span> <span class="o">=</span> <span class="n">acme</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="nersc-cori">
+<h2>NERSC (cori)<a class="headerlink" href="#nersc-cori" title="Permalink to this headline">¶</a></h2>
+<p>The only difference between Cori and Edison is that the “-C” flag needs to be added to the custom_args section to pick the archetecture type.</p>
 </div>
 </div>
 

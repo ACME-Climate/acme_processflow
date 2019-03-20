@@ -149,19 +149,24 @@ NOTE: All jobs here need to be submitted to the "regular" partition, using the "
     
     [diags]
         [[e3sm_diags]]
-            reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
+            reference_data_path = /global/project/projectdirs/acme/acme_diags/obs_for_e3sm_diags
             [[[custom_args]]]
                 --partition = regular
                 --account = acme
 
         [[amwg]]
-            diag_home = /global/project/projectdirs/acme/diagnostics/amwg
+            diag_home = /global/project/projectdirs/acme/diagnostics/amwg/amwg_diag
             [[[custom_args]]]
                 --partition = regular
                 --account = acme
 
         [[aprime]]
-            aprime_code_path = /p/cscratch/acme/data/a-prime
+            aprime_code_path = <you have to clone the a-prime repo and set it up yourself>
             [[[custom_args]]]
                 --partition = regular
                 --account = acme
+
+NERSC (cori)
+--------------
+
+The only difference between Cori and Edison is that the "-C" flag needs to be added to the custom_args section to pick the archetecture type.
