@@ -1,22 +1,22 @@
 """
 Test module for CMOR job class
 """
+import inspect
 import os
 import sys
 import unittest
-import inspect
 
-if sys.path[0] != '.':
-    sys.path.insert(0, os.path.abspath('.'))
-
-from jobs.cmor import Cmor
-from jobs.timeseries import Timeseries
-from lib.jobstatus import JobStatus
-from lib.events import EventList
-from lib.util import print_message
-from lib.filemanager import FileManager
-from lib.verify_config import verify_config
 from configobj import ConfigObj
+
+ 
+
+from processflow.jobs.cmor import Cmor
+from processflow.jobs.timeseries import Timeseries
+from processflow.lib.jobstatus import JobStatus
+from processflow.lib.events import EventList
+from processflow.lib.util import print_message
+from processflow.lib.filemanager import FileManager
+from processflow.lib.verify_config import verify_config
 
 
 class TestCmor(unittest.TestCase):

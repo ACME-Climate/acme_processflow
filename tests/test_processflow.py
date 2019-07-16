@@ -1,15 +1,12 @@
-import unittest
+import inspect
 import os
 import sys
-import shutil
-import inspect
-
-if sys.path[0] != '.':
-    sys.path.insert(0, os.path.abspath('.'))
+import unittest
 
 from configobj import ConfigObj
-from lib.util import print_message
-from processflow import main
+
+from processflow.lib.util import print_message
+from processflow.__main__ import main
 
 
 class TestProcessflow(unittest.TestCase):
@@ -26,8 +23,8 @@ class TestProcessflow(unittest.TestCase):
             'test_amwg_complete.cfg')
 
         config = ConfigObj(config_path)
-        testargs = ['-c', config_path, '-r', 'resources', '--dryrun']
-        ret = main(test=True, testargs=testargs)
+        testargs = ['--test', '-c', config_path, '-r', 'resources', '--dryrun']
+        ret = main(testargs)
         self.assertEqual(ret, 0)
 
 

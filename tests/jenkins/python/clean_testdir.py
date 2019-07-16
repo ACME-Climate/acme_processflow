@@ -1,9 +1,10 @@
-import sys
-import os
-import time
 import argparse
+import os
 import shutil
-from Util import *
+import sys
+import time
+
+from Util import FAILURE
 
 parser = argparse.ArgumentParser(description="install conda",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -30,10 +31,8 @@ now = time.time()
 for a_file in os.listdir(testdir):
     the_file = os.path.join(testdir, a_file)
     if os.stat(the_file).st_mtime < (now - seconds):
- 
-        print(("FOUND...: {f}".format(f=the_file)))
-        print(("Removing {f}".format(f=the_file)))
-        #shutil.rmtree(the_file)
-        # os.unlink(the_file)
 
-    
+        print("FOUND...: {f}".format(f=the_file))
+        print("Removing {f}".format(f=the_file))
+        # shutil.rmtree(the_file)
+        # os.unlink(the_file)

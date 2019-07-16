@@ -1,0 +1,80 @@
+{
+  "global": { "project_path": "" },
+  "simulations": {
+    "start_year": "1",
+    "end_year": "1",
+    "20180129.DECKv1b_piControl.ne30_oEC.edison": {
+      "transfer_type": "local",
+      "local_path": "",
+      "short_name": "piControl",
+      "native_grid_name": "ne30",
+      "native_mpas_grid_name": "oEC60to30v3",
+      "data_types": "all",
+      "job_types": "climo"
+    }
+  },
+  "post-processing": {
+    "climo": {
+      "run_frequency": "2",
+      "destination_grid_name": "fv129x256",
+      "regrid_map_path": "/dummy/path"
+    }
+  },
+  "data_types": {
+    "atm": {
+      "file_format": "CASEID.cam.h0.YEAR-MONTH.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "True"
+    },
+    "lnd": {
+      "file_format": "CASEID.clm2.h0.YEAR-MONTH.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "True"
+    },
+    "ocn": {
+      "file_format": "mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "True"
+    },
+    "ice": {
+      "file_format": "mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "True"
+    },
+    "ocn_restart": {
+      "file_format": "mpaso.rst.REST_YR-01-01_00000.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "cice_restart": {
+      "file_format": "mpascice.rst.REST_YR-01-01_00000.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "streams.ocean": {
+      "file_format": "streams.ocean",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "streams.cice": {
+      "file_format": "streams.cice",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "mpas-o_in": {
+      "file_format": "mpas-o_in",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "mpas-cice_in": {
+      "file_format": "mpas-cice_in",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    },
+    "meridionalHeatTransport": {
+      "file_format": "mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc",
+      "local_path": "LOCAL_PATH",
+      "monthly": "False"
+    }
+  }
+}

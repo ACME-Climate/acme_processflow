@@ -1,0 +1,23 @@
+{
+    "post-processing": {
+        "climo": {
+            "run_frequency": "2",
+            "destination_grid_name": "180x360",
+            "regrid_map_path": "/dummy/path"
+        }
+    },
+    "diags": {
+        "amwg": {
+            "run_frequency": "2",
+            "diag_home": "/amwg/amwg_diag",
+            "sets": "all"
+        }
+    },
+    "data_types": {
+        "atm": {
+            "file_format": "CASEID.cam.h0.YEAR-MONTH.nc",
+            "local_path": "LOCAL_PATH",
+            "monthly": "True"
+        }
+    }
+}

@@ -1,0 +1,36 @@
+package:
+  name: processflow
+  version: {{ environ['VERSION'] }}
+
+source:
+  git_url: git://github.com/E3SM-Project/processflow.git
+  git_tag: {{ environ['TAG'] }}
+
+build:
+  script: python setup.py install
+  string: {{ environ['BUILD_NAME'] }}
+
+about:
+    home: https://github.com/E3SM-Project/processflow
+    summary: Automated post processing for E3SM model data
+
+requirements:
+  build:
+    - python
+    - setuptools
+  
+  run:
+    - pip
+    - python
+    - setuptools
+    - nco
+    - e3sm_diags >=1.6.0
+    - e3sm_to_cmip
+    - peewee
+    - configobj
+    - beautifulsoup4
+    - paramiko
+    - jinja2
+    - globus-sdk ==1.1.1
+    - globus-cli ==1.1.2
+    - jmespath

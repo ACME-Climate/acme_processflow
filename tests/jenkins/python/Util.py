@@ -1,7 +1,8 @@
 import os
-import subprocess
 import shlex
+import subprocess
 import time
+
 
 SUCCESS = 0
 FAILURE = 1
@@ -29,6 +30,7 @@ def run_cmd(cmd, join_stderr=True, shell_cmd=False, verbose=True):
     ret_code = P.returncode
     return(ret_code)
 
+
 def git_clone_repo(workdir, repo_name):
     """ git clone https://github.com/UV-CDAT/<repo_name> and place it in
         <workdir>/<repo_name> directory                                              
@@ -46,6 +48,7 @@ def git_clone_repo(workdir, repo_name):
         return ret_code
 
     return(ret_code)
+
 
 def run_in_conda_env(conda_path, env, cmds_list):
 
@@ -69,6 +72,7 @@ def run_in_conda_env(conda_path, env, cmds_list):
     ret_code = os.system(cmd)
     print(ret_code)
     return(ret_code)
+
 
 def run_in_conda_env_capture_output(conda_path, env, cmds_list):
 
