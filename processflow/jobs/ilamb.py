@@ -8,7 +8,7 @@ import glob
 import logging
 
 from processflow.jobs.diag import Diag
-from processflow.lib.util import render, get_cmor_output_files, format_debug, mkdir_p
+from processflow.lib.util import render, get_cmor_output_files, format_debug
 from processflow.lib.jobstatus import JobStatus
 
 
@@ -25,7 +25,6 @@ class ILAMB(Diag):
         self._job_type = 'ilamb'
         self._requires = 'cmor'
         self._host_url = ''
-        self.case_start_year = kwargs['config']['simulations']['start_year']
         self._data_required = ['cmorized']
 
         if kwargs['config']['global']['host']:
@@ -44,7 +43,8 @@ class ILAMB(Diag):
                                                start=self.start_year,
                                                end=self.end_year,
                                                comp=self._short_comp_name))
-        mkdir_p(self._host_path)
+        if not os.path.exists(self._host_path):
+            os.makedirs(self._host_path)
 
         custom_args = kwargs['config']['diags'][self.job_type].get(
             'custom_args')
@@ -86,7 +86,7 @@ class ILAMB(Diag):
         self._input_base_path = os.path.join(self._ilamb_models_dir,
                                              self.short_name)
         # make sure both directories exist
-        mkdir_p(self._input_base_path)
+        os.mkdir(self._input_base_path, exist_ok=True)
 
     def _dep_filter(self, job):
         """
@@ -115,7 +115,7 @@ class ILAMB(Diag):
         if self.comparison != 'obs':
             other_jobs = kwargs['comparison_jobs']
             try:
-                self_cmor, = filter(lambda job: self._dep_filter(job),
+                cmor_job, = filter(lambda job: self._dep_filter(job),
                                     other_jobs)
             except ValueError:
                 msg = 'Unable to find CMOR for {}, is this case set to ' \
@@ -123,11 +123,12 @@ class ILAMB(Diag):
                 raise Exception(msg)
         else:
             try:
-                self_cmor, = filter(lambda job: self._dep_filter(job), jobs)
+                cmor_job, = filter(lambda job: self._dep_filter(job), jobs)
             except ValueError:
                 msg = 'Unable to find CMOR for {}, is this case set to ' \
                       'generate CMORized output?'.format(self.msg_prefix())
                 raise Exception(msg)
+        self.depends_on.append(cmor_job)
 
     def setup_data(self, config, filemanager, case):
         """
@@ -158,8 +159,8 @@ class ILAMB(Diag):
                 # keep a reference to the input data for later
                 self._input_file_paths.append(destination)
                 try:
-                    shutil.copy(file_, destination)
-                except Exception as e:
+                    os.symlink(file_, destination)
+                except IOError as e:
                     msg = format_debug(e)
                     logging.error(msg)
 
