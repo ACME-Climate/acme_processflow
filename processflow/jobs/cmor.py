@@ -77,9 +77,10 @@ class Cmor(Job):
                     if file.endswith('nc'):
                         found.append(file)
         if 'all' in config['post-processing']['cmor']['variable_list']:
-            expected_file_number = 20
+            expected_file_number = 55
         else:
-            expected_file_number = len(config['post-processing']['cmor']['variable_list'])
+            expected_file_number = len(
+                config['post-processing']['cmor']['variable_list'])
         if len(found) >= expected_file_number:
             return True
         else:
@@ -94,7 +95,7 @@ class Cmor(Job):
             if job.job_type == self._requires \
                 and job.start_year == self.start_year \
                     and job.end_year == self.end_year:
-                        self.depends_on.append(job.id)
+                self.depends_on.append(job.id)
         if not self.depends_on:
             msg = 'Unable to find timeseries for {}, does this case generate timeseries?'.format(
                 self.msg_prefix())
@@ -127,7 +128,7 @@ class Cmor(Job):
             '--output', self._output_path,
             '--var-list', ' '.join(config['post-processing']
                                    ['cmor']['variable_list']),
-            '--user-input', config['post-processing']['cmor'][self.case]['user_input_json_path'],
+            '--user-input', config['simulations'][self.case]['user_input_json_path'],
             '--tables', config['post-processing']['cmor']['cmor_tables_path'],
             '--num-proc', '24'
         ]
@@ -156,7 +157,7 @@ class Cmor(Job):
         """
         try:
             new_files = list()
-            for root, dirs, files in os.walk(self._output_path):
+            for _, _, files in os.walk(self._output_path):
                 if files is not None:
                     for file in files:
                         new_files.append({
@@ -171,6 +172,7 @@ class Cmor(Job):
                 data_type='cmorized',
                 file_list=new_files,
                 super_type='derived')
+
             filemanager.write_database()
             msg = '{prefix}: Job completion handler done'.format(
                 prefix=self.msg_prefix())
