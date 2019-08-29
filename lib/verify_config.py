@@ -377,7 +377,7 @@ def verify_config(config):
         # ------------------------------------------------------------------------
         if config['diags'].get('mpas_analysis'):
             if not config['diags']['mpas_analysis'].get('run_frequency'):
-                msg = 'no run_frequency given for aprime'
+                msg = 'no run_frequency given for MPAS-analysis'
                 messages.append(msg)
             else:
                 if not isinstance(config['diags']['mpas_analysis']['run_frequency'], list):
@@ -393,6 +393,21 @@ def verify_config(config):
             if not isinstance(config['diags']['mpas_analysis'].get('generate_plots', ''), list):
                 config['diags']['mpas_analysis']['generate_plots'] = [
                     config['diags']['mpas_analysis'].get('generate_plots', '')]
+        # ------------------------------------------------------------------------
+        # check ILAMB
+        # ------------------------------------------------------------------------
+        if config['diags'].get('ilamb'):
+            if not config['diags']['ilamb'].get('run_frequency'):
+                msg = 'no run_frequency given for ILAMB'
+                messages.append(msg)
+            else:
+                if not isinstance(
+                        config['diags']['ilamb']['run_frequency'], list):
+                    config['diags']['ilamb']['run_frequency'] = [
+                        config['diags']['ilamb']['run_frequency']]
+            if not config['diags']['ilamb'].get('ilamb_root'):
+                msg = 'no ilamb_root given for ILAMB'
+                messages.append(msg)
     return messages
 # ------------------------------------------------------------------------
 

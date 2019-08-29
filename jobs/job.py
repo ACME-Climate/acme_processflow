@@ -155,7 +155,7 @@ class Job(object):
                     datatype=datatype,
                     case=case)
             if not files or len(files) == 0:
-                msg = '{prefix}: filemanager cant find input files for datatype {datatype}'.format(
+                msg = "{prefix}: filemanager can't find input files for datatype {datatype}".format(
                     prefix=self.msg_prefix(),
                     datatype=datatype)
                 logging.error(msg)
@@ -263,7 +263,7 @@ class Job(object):
         to the resource manager controller
 
         Parameters:
-            cmd (str): the command to submit
+            cmd (list): a list of the command and its arguments to submit
             config (dict): the global configuration object
         Returns:
             job_id (int): the job_id from the resource manager

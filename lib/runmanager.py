@@ -24,6 +24,7 @@ from jobs.e3smdiags import E3SMDiags
 from jobs.aprime import Aprime
 from jobs.cmor import Cmor
 from jobs.mpasanalysis import MPASAnalysis
+from jobs.ilamb import ILAMB
 from lib.jobstatus import JobStatus, StatusMap, ReverseMap
 from lib.jobinfo import JobInfo
 
@@ -35,7 +36,8 @@ job_map = {
     'amwg': AMWG,
     'aprime': Aprime,
     'cmor': Cmor,
-    'mpas_analysis': MPASAnalysis
+    'mpas_analysis': MPASAnalysis,
+    'ilamb': ILAMB
 }
 
 
