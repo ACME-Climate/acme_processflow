@@ -4,10 +4,9 @@ import os
 import re
 import sys
 import traceback
+import jinja2
 
 from datetime import datetime
-
-import jinja2
 
 
 def print_line(line, event_list, ignore_text=False, newline=True):
@@ -35,6 +34,32 @@ def print_line(line, event_list, ignore_text=False, newline=True):
             print(msg, end=' ')
         sys.stdout.flush()
 # -----------------------------------------------
+
+
+def get_cmor_output_files(input_path, start_year, end_year):
+    """
+    Return a list of CMORize output files from start_year to end_year
+
+    Parameters:
+        input_path (str): the directory to look in
+        start_year (int): the first year of climos to add to the list
+        end_year (int): the last year
+    Returns:
+        cmor_list (list): A list of the cmor files
+    """
+    if not os.path.exists(input_path):
+        return None
+    cmor_list = list()
+
+    pattern = r'_{start:04d}01-{end:04d}12\.nc'.format(
+        start=start_year, end=end_year)
+
+    for root, dirs, files in os.walk(input_path):
+        for file_ in files:
+            if re.search(pattern, file_):
+                cmor_list.append(os.path.join(root, file_))
+
+    return cmor_list
 
 
 def get_climo_output_files(input_path, start_year, end_year):
@@ -159,8 +184,8 @@ def print_message(message, status='error'):
         message (str): the message to print
         status (str): th"""
     if status == 'error':
-        print(colors.FAIL + '[-] ' + colors.ENDC + \
-            colors.BOLD + str(message) + colors.ENDC)
+        print(colors.FAIL + '[-] ' + colors.ENDC +
+              colors.BOLD + str(message) + colors.ENDC)
     elif status == 'ok':
         print(colors.OKGREEN + '[+] ' + colors.ENDC + str(message))
 # -----------------------------------------------
@@ -214,4 +239,3 @@ def create_symlink_dir(src_dir, src_list, dst):
         except Exception as e:
             msg = format_debug(e)
             logging.error(msg)
-# -----------------------------------------------

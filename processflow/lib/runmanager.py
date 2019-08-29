@@ -10,6 +10,7 @@ from processflow.jobs.diag import Diag
 from processflow.jobs.e3smdiags import E3SMDiags
 from processflow.jobs.mpasanalysis import MPASAnalysis
 from processflow.jobs.regrid import Regrid
+from processflow.jobs.ilamb import ILAMB
 
 from processflow.lib.jobstatus import JobStatus, StatusMap, ReverseMap
 from processflow.lib.serial import Serial
@@ -25,7 +26,8 @@ job_map = {
     'amwg': AMWG,
     'aprime': Aprime,
     'cmor': Cmor,
-    'mpas_analysis': MPASAnalysis
+    'mpas_analysis': MPASAnalysis,
+    'ilamb': ILAMB
 }
 
 
@@ -283,7 +285,8 @@ class RunManager(object):
         for case in self.cases:
             for job in case['jobs']:
                 if job.comparison != 'obs':
-                    other_case, = [case for case in self.cases if case['case'] == job.comparison]
+                    other_case, = [
+                        case for case in self.cases if case['case'] == job.comparison]
                     job.setup_dependencies(
                         jobs=case['jobs'],
                         comparison_jobs=other_case['jobs'])
