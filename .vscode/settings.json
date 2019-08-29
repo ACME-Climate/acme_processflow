@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "/anaconda2/envs/cmor/bin/python",
+    "restructuredtext.confPath": "${workspaceFolder}/source",
+    "files.exclude": {
+        "**/*.pyc": true
+    }
+}

@@ -1,7 +1,10 @@
-import sys
-import os
 import argparse
-from Util import *
+import os
+import sys
+
+from Util import SUCCESS, FAILURE
+from Util import run_cmd, run_in_conda_env, run_in_conda_env_capture_output
+
 
 parser = argparse.ArgumentParser(description="install processflow",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -18,19 +21,21 @@ if not os.path.isdir(workdir):
     print("FAIL: {d} directory where conda should have been installed".format(d=workdir))
     sys.exit(FAILURE)
 
-def check_version(version):
-    
+
+def check_version(version, conda_path, env):
+
     if version == 'nightly':
         version_str = 'acme/label/nightly'
     elif version == 'latest':
         version_str = 'acme'
-
+    else:
+        version_str = ''
         
     # print out whole version of processflow -- just for logging purpose
     cmds_list = []
     cmd = "conda list processflow | grep '^processflow'"
     cmds_list.append(cmd)
-    ret_code = run_in_conda_env(conda_path, env, cmds_list) 
+    ret_code = run_in_conda_env(conda_path, env, cmds_list)
     if ret_code != SUCCESS:
         return(ret_code)
 
@@ -38,7 +43,7 @@ def check_version(version):
     cmd = "conda list processflow | grep '^processflow' | awk -F\\\" \\\" '{ print \$4 }'"
     cmds_list.append(cmd)
 
-    (ret_code, output) = run_in_conda_env_capture_output(conda_path, env, cmds_list) 
+    (ret_code, output) = run_in_conda_env_capture_output(conda_path, env, cmds_list)
     if ret_code != SUCCESS:
         return(ret_code)    
 
@@ -51,9 +56,7 @@ def check_version(version):
         ret_code = FAILURE
     return(ret_code)
  
-#
-# main
-#
+
 def main():
     env_dir = os.path.join(workdir, 'miniconda2', 'envs', 'processflow')
     if os.path.isdir(env_dir) == True:
@@ -100,13 +103,9 @@ def main():
     ret_code = run_in_conda_env(conda_path, env, cmds_list)
 
     # check version of processflow
-    ret_code = check_version(args.version)
+    ret_code = check_version(args.version, conda_path, env)
     sys.exit(ret_code)
+
 
 if __name__ == '__main__':
     main()
-
-
-
-
-

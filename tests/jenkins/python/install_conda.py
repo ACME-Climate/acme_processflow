@@ -1,9 +1,9 @@
-
-import sys
-import os
-import time
 import argparse
-from Util import *
+import os
+import sys
+
+from Util import SUCCESS, FAILURE
+from Util import run_cmd
 
 parser = argparse.ArgumentParser(description="install conda",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)

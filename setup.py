@@ -1,21 +1,14 @@
-import sys
 from setuptools import find_packages, setup
-
-data_files = [(sys.prefix + '/share/processflow/resources',
-               ['resources/e3sm_diags_template_vs_model.py',
-                'resources/e3sm_diags_template_vs_obs.py',
-                'resources/amwg_template_vs_model.csh',
-                'resources/amwg_template_vs_obs.csh',
-                'resources/env_loader.bash',
-                'resources/aprime_template_vs_obs.bash'])]
+from processflow.version import __version__
 
 setup(
-    name="e3sm_processflow",
-    version="2.1.0",
+    name="processflow",
+    version=__version__,
     author="Sterling Baldwin",
     author_email="baldwin32@llnl.gov",
-    description="E3SM Automated workflow for handling post processing and diagnostic jobs for raw model data",
-    scripts=["processflow"],
-    packages=find_packages(
-        exclude=["*.test", "*.test.*", "test.*", "test", "*_template.py"]),
-    data_files=data_files)
+    description="E3SM Automated workflow for handling post processing and " 
+                "diagnostic jobs for raw model data",
+    packages=['processflow', 'processflow.jobs', 'processflow.lib'],
+    package_dir={'processflow': 'processflow'},
+    include_package_data=True,
+    entry_points={'console_scripts': ['processflow = processflow.__main__:main']})

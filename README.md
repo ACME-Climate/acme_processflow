@@ -12,9 +12,9 @@ Latest stable build from the master branch:
 conda create --name <YOUR_NEW_ENVIRONMENT> -c e3sm -c conda-forge -c cdat processflow
 ```
 
-Latest (potentially unstable) build from the nightly branch:
+Latest (potentially unstable but with the latest bug fixes) build from the nightly branch:
 ```
-conda create --name <YOUR_NEW_ENVIRONMENT> -c e3sm/label/nightly -c e3sm -c cdat/label/nightly -c conda-forge -c cdat processflow
+conda create --name <YOUR_NEW_ENVIRONMENT> -c conda-forge -c e3sm/label/nightly -c e3sm -c cdat -c pcmdi processflow
 ```
 
 Update your environment to the newest version

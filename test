@@ -2,23 +2,25 @@
 PASSED=0
 TOTAL=0
 SECONDS=0
-BRANCH="$(git name-rev --name-only HEAD)"
-echo "Running tests for branch $BRANCH"
 
-tests=( "tests/test_e3sm.py"            \
-        "tests/test_amwg.py"            \
-        "tests/test_initialize.py"      \
-        "tests/test_slurm.py"           \
-        "tests/test_mailer.py"          \
-        "tests/test_finalize.py"        \
-        "tests/test_event_list.py"      \
-        "tests/test_verify_config.py"   \
-        "tests/test_processflow.py"     \
-        "tests/test_filemanager.py") #\
-        # "tests/test_util.py" \
-        # "tests/test_ncclimo.py" \
-        # "tests/test_timeseries.py" \
-        # "tests/test_runmanager.py" \
+pip install -e .
+
+tests=( "tests/test_e3sm.py"
+        "tests/test_aprime.py"
+        "tests/test_amwg.py"
+        "tests/test_climo.py"
+        "tests/test_event_list.py"
+        "tests/test_filemanager.py"
+        "tests/test_initialize.py"
+        "tests/test_mailer.py"
+        "tests/test_slurm.py"
+        "tests/test_finalize.py"
+        "tests/test_runmanager.py"
+        "tests/test_timeseries.py"
+        "tests/test_util.py"
+        "tests/test_verify_config.py"
+        #"tests/test_processflow.py"
+        )
 
 if [ "$1" == "all" ]; then
     echo "Running end to end tests"
@@ -42,7 +44,7 @@ do
     (( TOTAL+=1 ))
     tname=$(python -c "name='${test}';tname=name.split('/')[-1].split('.')[0];print tname")
     echo "--- running ${tname} ---"
-    if COVERAGE_FILE=.coverage_$tname coverage run --source=. --omit="resources/*","tests/test_*","*__init__.py","setup.py","lib/display.py" $test; then
+    if COVERAGE_FILE=.coverage_$tname coverage run --source=processflow --omit="processflow/resources/*","tests/test_*","*__init__.py","setup.py" $test; then
         echo "--- ${tname} passed ---"
         (( PASSED+=1 ))
     else

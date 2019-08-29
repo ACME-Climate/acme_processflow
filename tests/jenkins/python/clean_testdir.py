@@ -1,9 +1,10 @@
-import sys
-import os
-import time
 import argparse
+import os
 import shutil
-from Util import *
+import sys
+import time
+
+from Util import FAILURE
 
 parser = argparse.ArgumentParser(description="install conda",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -33,7 +34,5 @@ for a_file in os.listdir(testdir):
  
         print("FOUND...: {f}".format(f=the_file))
         print("Removing {f}".format(f=the_file))
-        #shutil.rmtree(the_file)
+        # shutil.rmtree(the_file)
         # os.unlink(the_file)
-
-    

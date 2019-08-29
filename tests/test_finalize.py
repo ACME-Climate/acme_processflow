@@ -1,18 +1,17 @@
+import inspect
 import os
 import sys
-import unittest
 import threading
-import inspect
+import unittest
 
 from configobj import ConfigObj
 
-if sys.path[0] != '.':
-    sys.path.insert(0, os.path.abspath('.'))
+ 
 
-from lib.initialize import initialize
-from lib.finalize import finalize
-from lib.events import EventList
-from lib.util import print_message
+from processflow.lib.initialize import initialize
+from processflow.lib.finalize import finalize
+from processflow.lib.events import EventList
+from processflow.lib.util import print_message
 
 
 class TestFinalize(unittest.TestCase):
@@ -25,25 +24,26 @@ class TestFinalize(unittest.TestCase):
         super(TestFinalize, self).__init__(*args, **kwargs)
         self.event_list = EventList()
         self.config_path = 'tests/test_configs/e3sm_diags_complete.cfg'
-        self.config = ConfigObj(self.config_path)
         self.event_list = EventList()
 
     def test_finilize_complete(self):
         print '\n'; print_message('---- Starting Test: {} ----'.format(inspect.stack()[0][3]), 'ok')
-        pargv = ['-c', 'tests/test_configs/test_amwg_complete.cfg']
-        config, filemanager, runmanager = initialize(
+        pargv = ['--test', '-c', self.config_path]
+        config, _, runmanager = initialize(
             argv=pargv,
             version="2.0.0",
             branch="master",
-            event_list=EventList(),
-            kill_event=threading.Event(),
-            testing=True)
+            event_list=EventList())
 
-        finalize(
-            config=config,
-            event_list=self.event_list,
-            status=1,
-            runmanager=runmanager)
+        try:
+            finalize(
+                config=config,
+                event_list=self.event_list,
+                status=1,
+                runmanager=runmanager)
+        except:
+            self.assertTrue(False)
+
 
 if __name__ == '__main__':
     unittest.main()
