@@ -20,7 +20,7 @@ class Job(object):
     A base job class for all post-processing and diagnostic jobs
     """
 
-    def __init__(self, start, end, case, short_name, data_required=None, dryrun=False, manager=None, **kwargs):
+    def __init__(self, start, end, case, short_name, event_list, data_required=None, dryrun=False, manager=None, **kwargs):
         self._start_year = start
         self._end_year = end
         self._data_required = data_required
@@ -39,6 +39,7 @@ class Job(object):
         self._console_output_path = None
         self._output_path = ''
         self._dryrun = dryrun
+        self._event_list = event_list
 
         if manager:
             self._manager = manager

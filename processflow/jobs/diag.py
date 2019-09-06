@@ -286,13 +286,13 @@ class Diag(Job):
             msg = '{}: dryrun is set, completing without running'.format(
                 self.msg_prefix())
             logging.info(msg)
-            print_message(msg, 'ok')
+            print_line(msg, self._event_list)
             self.status = JobStatus.COMPLETED
             return False
 
         msg = '{}: Job ready, submitting to queue'.format(
             self.msg_prefix())
-        print_message(msg, 'ok')
+        print_line(msg, self._event_list)
 
         # submit the run script to the resource controller
         self._job_id = self._manager.batch(run_script)

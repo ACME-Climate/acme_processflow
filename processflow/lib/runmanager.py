@@ -129,7 +129,8 @@ class RunManager(object):
                         dryrun=self.config['global'].get('dryrun'),
                         run_type=run_type,
                         config=self.config,
-                        manager=self.manager)
+                        manager=self.manager,
+                        event_list=self.event_list)
                     if not self._duplicate_check(new_job):
                         case['jobs'].append(new_job)
     # -----------------------------------------------
@@ -185,7 +186,8 @@ class RunManager(object):
                                     comparison=other_case,
                                     config=self.config,
                                     dryrun=self.config['global'].get('dryrun'),
-                                    manager=self.manager)
+                                    manager=self.manager,
+                                    event_list=self.event_list)
                                 if not self._duplicate_check(new_diag):
                                     case['jobs'].append(new_diag)
                             new_diag = job_map[job_type](
@@ -196,7 +198,8 @@ class RunManager(object):
                                 comparison='obs',
                                 config=self.config,
                                 dryrun=self.config['global'].get('dryrun'),
-                                manager=self.manager)
+                                manager=self.manager,
+                                event_list=self.event_list)
                             if not self._duplicate_check(new_diag):
                                 case['jobs'].append(new_diag)
                         else:
@@ -208,7 +211,8 @@ class RunManager(object):
                                 dryrun=self.config['global'].get('dryrun'),
                                 comparison=item,
                                 config=self.config,
-                                manager=self.manager)
+                                manager=self.manager,
+                                event_list=self.event_list)
                             if not self._duplicate_check(new_diag):
                                 case['jobs'].append(new_diag)
     # -----------------------------------------------
@@ -310,6 +314,7 @@ class RunManager(object):
         Loop over the list of jobs for each case, first setting up the data for, and then
         submitting each job to the queue
         """
+        # import ipdb; ipdb.set_trace()
         for case in self.cases:
             for job in case['jobs']:
                 if job.status != JobStatus.VALID:

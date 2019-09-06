@@ -179,9 +179,9 @@ class MPASAnalysis(Diag):
                     return False
                 # grep the logs directory for any errors, if the logs directory exists, and
                 # doesnt contain any errors, then the job was probably run previously and finished successfully
-                cmd = 'grep Error {}/*.log'.format(log_path)
-                out, err = Popen(cmd, stdout=PIPE, stderr=PIPE,
-                                 shell=True).communicate()
+                cmd = ['grep', 'Error', '{}/*.log'.format(log_path)]
+                proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+                out, err = proc.communicate()
                 if out or err:
                     return False
                 else:

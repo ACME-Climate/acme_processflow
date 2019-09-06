@@ -40,7 +40,6 @@ class TestFileManager(unittest.TestCase):
                 "start_year": "1",
                 "end_year": "1",
                 self.case_name: {
-                    "transfer_type": "local",
                     "local_path": local_data_path,
                     "short_name": self.short_name,
                     "native_grid_name": "ne30",
@@ -91,7 +90,7 @@ class TestFileManager(unittest.TestCase):
             event_list=EventList(),
             config=config)
         filemanager.populate_file_list()
-        filemanager.update_local_status()
+        filemanager.file_status_check()
 
         self.assertTrue(isinstance(filemanager, FileManager))
         self.assertTrue(os.path.exists(db))
@@ -110,7 +109,7 @@ class TestFileManager(unittest.TestCase):
         pargv = ['--test', '-c', self.config_path]
         config, _, _ = initialize(
             argv=pargv,
-            version='2.2.0',
+            version='2.2.3',
             branch='__testing__',
             event_list=EventList())
 
@@ -122,7 +121,7 @@ class TestFileManager(unittest.TestCase):
         self.assertTrue(isinstance(filemanager, FileManager))
         self.assertTrue(os.path.exists(db))
 
-        filemanager.update_local_status()
+        filemanager.file_status_check()
         filemanager.write_database()
 
         self.assertTrue(filemanager.all_data_local())
