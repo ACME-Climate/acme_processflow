@@ -3,8 +3,6 @@ import logging
 import os
 import threading
 
-from tqdm import tqdm
-
 from threading import Thread
 from enum import IntEnum
 
@@ -308,7 +306,7 @@ class FileManager(object):
                      .select()
                      .where(DataFile.local_status == FileStatus.NOT_PRESENT.value))
             to_update = list()
-            for datafile in tqdm(query.execute()):
+            for datafile in query.execute():
 
                 if os.path.exists(datafile.local_path):
                     datafile.local_status = FileStatus.PRESENT.value

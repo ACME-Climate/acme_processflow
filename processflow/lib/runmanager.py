@@ -472,7 +472,7 @@ class RunManager(object):
                 job_info = self.manager.showjob(item['manager_id'])
                 if job_info.state is None:
                     continue
-            except Exception as e:
+            except Exception:
                 # if the job is old enough it wont be in the slurm list anymore
                 # which will throw an exception
                 self._job_complete += 1

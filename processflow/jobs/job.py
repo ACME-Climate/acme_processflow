@@ -111,7 +111,7 @@ class Job(object):
         """
         for arg, val in list(custom_args.items()):
             new_arg = '{} {}'.format(arg, val)
-            for manager, manager_args in list(self._manager_args.items()):
+            for _, manager_args in list(self._manager_args.items()):
                 found = False
                 for idx, marg in enumerate(manager_args):
                     if arg in marg:
@@ -296,7 +296,7 @@ class Job(object):
         Returns:
             job_id (int): the job_id from the resource manager
         """
-        # setup for the run script
+        
         scripts_path = os.path.join(
             config['global']['project_path'],
             'output', 'scripts')

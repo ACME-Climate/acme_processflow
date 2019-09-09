@@ -17,20 +17,19 @@ about:
 
 requirements:
   host:
-    - python
+    - python {{ python }}
     - pip
   
   run:
-    - python
-    - mpas-analysis
-    - nco
+    - python {{ python }}
+    - mpas-analysis >=1.2.5
+    - nco >=4.8.1
     - e3sm_diags >=1.7.1
     - e3sm_to_cmip >=1.2.2
     - peewee >=3.10.0
     - configobj
     - beautifulsoup4
     - jinja2
-    - tqdm
 
 test:
   imports:
