@@ -21,7 +21,14 @@ class Cmor(Job):
         super(Cmor, self).__init__(*args, **kwargs)
         self._job_type = 'cmor'
         self._requires = 'timeseries'
-        self._data_required = ['ts_regrid']
+        if self._run_type in ['atm', 'lnd']:
+            self._data_required = ['ts_regrid']
+        elif self._run_type == 'ocn':
+            self._data_required = ['ocn', 'ocn_restart', 'ocn_in']
+        elif self._run_type == 'ice':
+            self._data_required = ['cice', 'cice_restart', 'cice_in']
+        else:
+            raise ValueError("Processflow currently only supports atm, lnd, ocn, and cice CMOR jobs")
 
         custom_args = kwargs['config']['post-processing'][self.job_type].get(
             'custom_args')
@@ -40,7 +47,7 @@ class Cmor(Job):
                 'pp',
                 'cmor',
                 self.short_name,
-                self.job_type,
+                '{}_{}'.format(self.job_type, self._run_type),
                 '{start:04d}_{end:04d}'.format(
                     start=self.start_year,
                     end=self.end_year))
@@ -89,17 +96,21 @@ class Cmor(Job):
 
     def setup_dependencies(self, *args, **kwargs):
         """
-        CMOR requires timeseries output
+        CMOR requires timeseries output for atm and lnd jobs,
+        but not for ocn or cice
         """
-        for job in kwargs['jobs']:
-            if job.job_type == self._requires \
-                and job.start_year == self.start_year \
-                    and job.end_year == self.end_year:
-                self.depends_on.append(job.id)
-        if not self.depends_on:
-            msg = 'Unable to find timeseries for {}, does this case generate timeseries?'.format(
-                self.msg_prefix())
-            raise Exception(msg)
+        if self._run_type in ['ocn', 'cice']:
+            self.depends_on = []
+        else:
+            for job in kwargs['jobs']:
+                if job.job_type == self._requires \
+                    and job.start_year == self.start_year \
+                        and job.end_year == self.end_year:
+                    self.depends_on.append(job.id)
+            if not self.depends_on:
+                msg = 'Unable to find timeseries for {}, does this case generate timeseries?'.format(
+                    self.msg_prefix())
+                raise Exception(msg)
     # -----------------------------------------------
 
     def execute(self, config, event_list, dryrun=False):
