@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Example Config &mdash; processflow 2.2.3-0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Run Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> processflow
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example Config</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">processflow</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Example Config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/example_config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="example-config">
+<span id="id1"></span><h1>Example Config<a class="headerlink" href="#example-config" title="Permalink to this headline">¶</a></h1>
+<p>This is an example configuration used on acme1 with three cases.
+This config will run climatology generation, regrid output, create
+timeseries, as well as run the e3sm_diag, AMWG, and aprime diagnostics
+suits.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">user_pub</span><span class="o">/</span><span class="n">e3sm</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span><span class="n">model_v_model</span>
+<span class="n">email</span> <span class="o">=</span> <span class="n">baldwin32</span><span class="nd">@llnl</span><span class="o">.</span><span class="n">gov</span>
+
+<span class="p">[</span><span class="n">img_hosting</span><span class="p">]</span>
+    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/</span><span class="n">baldwin32</span><span class="o">/</span>
+    <span class="n">url_prefix</span> <span class="o">=</span> <span class="s1">&#39;baldwin32&#39;</span>
+
+<span class="p">[</span><span class="n">simulations</span><span class="p">]</span>
+    <span class="n">start_year</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">[[</span><span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">piControl</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">comparisons</span> <span class="o">=</span> <span class="n">obs</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_1pctCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="mi">1</span><span class="n">pctCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="nb">all</span>
+        <span class="n">comparisons</span> <span class="o">=</span> <span class="mf">20180129.</span><span class="n">DECKv1b_piControl</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span>
+    <span class="p">[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]</span>
+        <span class="n">short_name</span> <span class="o">=</span> <span class="n">abrupt4xCO2</span>
+        <span class="n">native_grid_name</span> <span class="o">=</span> <span class="n">ne30</span>
+        <span class="n">native_mpas_grid_name</span> <span class="o">=</span> <span class="n">oEC60to30v3</span>
+        <span class="n">data_types</span> <span class="o">=</span> <span class="n">atm</span><span class="p">,</span> <span class="n">lnd</span>
+        <span class="n">job_types</span> <span class="o">=</span> <span class="n">e3sm_diags</span><span class="p">,</span> <span class="n">amwg</span><span class="p">,</span> <span class="n">climo</span>
+        <span class="n">comparisons</span> <span class="o">=</span> <span class="nb">all</span>
+
+<span class="p">[</span><span class="n">post</span><span class="o">-</span><span class="n">processing</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">climo</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+
+    <span class="p">[[</span><span class="n">timeseries</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+        <span class="n">atm</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
+        <span class="n">lnd</span> <span class="o">=</span> <span class="n">SOILICE</span><span class="p">,</span> <span class="n">SOILLIQ</span><span class="p">,</span> <span class="n">SOILWATER_10CM</span><span class="p">,</span> <span class="n">QINTR</span><span class="p">,</span> <span class="n">QOVER</span><span class="p">,</span> <span class="n">QRUNOFF</span><span class="p">,</span> <span class="n">QSOIL</span><span class="p">,</span> <span class="n">QVEGT</span><span class="p">,</span> <span class="n">TSOI</span>
+
+    <span class="p">[[</span><span class="n">regrid</span><span class="p">]]</span>
+        <span class="p">[[[</span><span class="n">lnd</span><span class="p">]]]</span>
+            <span class="n">source_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="n">ne30np4_pentagons</span><span class="o">.</span><span class="mf">091226.</span><span class="n">nc</span>
+            <span class="n">destination_grid_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">zender1</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">grids</span><span class="o">/</span><span class="mi">129</span><span class="n">x256_SCRIP</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">atm</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="n">fv129x256</span>
+        <span class="p">[[[</span><span class="n">ocn</span><span class="p">]]]</span>
+            <span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">~/</span><span class="n">grids</span><span class="o">/</span><span class="n">map_oEC60to30v3_to_0</span><span class="o">.</span><span class="mi">5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span><span class="o">.</span><span class="n">nc</span>
+            <span class="n">destination_grid_name</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="n">degree_bilinear</span>
+
+
+<span class="p">[</span><span class="n">diags</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">e3sm_diags</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">mpl</span>
+        <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_for_acme_diags</span>
+
+    <span class="p">[[</span><span class="n">amwg</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+        <span class="n">sets</span> <span class="o">=</span> <span class="nb">all</span>
+
+    <span class="p">[[</span><span class="n">aprime</span><span class="p">]]</span>
+        <span class="n">run_frequency</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">host_directory</span> <span class="o">=</span> <span class="n">aprime</span><span class="o">-</span><span class="n">diags</span>
+        <span class="n">aprime_code_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">a</span><span class="o">-</span><span class="n">prime</span>
+
+    <span class="p">[[</span><span class="n">mpas_analysis</span><span class="p">]]</span>
+        <span class="n">mapping_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">mpas_analysis</span><span class="o">/</span><span class="n">maps</span>
+        <span class="n">generate_plots</span> <span class="o">=</span> <span class="n">all_publicObs</span>
+        <span class="n">start_year_offset</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ocn_obs_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">observations</span><span class="o">/</span><span class="n">Ocean</span><span class="o">/</span>
+        <span class="n">seaice_obs_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">observations</span><span class="o">/</span><span class="n">SeaIce</span><span class="o">/</span>
+        <span class="n">region_mask_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">mpas_analysis</span><span class="o">/</span><span class="n">region_masks</span>
+        <span class="n">run_MOC</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ocean_namelist_name</span> <span class="o">=</span> <span class="n">mpaso_in</span>
+        <span class="n">seaice_namelist_name</span> <span class="o">=</span> <span class="n">mpassi_in</span>
+
+<span class="p">[</span><span class="n">data_types</span><span class="p">]</span>
+    <span class="p">[[</span><span class="n">atm</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">CASEID</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">h0</span><span class="o">.</span><span class="n">YEAR</span><span class="o">-</span><span class="n">MONTH</span><span class="o">.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">atm</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="n">LOCAL_PATH</span><span class="o">/</span><span class="n">atm</span>
+    <span class="p">[[</span><span class="n">lnd</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">CASEID</span><span class="o">.</span><span class="n">clm2</span><span class="o">.</span><span class="n">h0</span><span class="o">.</span><span class="n">YEAR</span><span class="o">-</span><span class="n">MONTH</span><span class="o">.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">lnd</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">[[[</span><span class="mf">20180215.</span><span class="n">DECKv1b_abrupt4xCO2</span><span class="o">.</span><span class="n">ne30_oEC</span><span class="o">.</span><span class="n">edison</span><span class="p">]]]</span>
+            <span class="n">local_path</span> <span class="o">=</span> <span class="n">LOCAL_PATH</span><span class="o">/</span><span class="n">lnd</span>
+    <span class="p">[[</span><span class="n">cice</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpascice</span><span class="o">.</span><span class="n">hist</span><span class="o">.</span><span class="n">am</span><span class="o">.</span><span class="n">timeSeriesStatsMonthly</span><span class="o">.</span><span class="n">YEAR</span><span class="o">-</span><span class="n">MONTH</span><span class="o">-</span><span class="mf">01.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">ice</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpaso</span><span class="o">.</span><span class="n">hist</span><span class="o">.</span><span class="n">am</span><span class="o">.</span><span class="n">timeSeriesStatsMonthly</span><span class="o">.</span><span class="n">YEAR</span><span class="o">-</span><span class="n">MONTH</span><span class="o">-</span><span class="mf">01.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">ocn</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">[[</span><span class="n">ocn_restart</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpaso</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">REST_YR</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mf">01_00000.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">rest</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_restart</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpascice</span><span class="o">.</span><span class="n">rst</span><span class="o">.</span><span class="n">REST_YR</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mf">01_00000.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">rest</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_streams</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">streams</span><span class="o">.</span><span class="n">ocean</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">mpas</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_streams</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">streams</span><span class="o">.</span><span class="n">cice</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">mpas</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">ocn_in</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpas</span><span class="o">-</span><span class="n">o_in</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">mpas</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">cice_in</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpas</span><span class="o">-</span><span class="n">cice_in</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">mpas</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">[[</span><span class="n">meridionalHeatTransport</span><span class="p">]]</span>
+        <span class="n">file_format</span> <span class="o">=</span> <span class="n">mpaso</span><span class="o">.</span><span class="n">hist</span><span class="o">.</span><span class="n">am</span><span class="o">.</span><span class="n">meridionalHeatTransport</span><span class="o">.</span><span class="n">START_YR</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mf">01.</span><span class="n">nc</span>
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">PROJECT_PATH</span><span class="o">/</span><span class="nb">input</span><span class="o">/</span><span class="n">CASEID</span><span class="o">/</span><span class="n">mpas</span>
+        <span class="n">monthly</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Run Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sterling Baldwin
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

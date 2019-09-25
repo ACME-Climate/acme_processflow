@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processflow’s documentation &mdash; processflow 2.0.4-0 documentation</title>
+  <title>Processflow’s documentation &mdash; processflow 2.2.3-0 documentation</title>
   
 
   
@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -57,7 +59,7 @@
             
             
               <div class="version">
-                2.0.4
+                2.2.3
               </div>
             
           
@@ -86,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Run Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_config.html">Example Config</a></li>
 </ul>
 
             
@@ -155,32 +157,37 @@
 <h1>Processflow’s documentation<a class="headerlink" href="#processflow-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-the-processflow">
 <h2>What is the processflow?<a class="headerlink" href="#what-is-the-processflow" title="Permalink to this headline">¶</a></h2>
-<p>The processflow is a command line tool to automatically run post processing and diagnostic jobs for E3SM model output.</p>
-<p>The tool takes a single configuration files and runs a series of data transfer
-and processing jobs on any amount of model output, running the jobs on any number of set lengths.</p>
-<p>Transfer jobs will be generated to match the data requirements of the processing jobs, and the processflow will wait
-to run jobs until after the data transfer has completed. Once the diagnostics complete, the tool transfers the plots to a hosting directory,
-and emails links with the completed output to the user.</p>
+<p>The processflow is a command line tool to automatically run post
+processing and diagnostic jobs for E3SM model output.</p>
+<p>The tool takes a single configuration files and runs a series of
+data transfer and processing jobs on any amount of model output,
+running the jobs on any number of set lengths.</p>
+<p>Processflow sets up the required regridding and timeseries jobs
+needed by the various diagnostics, repeated at the users defined
+frequency. This allows users to easily run hundreds of regridding
+and diagnostics jobs over centuries of model output. Additionally
+processflow allows for model-to-model diagnostic comparisons.</p>
+<p>Once the diagnostics complete, processflow transfers the plots
+to a hosting directory for easy viewing, and emails the user with
+a report of both links as well as paths to the output.</p>
 <p><strong>Jobs:</strong></p>
 <ul class="simple">
-<li>Globus and SFTP file transfer</li>
-<li>Regridded climatology generation</li>
-<li>Time series variable extraction</li>
-<li>atm, lnd, and ocn regridding</li>
-<li>AMWG diagnostic</li>
-<li>A-Prime diagnostic</li>
-<li>E3SM diags</li>
+<li><p>Regridded climatology generation</p></li>
+<li><p>Regridded model output for atm, lnd, and mpas data</p></li>
+<li><p>Time series variable extraction</p></li>
+<li><p>AMWG diagnostics</p></li>
+<li><p>A-Prime diagnostics</p></li>
+<li><p>E3SM diagnostics</p></li>
+<li><p>MPAS-Analysis diagnostics</p></li>
 </ul>
 <p><strong>System Dependencies:</strong>
-If installing the processflow from scratch on a new system, the following utilities will need to be in place.
-Most systems that E3SM runs on should already have these installed.</p>
+If installing the processflow from scratch on a new system, the following
+utilities will need to be in place. Most systems that E3SM runs on should
+already have these installed.</p>
 <ul class="simple">
-<li><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
-<li><a class="reference external" href="https://slurm.schedmd.com/">Slurm</a></li>
-<li><a class="reference external" href="https://www.globus.org/">Globus</a> (Only needed if using globus transfer)</li>
-<li><a class="reference external" href="https://www.ncl.ucar.edu/">NCL</a></li>
-<li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></li>
-<li>BASH</li>
+<li><p><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></p></li>
+<li><p><a class="reference external" href="https://slurm.schedmd.com/">Slurm</a></p></li>
+<li><p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
@@ -196,7 +203,6 @@ Most systems that E3SM runs on should already have these installed.</p>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#machine-specific-configuration">Machine Specific Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#lcrc-blues-anvil">LCRC (Blues/Anvil)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#llnl-acme1-aims4">LLNL (acme1/aims4)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#nersc-edison">NERSC (edison)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#nersc-cori">NERSC (cori)</a></li>
 </ul>
 </li>
@@ -212,85 +218,72 @@ Most systems that E3SM runs on should already have these installed.</p>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#amwg">AMWG</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#e3sm-diags">e3sm_diags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#aprime">Aprime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#mpas-analysis">MPAS-Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#data-types">Data types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#example-configuration">Example Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_config.html">Example Config</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The processflow will create the required input and output directories based on the project_path option in the config.
-(<a class="reference internal" href="configuration.html#global-config"><span class="std std-ref">global</span></a>). A copy of the config used to generate the processflow run will be copied into the /input directory.</p>
+<p>The processflow will create the required input and output directories
+based on the project_path option in the config. (<a class="reference internal" href="configuration.html#global-config"><span class="std std-ref">global</span></a>).
+A copy of the config used to generate the processflow run will be copied
+into the /input directory.</p>
 <p>Below is an example of the project directory structure.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>project_path
-├── input
-|   ├── case.id.1
-│   │     ├── atm
-│   │     ├── ice
-│   │     ├── mpas
-│   │     ├── ocn
-│   │     └── rest
-│   ├── case.id.2
-│   │      ├── atm
-│   │      ├── ice
-│   │      ├── mpas
-│   │      ├── ocn
-│   │      └── rest
-│   └── run.cfg
-└── output
-    ├── file_list.txt
-    ├── processflow.log
-    ├── state.txt
-    ├── scripts
-    ├── diags
-    |   ├── case.id.1
-    |   |     ├── aprime
-    |   |     |     ├── case.id.1_vs_obs
-    |   |     ├── e3sm_diags
-    |   |     |     ├── case.id.1_vs_obs
-    |   |     |     └── case.id.1_vs_case.id.2
-    |   |     └── amwg
-    |   |           ├── case.id.1_vs_obs
-    |   |           └── case.id.1_vs_case.id.2
-    |   └── case.id.2
-    |         ├── aprime
-    |         |     └── case.id.2_vs_obs
-    |         ├── e3sm_diags
-    |         |     └── case.id.2_vs_obs
-    |         └── amwg
-    |               └── case.id.2_vs_obs
-    └── pp
-        ├── fv129x256
-        │   ├── case.id.1
-        │   │   ├── climo
-        │   │   │   └── 2yr
-        │   │   ├── regrid
-        │   │   │   ├── atm
-        │   │   │   └── lnd
-        │   │   └── ts
-        │   │       └── 2yr
-        │   └── case.id.2
-        │       ├── climo
-        │       │   └── 2yr
-        │       ├── regrid
-        │       │   ├── atm
-        │       │   └── lnd
-        │       └── ts
-        │           └── 2yr
-        └── ne30
-            ├── case.id.1
-            │   ├── climo
-            │   │   └── 2yr
-            │   └── ts
-            │       └── 2yr
-            └── case.id.2
-                ├── climo
-                │   └── 2yr
-                └── ts
-                    └── 2yr
+├── file_list.txt
+├── processflow.log
+├── state.txt
+├── scripts
+├── diags
+|   ├── case.id.1
+|   |     ├── aprime
+|   |     |     ├── case.id.1_vs_obs
+|   |     ├── e3sm_diags
+|   |     |     ├── case.id.1_vs_obs
+|   |     |     └── case.id.1_vs_case.id.2
+|   |     └── amwg
+|   |           ├── case.id.1_vs_obs
+|   |           └── case.id.1_vs_case.id.2
+|   └── case.id.2
+|         ├── aprime
+|         |     └── case.id.2_vs_obs
+|         ├── e3sm_diags
+|         |     └── case.id.2_vs_obs
+|         └── amwg
+|               └── case.id.2_vs_obs
+└── pp
+    ├── fv129x256
+    │   ├── case.id.1
+    │   │   ├── climo
+    │   │   │   └── 2yr
+    │   │   ├── regrid
+    │   │   │   ├── atm
+    │   │   │   └── lnd
+    │   │   └── ts
+    │   │       └── 2yr
+    │   └── case.id.2
+    │       ├── climo
+    │       │   └── 2yr
+    │       ├── regrid
+    │       │   ├── atm
+    │       │   └── lnd
+    │       └── ts
+    │           └── 2yr
+    └── ne30
+        ├── case.id.1
+        │   ├── climo
+        │   │   └── 2yr
+        │   └── ts
+        │       └── 2yr
+        └── case.id.2
+            ├── climo
+            │   └── 2yr
+            └── ts
+                └── 2yr
 </pre></div>
 </div>
 </div>
@@ -331,25 +324,16 @@ Most systems that E3SM runs on should already have these installed.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

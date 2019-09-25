@@ -6,6 +6,10 @@ Run Configuration
 
 See `here for real life configuration examples <https://github.com/E3SM-Project/processflow/tree/master/samples>`_
 
+For an example config with all the available options turned on
+see the :ref:`example_config`
+
+
 Run configuration is broken into 6 major sections:
 
     * :ref:`global_config`  options used by all components
@@ -25,8 +29,6 @@ The global section has the following keys:
 
     * project_path (string): This is the base of the processflow project directory tree. All input and output will be stored here under project_path/input/ and project_path/output/. Any required directories will be generated.
     * email (string): This is the email address to send notifications to.
-    * native_grid_cleanup (bool): This is a boolean flag to denoting if the native grid files produced by post processing jobs should be deleted after all jobs successfully complete
-    * local_globus_uuid (string): The local globus transfer nodes unique id. This is optional and only required if using globus for file transfers
 
 **example**
 ::
@@ -34,8 +36,6 @@ The global section has the following keys:
     [global]
         project_path = /p/user_pub/e3sm/baldwin32/deck/bcrc_spinup  # base path for the project
         email = baldwin32@llnl.gov                                  # my email address so I can get notifications
-        native_grid_cleanup = False                                 # dont throw out the native grid data
-        local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b    # the UUID of the local globus transfer node
 
 .. _img_hosting:
 
@@ -77,26 +77,24 @@ The one thing they must all share in common is the start_year and end_year attri
     * data_types (list): which data types should be copied for this case, this must include all data_types needed for jobs this case will be running in a space seperated list. Can be set to 'all' to mean all data types described in the data_types section.
     * job_types (list): which of the job types should be run on this case. Use the keyword 'all' to run all defined jobs on this case.
 
-**transfer_type**
-Each simulated case needs to have a transfer type. Transfer_type can be one of three different values, which force certain values to be included for the case:
 
-    * 'local' --> the case must then also have 'local_path,' which is then used to specify the location for each datatype in the data_types section
-    * 'sftp' --> the case must then also have 'remote_hostname,' which is the remote server to connect to and 'remote_path'
-    * 'globus' --> the case must then also have 'remote_uuid,' which is the globus unique identifier for the remote node, and 'remote_path'. The 'global' section should also include the 'local_globus_uuid' key.
+**If running diagnostic jobs, the comparisons key must be included**
 
-**If running diagnostic jobs, the [[comparisons]] section must be included**
-    
-This is the list of comparisons between for each case. 
-Each case running diagnostics should have an entry here, followed by which other cases it should be compared to. 
-This can include the keywords 'all' for all possible comparisons, or 'obs' for model-vs-obs comparisons. The 'all' keyword will add comparisons with each other case as well as model-vs-obs.
-    
+This is the list of comparisons between for each case.
+Each case running diagnostics should have an entry here, followed by
+which other cases it should be compared to. This can include the keywords
+'all' for all possible comparisons, or 'obs' for model-vs-obs comparisons.
+The 'all' keyword will add comparisons with each other case as well as
+model-vs-obs.
+
 
 ::
 
-    [[comparisons]]
-        case_1 = obs, case_2
-        case_2 = case_3
-        case_3 = all
+    comparisons = obs, case_2
+        or
+    comparisons = case_3
+        or
+    comparisons = all
 
 In this example the following comparison diagnostics jobs will be generated:
 
@@ -104,7 +102,8 @@ In this example the following comparison diagnostics jobs will be generated:
     * case_2-vs-case_3
     * case_3-vs-case_1, case_3-vs-case_2, case_3-vs-obs
 
-Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this case_3 could have been set to: obs, case_1.
+Note how case_2-vs-case_3 and case_3-vs-case_2 were both created,
+to avoid this case_3 could have been set to: obs, case_1.
 
 **example**
 ::
@@ -113,43 +112,34 @@ Note how case_2-vs-case_3 and case_3-vs-case_2 were both created, to avoid this 
         start_year = 1
         end_year = 2
         [[20180129.DECKv1b_piControl.ne30_oEC.edison]]
-            transfer_type = globus
-            remote_uuid = 9d6d994a-6d04-11e5-ba46-22000b92c6ec  # required because transfer_type == 'globus'
-            remote_path = /global/homes/r/renata/ACME_simulations/20180129.DECKv1b_piControl.ne30_oEC.edison
             short_name = piControl
             native_grid_name = ne30
             native_mpas_grid_name = oEC60to30v3
             data_types = all
             job_types = all
+            comparisons = obs
         [[20180215.DECKv1b_1pctCO2.ne30_oEC.edison]]
-            transfer_type = sftp
-            remote_hostname = edison.nersc.gov                  # required because transfer_type == 'sftp'
-            remote_path = /global/homes/r/renata/ACME_simulations/20180215.DECKv1b_1pctCO2.ne30_oEC.edison
             short_name = 1pctCO2
             native_grid_name = ne30
             native_mpas_grid_name = oEC60to30v3
             data_types = all
             job_types = all
+            comparisons = 20180129.DECKv1b_piControl.ne30_oEC.edison
         [[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]
-            transfer_type = local           
-            local_path = /p/user_pub/e3sm/baldwin32/deck/v1_DECK_abrupt-4xCO2/input # required because transfer_type == 'local'
             short_name = abrupt4xCO2
             native_grid_name = ne30
             native_mpas_grid_name = oEC60to30v3
             data_types = atm, lnd
             job_types = e3sm_diags, amwg, climo
-        [[comparisons]]
-            20180129.DECKv1b_piControl.ne30_oEC.edison = obs
-            20180215.DECKv1b_1pctCO2.ne30_oEC.edison = 20180129.DECKv1b_piControl.ne30_oEC.edison
-            20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison = all
-
+            comparisons = all
 
 .. _post-processing:
 
 Post processing
 ---------------
 
-This section of the config is used to configure all post processing jobs. Supported job types are:
+This section of the config is used to configure all post processing jobs.
+Supported job types are:
 
     * :ref:`climo`
     * :ref:`timeseries`
@@ -160,7 +150,8 @@ This section of the config is used to configure all post processing jobs. Suppor
 Climo
 -----
 
-Produces regridded climatologies using ncclimo. Requires the 'atm' data type. Uses the following config options:
+Produces regridded climatologies using ncclimo. Requires the 'atm' data type.
+Uses the following config options:
 
     * run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * destination_grid_name (string): the name of the output grid. This can be any string identifier, its just used to group the output.
@@ -177,21 +168,22 @@ Produces regridded climatologies using ncclimo. Requires the 'atm' data type. Us
             regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
             [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                 --partition = regular
-                --account = acme
+                --account = e3sm
 
 .. _timeseries:
 
 Timeseries
 ----------
 
-Produces single-variable-per-file timeseries files from monthly model output files. Optionally regrids the timeseries output files.
+Produces single-variable-per-file timeseries files from monthly model
+output files. Optionally regrids the timeseries output files.
 
-    * run_frequency (list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
+    * run_frequency (int list): a space sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * destination_grid_name (string): the name of the output grid. This can be any string identifier, its just used to group the output.
     * regrid_map_path (string): the path on the local file system to a regrid map suitable for your data and desired output map.
-    * atm -> include this key followed by variable names for each atmospheric variable you would like extracted (remote key to turn off atm timeseries generation)
-    * lnd -> include this key followed by variable names for each land variable you would like extracted (remote key to turn off lnd timeseries generation)
-    * ocn -> include this key followed by variable names for each ocean variable you would like extracted (remote key to turn off ocn timeseries generation)
+    * atm (string list): include this key followed by variable names for each atmospheric variable you would like extracted (remote key to turn off atm timeseries generation)
+    * lnd (string list): include this key followed by variable names for each land variable you would like extracted (remote key to turn off lnd timeseries generation)
+    * ocn (string list): include this key followed by variable names for each ocean variable you would like extracted (remote key to turn off ocn timeseries generation)
 
 **example**
 
@@ -204,17 +196,19 @@ Produces single-variable-per-file timeseries files from monthly model output fil
             regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
             lnd = SOILICE, SOILLIQ, SOILWATER_10CM, QINTR, QOVER, QRUNOFF, QSOIL, QVEGT, TSOI
             atm = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
-            ocn = ssh
             [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                 --partition = regular
-                --account = acme
+                --account = e3sm
 
 .. _regrid:
 
 Regrid
 ------
 
-Translates model output files from one grid into another. Regridding is supported for atm, lnd, and ocn data types. Each regrid type requires its own config section, see example below. To turn off a data type, remove it from the config.
+Translates model output files from one grid into another. Regridding
+is supported for atm, lnd, and ocn data types. Each regrid type requires
+its own config section, see example below. To turn off a data type, remove
+it from the config.
 
 **example**
 
@@ -234,25 +228,28 @@ Translates model output files from one grid into another. Regridding is supporte
                 destination_grid_name = 0.5x0.5degree_bilinear
             [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                 --partition = regular
-                --account = acme
+                --account = e3sm
 
 .. _diags:
 
 Diags
 -----
 
-This section contains all config options for diagnostic jobs. Currently supported diagnostics are:
+This section contains all config options for diagnostic jobs. Currently
+supported diagnostics are:
 
     * :ref:`amwg`
     * :ref:`e3sm_diags`
     * :ref:`aprime`
+    * :ref:`mpas-analysis`
 
 .. _amwg:
 
 AMWG
 ----
 
-The AMWG diagnostic suite needs the 'atm' data type, and is dependent on the 'climo' job type.
+The AMWG diagnostic suite needs the 'atm' data type, and is dependent on
+the 'climo' job type.
 
     * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * diag_home (string): the path to where on the local file system the amwg code is located. All amwg jobs will be executed from this directory.
@@ -269,14 +266,15 @@ The AMWG diagnostic suite needs the 'atm' data type, and is dependent on the 'cl
             sets = 2, 3, 4, 4a, 5, 6, 15
             [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                 --partition = regular
-                --account = acme
+                --account = e3sm
 
 .. _e3sm_diags:
 
 e3sm_diags
 ----------
 
-The e3sm_diags suite needs the 'atm' data type, and is dependent on the 'climo' job type.
+The e3sm_diags suite needs the 'atm' data type, and is dependent on the
+'climo' job type.
 
     * run_frequency (list): a comma sepperated list of integers. This list will be used to generate the job start/end years. For example if you have 50 years of data you could set the run_frequency = 10, 25, 50 and you would get sets from years 1-10, 11-20, 21-30, 31-40, 41-50, then 1-25, 26-50, and finally 1-50.
     * backend (string): which graphing backend to use for generating the plots. Supported options are 'vcs' and 'mpl'.
@@ -289,18 +287,19 @@ The e3sm_diags suite needs the 'atm' data type, and is dependent on the 'climo' 
         [diags]
             [[e3sm_diags]]
                 run_frequency = 2
-                backend = vcs
+                backend = mpl
                 reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
                 [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                     --partition = regular
-                    --account = acme
+                    --account = e3sm
 
 .. _aprime:
 
 Aprime
 ------
 
-The aprime diagnostic suite requires the following data types, and is not dependent on any other job types:
+The aprime diagnostic suite requires the following data types, and is not
+dependent on any other job types:
 
     * atm
     * cice
@@ -313,7 +312,8 @@ The aprime diagnostic suite requires the following data types, and is not depend
     * ocn_in
     * meridionalHeatTransport
 
-To run aprime, your system must have the latest version of the aprime code available. If this is not the case, simply clone the 
+To run aprime, your system must have the latest version of the aprime code
+available. If this is not the case, simply clone the
 `aprime repo <https://github.com/E3SM-Project/a-prime>`_.
 
 
@@ -327,17 +327,69 @@ To run aprime, your system must have the latest version of the aprime code avail
                 aprime_code_path = /p/cscratch/acme/data/a-prime
                 [[[custom_args]]] # OPTIONAL SLURM ARGUMENTS
                     --partition = regular
-                    --account = acme
+                    --account = e3sm
+
+.. _mpas-analysis:
+
+MPAS-Analysis
+-------------
+
+For the complete mpas-analysis documentation see the MPAS_Documentation_
+
+.. _MPAS_Documentation: https://mpas-analysis.readthedocs.io/en/master/
+
+The MPAS-Analysis diagnostic suite requires the following data types:
+
+    * cice
+    * cice_restart
+    * cice_streams
+    * cice_in
+    * ocn
+    * ocn_restart
+    * ocn_streams
+    * ocn_in
+    * meridionalHeatTransport
+
+The mpas-analysis job has the following config keys:
+
+    * mapping_directory: this is the path to the directory containing map files.
+    * generate_plots: a list of plots to generate
+    * start_year_offset, optional: the time series start offset
+    * ocn_obs_data_path, optional: if the ocean observations are stored in a custom location
+    * seaice_obs_data_path, optional: if the seaice observations are stored in a custom location
+    * region_mask_path, optional: if the region masks are stored in a custom location
+    * ocean_namelist_name: the filename of the ocean namelist file, typically mpas-o_in or mpaso_in
+    * seaice_namelist_name: the filename of the seaice namelist file, typically mpas-cice_in or mpassi_in
+
+**example**
+
+::
+
+    [[mpas_analysis]]
+        mapping_directory = /space2/diagnostics/mpas_analysis/maps
+        generate_plots = 'all', 'no_landIceCavities', 'no_eke', 'no_BGC', 'no_icebergs', 'no_min', 'no_max'
+        start_year_offset = True
+        ocn_obs_data_path = /space2/diagnostics/observations/Ocean/
+        seaice_obs_data_path = /space2/diagnostics/observations/SeaIce/
+        region_mask_path = /space2/diagnostics/mpas_analysis/region_masks
+        ocean_namelist_name = mpaso_in
+        seaice_namelist_name = mpassi_in
+
+
 
 .. _data_types:
 
 Data types
 ----------
 
-The data_types section is the most complex and configurable part of the configuration process. The basic structure is that each sub-section
-defines a type of data, and then gives information about where to find the data, where to store the data, and what the file names are going to be.
-The values for each option are templates, which use substitutions to fill out the information at run time. 
-Each substitution is made with values specific to the case the data is being included as part of. The following strings are used for replacement:
+The data_types section is the most complex and configurable part of
+the configuration process. The basic structure is that each sub-section
+defines a type of data, and then gives information about where to find
+the data, where to store the data, and what the file names are going to be.
+The values for each option are templates, which use substitutions to fill
+out the information at run time. Each substitution is made with values
+specific to the case the data is being included as part of. The
+following strings are used for replacement:
 
     * CASEID: the full name for the case.
     * YEAR: the year of the data
@@ -349,13 +401,17 @@ Each substitution is made with values specific to the case the data is being inc
     * REST_YR: the first year that restart data is available, start_year + 1
     * PROJECT_PATH: the global project_path
 
-These are simply the defaults available for all cases, you can define your own substituions on a case-by-case basis by including
-the keyword and value in the case definition.
+These are simply the defaults available for all cases, you can define
+your own substituions on a case-by-case basis by including the keyword
+and value in the case definition.
 
 
-The values for each data type are by default the same for every case, but case specific definitions can be added by creating a new section
-inside the data type section with the case name. In this example, the my.case.1 remote_path option over rides the default value, and includes a custom substitution keyword. 
-Note that the keyword when defined must be lower case, but when used in the data_type value must be upper case.
+The values for each data type are by default the same for every case,
+but case specific definitions can be added by creating a new section
+inside the data type section with the case name. In this example, the
+my.case.1 remote_path option over rides the default value, and includes
+a custom substitution keyword. Note that the keyword when defined must
+be lower case, but when used in the data_type value must be upper case.
 
 ::
 
@@ -378,8 +434,12 @@ Note that the keyword when defined must be lower case, but when used in the data
                 remote_path = 'REMOTE_PATH/MY_CUSTOM_KEYWORD/CASEID'
 
 
-In the below example, all data types are defined for a case that uses short-term-archiving (note the /archive/atm/hist). The atm and lnd types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison case to NOT use short term archiving. 
-For these two data types, the case is expected to use the standard everything-in-the-run-directory method. Note the local_path = 'LOCAL_PATH/atm'
+In the below example, all data types are defined for a case that
+uses short-term-archiving (note the /archive/atm/hist). The atm and lnd
+types have been defined for the 20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison
+case to NOT use short term archiving. For these two data types, the case
+is expected to use the standard everything-in-the-run-directory method.
+Note the local_path = 'LOCAL_PATH/atm'
 
 **example**
 
@@ -387,220 +447,50 @@ For these two data types, the case is expected to use the standard everything-in
 
     [data_types]
         [[atm]]
-            remote_path = 'REMOTE_PATH/archive/atm/hist'
-            file_format = 'CASEID.cam.h0.YEAR-MONTH.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/atm'
+            file_format = CASEID.cam.h0.YEAR-MONTH.nc
+            local_path = PROJECT_PATH/input/CASEID/atm
             monthly = True
             [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
-                local_path = 'LOCAL_PATH/atm'
+                local_path = LOCAL_PATH/atm
         [[lnd]]
-            remote_path = 'REMOTE_PATH/archive/lnd/hist'
-            file_format = 'CASEID.clm2.h0.YEAR-MONTH.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/lnd'
+            file_format = CASEID.clm2.h0.YEAR-MONTH.nc
+            local_path = PROJECT_PATH/input/CASEID/lnd
             monthly = True
             [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
-                local_path = 'LOCAL_PATH/lnd'
+                local_path = LOCAL_PATH/lnd
         [[cice]]
-            remote_path = 'REMOTE_PATH/archive/ice/hist'
-            file_format = 'mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/ice'
+            file_format = mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc
+            local_path = PROJECT_PATH/input/CASEID/ice
             monthly = True
         [[ocn]]
-            remote_path = 'REMOTE_PATH/archive/ocn/hist'
-            file_format = 'mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/ocn'
+            file_format = mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc
+            local_path = PROJECT_PATH/input/CASEID/ocn
             monthly = True
         [[ocn_restart]]
-            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
-            file_format = 'mpaso.rst.REST_YR-01-01_00000.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            file_format = mpaso.rst.REST_YR-01-01_00000.nc
+            local_path = PROJECT_PATH/input/CASEID/rest
             monthly = False
         [[cice_restart]]
-            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
-            file_format = 'mpascice.rst.REST_YR-01-01_00000.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/rest'
+            file_format = mpascice.rst.REST_YR-01-01_00000.nc
+            local_path = PROJECT_PATH/input/CASEID/rest
             monthly = False
         [[ocn_streams]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'streams.ocean'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            file_format = streams.ocean
+            local_path = PROJECT_PATH/input/CASEID/mpas
             monthly = False
         [[cice_streams]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'streams.cice'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            file_format = streams.cice
+            local_path = PROJECT_PATH/input/CASEID/mpas
             monthly = False
         [[ocn_in]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'mpas-o_in'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            file_format = mpas-o_in
+            local_path = PROJECT_PATH/input/CASEID/mpas
             monthly = False
         [[cice_in]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'mpas-cice_in'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            file_format = mpas-cice_in
+            local_path = PROJECT_PATH/input/CASEID/mpas
             monthly = False
         [[meridionalHeatTransport]]
-            remote_path = 'REMOTE_PATH/archive/ocn/hist'
-            file_format = 'mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
+            file_format = mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc
+            local_path = PROJECT_PATH/input/CASEID/mpas
             monthly = False
-
-
-.. _example_config:
-
-Example Configuration
----------------------
-
-This is an example configuration used on acme1 with three cases. Each case uses a different transfer method.
-
-::
-
-    [global]
-    project_path = /p/user_pub/e3sm/baldwin32/model_v_model
-    email = baldwin32@llnl.gov
-    native_grid_cleanup = False
-    local_globus_uuid = a871c6de-2acd-11e7-bc7c-22000b9a448b
-
-    [img_hosting]
-        img_host_server = acme-viewer.llnl.gov
-        host_directory = /var/www/acme/acme-diags/baldwin32/
-        url_prefix = 'baldwin32'
-
-    [simulations]
-        start_year = 1
-        end_year = 2
-        [[20180129.DECKv1b_piControl.ne30_oEC.edison]]
-            transfer_type = globus
-            remote_uuid = 9d6d994a-6d04-11e5-ba46-22000b92c6ec
-            remote_path = /global/homes/r/renata/ACME_simulations/20180129.DECKv1b_piControl.ne30_oEC.edison
-            short_name = piControl
-            native_grid_name = ne30
-            native_mpas_grid_name = oEC60to30v3
-            data_types = all
-            job_types = all
-        [[20180215.DECKv1b_1pctCO2.ne30_oEC.edison]]
-            transfer_type = sftp
-            remote_hostname = edison.nersc.gov
-            remote_path = /global/homes/r/renata/ACME_simulations/20180215.DECKv1b_1pctCO2.ne30_oEC.edison
-            short_name = 1pctCO2
-            native_grid_name = ne30
-            native_mpas_grid_name = oEC60to30v3
-            data_types = all
-            job_types = all
-        [[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]
-            transfer_type = local
-            local_path = /p/user_pub/e3sm/baldwin32/deck/v1_DECK_abrupt-4xCO2/input
-            short_name = abrupt4xCO2
-            native_grid_name = ne30
-            native_mpas_grid_name = oEC60to30v3
-            data_types = atm, lnd
-            job_types = e3sm_diags, amwg, climo
-        [[comparisons]]
-            20180129.DECKv1b_piControl.ne30_oEC.edison = obs
-            20180215.DECKv1b_1pctCO2.ne30_oEC.edison = 20180129.DECKv1b_piControl.ne30_oEC.edison
-            20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison = all
-
-    [post-processing]
-        [[climo]]
-            run_frequency = 2
-            destination_grid_name = fv129x256
-            regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
-
-        [[timeseries]]
-            run_frequency = 2
-            destination_grid_name = fv129x256
-            regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
-            atm = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
-            lnd = SOILICE, SOILLIQ, SOILWATER_10CM, QINTR, QOVER, QRUNOFF, QSOIL, QVEGT, TSOI
-
-        [[regrid]]
-            [[[lnd]]]
-                source_grid_path = /export/zender1/data/grids/ne30np4_pentagons.091226.nc
-                destination_grid_path = /export/zender1/data/grids/129x256_SCRIP.20150901.nc 
-                destination_grid_name = fv129x256
-            [[[atm]]]
-                regrid_map_path = /p/cscratch/acme/data/map_ne30np4_to_fv129x256_aave.20150901.nc
-                destination_grid_name = fv129x256
-            [[[ocn]]]
-                regrid_map_path = ~/grids/map_oEC60to30v3_to_0.5x0.5degree_bilinear.nc
-                destination_grid_name = 0.5x0.5degree_bilinear
-
-
-    [diags]
-        [[e3sm_diags]]
-            run_frequency = 2
-            backend = mpl
-            reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
-
-        [[amwg]]
-            run_frequency = 2
-            diag_home = /p/cscratch/acme/amwg/amwg_diag
-            sets = all
-
-        [[aprime]]
-            run_frequency = 2
-            host_directory = aprime-diags
-            aprime_code_path = /p/cscratch/acme/data/a-prime
-
-    [data_types]
-        [[atm]]
-            remote_path = 'REMOTE_PATH/archive/atm/hist'
-            file_format = 'CASEID.cam.h0.YEAR-MONTH.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/atm'
-            monthly = True
-            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
-                local_path = 'LOCAL_PATH/atm'
-        [[lnd]]
-            remote_path = 'REMOTE_PATH/archive/lnd/hist'
-            file_format = 'CASEID.clm2.h0.YEAR-MONTH.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/lnd'
-            monthly = True
-            [[[20180215.DECKv1b_abrupt4xCO2.ne30_oEC.edison]]]
-                local_path = 'LOCAL_PATH/lnd'
-        [[cice]]
-            remote_path = 'REMOTE_PATH/archive/ice/hist'
-            file_format = 'mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/ice'
-            monthly = True
-        [[ocn]]
-            remote_path = 'REMOTE_PATH/archive/ocn/hist'
-            file_format = 'mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/ocn'
-            monthly = True
-        [[ocn_restart]]
-            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
-            file_format = 'mpaso.rst.REST_YR-01-01_00000.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/rest'
-            monthly = False
-        [[cice_restart]]
-            remote_path = 'REMOTE_PATH/archive/rest/REST_YR-01-01-00000/'
-            file_format = 'mpascice.rst.REST_YR-01-01_00000.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/rest'
-            monthly = False
-        [[ocn_streams]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'streams.ocean'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
-            monthly = False
-        [[cice_streams]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'streams.cice'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
-            monthly = False
-        [[ocn_in]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'mpas-o_in'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
-            monthly = False
-        [[cice_in]]
-            remote_path = 'REMOTE_PATH/run'
-            file_format = 'mpas-cice_in'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
-            monthly = False
-        [[meridionalHeatTransport]]
-            remote_path = 'REMOTE_PATH/archive/ocn/hist'
-            file_format = 'mpaso.hist.am.meridionalHeatTransport.START_YR-02-01.nc'
-            local_path = 'PROJECT_PATH/input/CASEID/mpas'
-            monthly = False
-    
