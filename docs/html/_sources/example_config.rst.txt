@@ -90,12 +90,11 @@ suits.
 
         [[mpas_analysis]]
             mapping_directory = /space2/diagnostics/mpas_analysis/maps
-            generate_plots = all_publicObs
+            generate_plots = all, no_landIceCavities, no_eke, no_BGC, no_icebergs, no_min, no_max
             start_year_offset = True
             ocn_obs_data_path = /space2/diagnostics/observations/Ocean/
             seaice_obs_data_path = /space2/diagnostics/observations/SeaIce/
             region_mask_path = /space2/diagnostics/mpas_analysis/region_masks
-            run_MOC = True
             ocean_namelist_name = mpaso_in
             seaice_namelist_name = mpassi_in
 

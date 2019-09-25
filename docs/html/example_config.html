@@ -237,12 +237,11 @@ suits.</p>
 
     <span class="p">[[</span><span class="n">mpas_analysis</span><span class="p">]]</span>
         <span class="n">mapping_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">mpas_analysis</span><span class="o">/</span><span class="n">maps</span>
-        <span class="n">generate_plots</span> <span class="o">=</span> <span class="n">all_publicObs</span>
+        <span class="n">generate_plots</span> <span class="o">=</span> <span class="nb">all</span><span class="p">,</span> <span class="n">no_landIceCavities</span><span class="p">,</span> <span class="n">no_eke</span><span class="p">,</span> <span class="n">no_BGC</span><span class="p">,</span> <span class="n">no_icebergs</span><span class="p">,</span> <span class="n">no_min</span><span class="p">,</span> <span class="n">no_max</span>
         <span class="n">start_year_offset</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">ocn_obs_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">observations</span><span class="o">/</span><span class="n">Ocean</span><span class="o">/</span>
         <span class="n">seaice_obs_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">observations</span><span class="o">/</span><span class="n">SeaIce</span><span class="o">/</span>
         <span class="n">region_mask_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">space2</span><span class="o">/</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">mpas_analysis</span><span class="o">/</span><span class="n">region_masks</span>
-        <span class="n">run_MOC</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">ocean_namelist_name</span> <span class="o">=</span> <span class="n">mpaso_in</span>
         <span class="n">seaice_namelist_name</span> <span class="o">=</span> <span class="n">mpassi_in</span>
 
